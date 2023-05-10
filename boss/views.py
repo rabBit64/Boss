@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Product
-from .forms import ProductForm
+from .models import Product, Review
+from .forms import ProductForm, ReviewForm
 # Create your views here.
 
 def index(request):
@@ -55,8 +55,32 @@ def update_product(request, product_pk):
     return render(request, 'boss/update_product.html', context)
 
 @login_required
-def delete(request, artilce_pk):
-    product = Product.objects.get(pk=artilce_pk)
+def delete(request, produck_pk):
+    product = Product.objects.get(pk=produck_pk)
     if request.user == product.user:
         product.delete()
     return redirect('boss:index')
+
+@login_required
+def review_create(request, produck_pk):
+    product = Product.objects.get(pk=produck_pk)
+    review_form = ReviewForm(request.POST)
+    if review_form.is_valid():
+        review = review_form.save(commit=False)
+        review.product = product
+        review.user = request.user
+        review.save()
+        return redirect('boss:detail', product.pk)
+    context = {
+        'product': product,
+        'review_form': review_form,
+    }
+    return render(request, 'boss/detail.html', context)
+
+@login_required
+def review_delete(request, product_pk, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    if request.user == review.user:
+        review.delete()
+
+    return redirect('boss:detail', product_pk)
