@@ -47,6 +47,10 @@ class ReviewImage(models.Model):
     image = models.ImageField(blank=True)
 
 
-# class IndexCarouselImage(models.Model):
-#     image = 
-#     pass
+class IndexCarouselImage(models.Model):
+    image = models.ImageField('carousel_image', upload_to='carousel')
+    order = models.IntegerField('순서', default=0)
+
+    def __str__(self):
+        return self.image.name
+    

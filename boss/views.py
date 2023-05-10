@@ -2,20 +2,18 @@ import os
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Product, Review, ReviewImage
+from .models import Product, Review, ReviewImage, IndexCarouselImage
 from .forms import ProductForm, ReviewForm, ReviewImageForm
 # Create your views here.
 
 def index(request):
     Products = Product.objects.order_by('-pk')
-    # carousel_images = IndexCarouselImage.objects.all()
-    directory = settings.BASE_DIR / 'boss/static/boss/images/index_carousel'
-    files = [f'/boss/images/index_carousel/{file}' for file in os.listdir(directory)]
-    print(files)
+    carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
+    for i in carousel_images:
+        print(i.image.url)
     context = {
         'Products': Products,
-        # 'carousel_images': carousel_images,
-        'carousel_images': files,
+        'carousel_images': carousel_images,
     }
     return render(request, 'boss/index.html', context)
 
