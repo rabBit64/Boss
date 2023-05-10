@@ -1,0 +1,39 @@
+{% load static %}
+<div id="index-banner-carousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% if carousel_images %}
+      {# 미디어 파일 carousel 폴더에 사진이 있는 경우 #}
+      {% for instance in carousel_images %}
+      <div class="carousel-item">
+        <img src="{{ instance.image.url }}" class="d-block w-100" alt="carousel">
+      </div>
+      {% endfor %}
+      {% else %}
+      {# 미디어 파일 carousel 폴더에 사진이 없는 경우 #}
+      <div class="carousel-item active">
+        <img src="{% static 'boss/images/index_carousel/carousel1.gif' %}" class="d-block w-100" alt="carousel">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'boss/images/index_carousel/carousel2.webp' %}" class="d-block w-100" alt="carousel">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'boss/images/index_carousel/carousel3.webp' %}" class="d-block w-100" alt="carousel">
+      </div>
+    {% endif %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#index-banner-carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#index-banner-carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<script>
+  const firstBanner = document.querySelector('#index-banner-carousel .carousel-item')
+  console.log(firstBanner)
+  firstBanner.classList.add('active')
+  console.log(firstBanner.classList)
+</script>
