@@ -53,3 +53,10 @@ def update_product(request, product_pk):
         'product': product,
     }
     return render(request, 'boss/update_product.html', context)
+
+@login_required
+def delete(request, artilce_pk):
+    product = Product.objects.get(pk=artilce_pk)
+    if request.user == product.user:
+        product.delete()
+    return redirect('boss:index')
