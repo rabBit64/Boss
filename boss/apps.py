@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class KurlyConfig(AppConfig):
+class BossConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'kurly'
+    name = 'boss'
