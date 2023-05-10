@@ -55,15 +55,15 @@ def update_product(request, product_pk):
     return render(request, 'boss/update_product.html', context)
 
 @login_required
-def delete(request, produck_pk):
-    product = Product.objects.get(pk=produck_pk)
+def delete(request, product_pk):
+    product = Product.objects.get(pk=product_pk)
     if request.user == product.user:
         product.delete()
     return redirect('boss:index')
 
 @login_required
-def review_create(request, produck_pk):
-    product = Product.objects.get(pk=produck_pk)
+def review_create(request, product_pk):
+    product = Product.objects.get(pk=product_pk)
     review_form = ReviewForm(request.POST)
     reviewimage_form = ReviewImageForm(request.POST)
     if review_form.is_valid():
