@@ -45,3 +45,8 @@ class Review(models.Model):
 class ReviewImage(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     image = models.ImageField(blank=True)
+
+
+# class IndexCarouselImage(models.Model):
+#     image = 
+#     pass

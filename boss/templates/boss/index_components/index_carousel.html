@@ -1,0 +1,21 @@
+{% load static %}
+<div id="index-banner-carousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {# 모델에서 동적으로 이미지 할당 #}
+    {{ files }}
+    {% for image in files %}
+    <h1>{{ image }}</h1>
+    <div class="carousel-item active">
+      <img src="{{ image }}" class="d-block w-100" alt="carousel">
+    </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#index-banner-carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#index-banner-carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
