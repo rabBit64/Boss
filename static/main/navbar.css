@@ -210,13 +210,24 @@ ul, p{
   cursor:pointer;
   font-size:15px;
   letter-spacing:-0.4px;
-  color:rgba(255,255,255,0.7);
   font-weight:500;
-  background:rgb(75,77,79);
   border-bottom:1px solid rgba(0,0,0,0.1);
+  color:rgba(255,255,255,0.7);
+  background-color:rgb(75,77,79);
+}
+
+.sub-category-menu:hover{
+  background:white;
+}
+/*하위 hover 이렇게 주자*/
+.sub-category-menu:hover span{
+  color:black;
 }
 .sub-category-menu span{
   color:white;
+}
+.sub-category-menu span:hover{
+  color:rgb(24,26,28);
 }
 .sub-category2{
   width:150px;
