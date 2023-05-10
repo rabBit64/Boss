@@ -15,7 +15,8 @@ class Subcategory(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=100)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_users')
-    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='subcategory')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
     image = models.ImageField(blank=True)
     weight = models.IntegerField() # 중량
     quantity = models.IntegerField() # 수량
@@ -23,12 +24,13 @@ class Product(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='review')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
 class ReviewImage(models.Model):
-    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='review_image')
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
     image = models.ImageField(null=True, blank=True)
