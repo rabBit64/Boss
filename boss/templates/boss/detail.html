@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='row'>
+    <h3>product detail</h3>
+
+    <div class="d-flex justify-content-between">
+         <!-- 상품 이미지  -->
+        <div style="width: 460px;">
+            <img src="#" alt="..." style="width: 100%;">
+        </div>
+
+         <!-- 상품명 & 가격  -->
+        <div class='d-flex flex-column'>
+            <p style="font-size: 16px;">카테고리</p>
+            <p style="font-size: 20px;">제품명</p>
+            <p style="font-size: 24px; font-weight: bold;">가격</p>
+            <p>배송비 <span>3500원|CJ대한통운</span></p>
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}
