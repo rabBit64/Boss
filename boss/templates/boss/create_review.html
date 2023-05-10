@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>create_review</h1>
+<form action="{% url 'boss:create_review' product.pk %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ review_form.as_p }}
+  {{ reviewimage_form.as_p }}
+  <input type="submit">
+</form>
+{% endblock content %}
