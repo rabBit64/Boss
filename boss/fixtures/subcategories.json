@@ -1,0 +1,378 @@
+[
+{
+  "model": "boss.subcategory",
+  "pk": 95,
+  "fields": {
+    "name": "소시지/햄/육가공품",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 96,
+  "fields": {
+    "name": "차/음료/음료제조용",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 97,
+  "fields": {
+    "name": "베이커리/디저트/스낵",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 98,
+  "fields": {
+    "name": "분말형 조미료/설탕/소금/향신료",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 99,
+  "fields": {
+    "name": "액상형/장류 조미료",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 100,
+  "fields": {
+    "name": "소스/양념/육수",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 101,
+  "fields": {
+    "name": "식용유",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 102,
+  "fields": {
+    "name": "신선 가공식품",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 103,
+  "fields": {
+    "name": "캔/통조림류",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 104,
+  "fields": {
+    "name": "분말 가공품",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 105,
+  "fields": {
+    "name": "면/떡/밥/완자류",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 106,
+  "fields": {
+    "name": "유제품",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 107,
+  "fields": {
+    "name": "튀김류/만두류/순대",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 108,
+  "fields": {
+    "name": "절임식품/반찬/김치류",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 109,
+  "fields": {
+    "name": "가공기타",
+    "category": 15
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 110,
+  "fields": {
+    "name": "쌀",
+    "category": 16
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 111,
+  "fields": {
+    "name": "잡곡/견과",
+    "category": 16
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 112,
+  "fields": {
+    "name": "야채/채소",
+    "category": 16
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 113,
+  "fields": {
+    "name": "축산/계란",
+    "category": 16
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 114,
+  "fields": {
+    "name": "수산/건어물",
+    "category": 16
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 115,
+  "fields": {
+    "name": "과일",
+    "category": 16
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 116,
+  "fields": {
+    "name": "플라스틱용기",
+    "category": 17
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 117,
+  "fields": {
+    "name": "종이용기/박스",
+    "category": 17
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 118,
+  "fields": {
+    "name": "카페/음료/디저트 용품",
+    "category": 17
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 119,
+  "fields": {
+    "name": "종이/비닐봉투",
+    "category": 17
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 120,
+  "fields": {
+    "name": "수저/위생용품",
+    "category": 17
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 121,
+  "fields": {
+    "name": "스티커/배너/포스터",
+    "category": 17
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 122,
+  "fields": {
+    "name": "포장재",
+    "category": 17
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 123,
+  "fields": {
+    "name": "냄비/팬/뚝배기",
+    "category": 18
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 124,
+  "fields": {
+    "name": "식기/테이블웨어",
+    "category": 18
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 125,
+  "fields": {
+    "name": "조리도구",
+    "category": 18
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 126,
+  "fields": {
+    "name": "일회용품",
+    "category": 18
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 127,
+  "fields": {
+    "name": "주방잡화",
+    "category": 18
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 128,
+  "fields": {
+    "name": "주방설비",
+    "category": 18
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 129,
+  "fields": {
+    "name": "렌탈/보안/위생",
+    "category": 19
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 130,
+  "fields": {
+    "name": "업주 혜택관",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 131,
+  "fields": {
+    "name": "[서울/경기] 콜드배송 모아보기",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 132,
+  "fields": {
+    "name": "[부산] 콜드배송 모아보기",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 133,
+  "fields": {
+    "name": "[전국] 콜드배송 모아보기",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 134,
+  "fields": {
+    "name": "초.특.가 할인상품전",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 135,
+  "fields": {
+    "name": "첫 구매 혜택관",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 136,
+  "fields": {
+    "name": "신상품",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 137,
+  "fields": {
+    "name": "인기상품",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 138,
+  "fields": {
+    "name": "브랜드관",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 139,
+  "fields": {
+    "name": "MD 추천상품",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 140,
+  "fields": {
+    "name": "월요일은 쌀사는 날",
+    "category": 20
+  }
+},
+{
+  "model": "boss.subcategory",
+  "pk": 141,
+  "fields": {
+    "name": "수요일은 가게용품 사는 날",
+    "category": 20
+  }
+}
+]
