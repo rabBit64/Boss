@@ -24,4 +24,15 @@ jobs:
     - name: Get commits
       id: get_commits
       run: |
-        echo "::set-output name=commits::$(git log --format='%h - %s' -n 5)"
+        echo "::outputs name=commits::$(git log --format='%h - %s' -n 5)"
+    - name: Send notification to Discord
+      uses: appleboy/discord-action@master
+      with:
+        webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+        webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+        message: |
+          새 풀 리퀘스트를 확인하세요:
+          ${{ github.event.pull_request.title }}
+          ${{ github.event.pull_request.html_url }}
+          Commits:
+          ${{ steps.get_commits.outputs.commits }}
