@@ -88,3 +88,11 @@ def create_review(request, product_pk):
         'product': product,
     }
     return render(request, 'boss/create_review.html', context)
+
+
+@login_required
+def delete_review(request, product_pk, review_pk):
+    review = Review.objects.get(pk=review_pk) # post 필요?
+    if request.user == review.user:
+        review.delete()
+    return redirect('boss:detail', product_pk=product_pk)
