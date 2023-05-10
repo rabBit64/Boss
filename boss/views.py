@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Product, Review
-from .forms import ProductForm, ReviewForm
+from .forms import ProductForm, ReviewForm, ReviewImageForm
 # Create your views here.
 
 def index(request):
@@ -65,6 +65,7 @@ def delete(request, produck_pk):
 def review_create(request, produck_pk):
     product = Product.objects.get(pk=produck_pk)
     review_form = ReviewForm(request.POST)
+    reviewimage_form = ReviewImageForm(request.POST)
     if review_form.is_valid():
         review = review_form.save(commit=False)
         review.product = product
@@ -74,6 +75,7 @@ def review_create(request, produck_pk):
     context = {
         'product': product,
         'review_form': review_form,
+        'reviewimage_form': reviewimage_form
     }
     return render(request, 'boss/detail.html', context)
 
