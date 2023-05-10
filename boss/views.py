@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
-# Create your views here.
+def init(request):
+    return redirect('articles:index')
+
+def index(request):
+    return render(request,'boss/index.html')
