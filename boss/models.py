@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-import os
 # Create your models here.
 
 class Category(models.Model):
@@ -41,12 +40,6 @@ class Review(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def delete(self, *args, **kwargs):
-        if self.reviewimage_set:
-            for image in self.reviewimage_set.all():
-                os.remove(os.path.join(settings.MEDIA_ROOT, image.image.path))
-        super(Review, self).delete(*args, **kwargs)
 
 
 class ReviewImage(models.Model):
