@@ -4,7 +4,7 @@
     {% if carousel_images %}
       {# 미디어 파일 carousel 폴더에 사진이 있는 경우 #}
       {% for instance in carousel_images %}
-      <div class="carousel-item">
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
         <img src="{{ instance.image.url }}" class="d-block w-100" alt="carousel">
       </div>
       {% endfor %}
@@ -30,10 +30,3 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-
-<script>
-  const firstBanner = document.querySelector('#index-banner-carousel .carousel-item')
-  console.log(firstBanner)
-  firstBanner.classList.add('active')
-  console.log(firstBanner.classList)
-</script>
