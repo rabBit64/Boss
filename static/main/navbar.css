@@ -115,3 +115,50 @@ ul, p{
   font-weight:400;
   color:rgb(24, 26, 28);
 }
+.line2{
+  background-color: rgb(0,0,0,0.1);
+  width:0.3px;
+  height:18px;
+  margin-top:15px;
+  margin-left:5px;
+  margin-right:5px;
+}
+
+/*카테고리*/
+.category-bar{
+  height: 70px;
+  border-bottom: 1px solid rgb(0,0,0,0.5);
+  background-color:rgb(255,255,255);
+}
+.inner-category{
+  width:1080px;
+  margin: 0 auto;
+  position:relative;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.category-menu{
+  flex: 1 1 0%;
+  display:flex;
+  align-items:center;
+}
+.line{
+  background-color: rgb(0,0,0,0.1);
+  width:1px;
+  height:10px;
+  margin-left:10px;
+  margin-right:10px;
+}
+.menu2{
+  font-size:15px;
+  line-height:24px;
+  letter-spacing:-0.4px;
+  font-weight:500;
+  color:rgb(24,26,28);
+  display:block;
+  cursor:pointer;
+  padding:10px;
+  margin-right:4px;
+}
