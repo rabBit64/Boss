@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>review_update</h1>
+  <form action="{% url 'boss:review_update' review.product.pk review.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p class="mb-1">추가할 이미지</p>
+    {{ reviewimage_form.as_p }}
+    <p class="mb-1">삭제할 이미지</p>
+    <ul>
+      {% for image in images %}
+      <li>
+        <img src="{{ image.image.url }}" alt="{{ image.image }}" width="100px;">
+        <input type="checkbox" name="delete_images" value="{{ image.id }}" id="delete_images-{{ image.id }}">
+        <label for="delete_images-{{ image.id }}">{{ image.image_review }}</label>
+      </li>
+      {% endfor %}
+    </ul>
+    <input type="submit">
+  </form>
+{% endblock content %}
