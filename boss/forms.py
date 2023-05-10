@@ -12,7 +12,16 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ('content',)
 
+
 class ReviewImageForm(forms.ModelForm):
+    image = forms.ImageField(
+        widget = forms.ClearableFileInput(
+            attrs = {
+                'multiple': True,
+            },
+        ),
+        required=False,
+    )
     class Meta:
         model = ReviewImage
         fields = ('image',)

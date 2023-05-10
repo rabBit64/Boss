@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Product, Review
+from .models import Product, Review, ReviewImage
 from .forms import ProductForm, ReviewForm, ReviewImageForm
 # Create your views here.
 
@@ -71,13 +71,18 @@ def review_create(request, product_pk):
         review.product = product
         review.user = request.user
         review.save()
+        for img in request.FILES.getlist('image'):
+            image = ReviewImage()
+            image.review = review
+            image.image = img
+            image.save()
         return redirect('boss:detail', product.pk)
     context = {
         'product': product,
         'review_form': review_form,
         'reviewimage_form': reviewimage_form
     }
-    return render(request, 'boss/detail.html', context)
+    return render(request, 'boss/review_create.html', context)
 
 @login_required
 def review_delete(request, product_pk, review_pk):
