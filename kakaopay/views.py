@@ -8,23 +8,39 @@ KAKAO_AK = os.getenv('KAKAO_AK')
 
 # Create your views here.
 def pay(request, cart_id):
-    # if request.method == "POST":
+    # if request.method == 'POST':
+    # cart = Cart(request.session)
+    cart = Cart.objects.get(cart_id=cart_id)
+    for i in cart.cartitem_set.all():
+        print('@@@@@@@@@@', i.product)
+    
+    cnt = 0
+    cart_item = 'none'
+    for item in cart.cartitem_set.all():
+        cnt += 1
+        if cnt == 1:
+            cart_item = item.product.name
+    # print(total_mount)
+    print(cart.total_amount())
+    if cnt > 1:
+        cart_item += f' 외 {cnt-1} 건'
+    print(cart_item)
     URL = 'https://kapi.kakao.com/v1/payment/ready'
     headers = {
-        "Authorization": "KakaoAK " + KAKAO_AK,   # 변경불가
-        # "Content-type": "application/x-www-form-urlencoded;charset=utf-8",  # 변경불가
+        'Authorization': 'KakaoAK ' + KAKAO_AK,   # 변경불가
+        # 'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',  # 변경불가
     }
     params = {
-        "cid": "TC0ONETIME",    # 테스트용 코드
-        "partner_order_id": "1001",     # 주문번호
-        "partner_user_id": "german", #request.user.username,    # 유저 아이디
-        "item_name": "연어초밥",        # 구매 물품 이름
-        "quantity": "1",                # 구매 물품 수량
-        "total_amount": "12000",        # 구매 물품 가격
-        "tax_free_amount": "0",         # 구매 물품 비과세
-        "approval_url": f'http://127.0.0.1:8000/kakaopay/approval/{cart_id}', # 결제 승인시 이동할 url # 카트아이디
-        "cancel_url": 'http://127.0.0.1:8000/kakaopay/pay_fail/', # 결제 취소 시 이동할 url
-        "fail_url": 'http://127.0.0.1:8000/kakaopay/pay_cancel/', # 결제 실패 시 이동할 url
+        'cid': 'TC0ONETIME',    # 테스트용 코드
+        'partner_order_id': '1001',     # 주문번호
+        'partner_user_id': 'german', #request.user.username,    # 유저 아이디
+        'item_name': '연어초밥',        # 구매 물품 이름
+        'quantity': '1',                # 구매 물품 수량
+        'total_amount': '12000',        # 구매 물품 가격
+        'tax_free_amount': '0',         # 구매 물품 비과세
+        'approval_url': f'http://127.0.0.1:8000/kakaopay/approval/{cart_id}', # 결제 승인시 이동할 url # 카트아이디
+        'cancel_url': 'http://127.0.0.1:8000/kakaopay/pay_fail/', # 결제 취소 시 이동할 url
+        'fail_url': 'http://127.0.0.1:8000/kakaopay/pay_cancel/', # 결제 실패 시 이동할 url
     }
 
     res = requests.post(URL, headers=headers, params=params)
@@ -39,7 +55,7 @@ def approval(request, cart_id):
     url = 'https://kapi.kakao.com/v1/payment/approve'
     headers = {
         'Authorization': f'KakaoAK {KAKAO_AK}',
-        "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        # 'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
     }
     params = {
         'cid':'TC0ONETIME',
@@ -68,7 +84,10 @@ def approval(request, cart_id):
 
 
 def pay_fail(request):
-    return render(request, 'products/pay_fail.html')
+    return render(request, 'kakaopay/pay_fail.html')
 
 def pay_cancel(request):
-    return render(request, 'products/pay_cancel.html')
+    return render(request, 'kakaopay/pay_cancel.html')
+
+def wait(request):
+    return render(request, 'kakaopay/wait.html')
