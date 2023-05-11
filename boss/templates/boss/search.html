@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  {% if keyword == '' %}
+    <h2 class="search-result">전체 검색결과</h2>
+  {% else %}
+    <h2 class="search-result">{{ keyword }}의 검색결과</h2>
+  {% endif %}
+    <div class="row g-4 col-12">
+        {% for product in products %}
+            <div class="col-3">
+                <a href="{% url 'boss:detail' product.pk %}">
+                    <div class="card">
+                      <div>
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="rounded-2" alt="image">
+                        {% comment %} {% else %}
+                            <img src="{% static 'No-Image-Placeholder.svg.png' %}" class="card-img-top product-image" alt="image"> {% endcomment %}
+                        {% endif %}
+                      </div>
+                        <div class="card-body p-0">
+                            <p>{{product.name}} </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        {% empty %}
+            <p>아직 등록된 상품이 없어요.</p>
+        {% endfor %}
+    </div>
+
+    <div class="pages-container">
+    {% for page in pages %}
+    <form action="{% url 'boss:search' %}" method="GET" class="pages">
+    <input type="hidden" name="page" value="{{ page }}">
+    <input type="hidden" name="keyword" value="{{ keyword }}">
+    {% if page == page_number %}
+      <p>{{ page }}</p>
+    {% else %}
+      <input type="submit" value="{{ page }}">
+    {% endif %}
+    </form>
+    {% endfor %}
+    </div>
+
+
+
+
+
+
+
+
+{% endblock content %}

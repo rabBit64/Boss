@@ -1,0 +1,46 @@
+{% load static %}
+<!--네브바-->
+<!--맨위에 로그인, 로그아웃-->
+<div class="account-top">
+  {% if request.user.is_authenticated %}
+    <span class="account-menu">로그아웃</span>
+  {% else %}
+    <span class="account-menu">로그인/회원가입</span>
+  {% endif %}
+</div>
+<div class="navbar">
+  <div class="inner-navbar">
+    <ul class="logo-with-search">
+      <a href="{% url 'boss:index' %}"><div class="logo"><img src="{% static 'image/logo.png' %}" alt="logo"></div></a>
+      <div class="search-box">
+        <form action="{% url 'boss:search' %}" class="navbar-search">
+          <input name="keyword" id="keyword" maxlength="50" autocomplete="off" class="inner-search" placeholder="가정의 달 전 상품 쿠폰팩 증정!(~5/21)" >
+          <input type="hidden" name="page" value=1>
+          <button class="search-button" type="submit">
+            <i class="ri-search-line"></i>
+          </button>
+        </form>
+      </div>
+    </ul>
+    <ul class="account-menu">
+      <li style="margin-right:8px;">
+        <div class="account-profile-menu">
+          <a href="#">
+            <div class="account-icon"><i class="ri-user-line profile-icon"></i></div>
+            <span>나의상회</span>
+          </a>
+        </div>
+      </li>
+      <div class="line2"></div>
+      <li style="margin-left:8px;">
+        <div class="account-profile-menu">
+          <a href="#">
+            <div class="account-icon"><i class="ri-shopping-cart-line cart-icon"></i></div>
+            <span>장바구니</span>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+  
