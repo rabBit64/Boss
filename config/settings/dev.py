@@ -23,7 +23,11 @@ if 'RDS_HOSTNAME' in os.environ:
         secret_name=os.getenv('SECRET_NAME'),
         region_name=os.getenv('REGION_NAME'),
     )
-    DATABASES['users'] = {
+    '''
+    Model Manager를 'users' DB를 사용하도록 일일이 커스텀 할 수 없어서
+    RDS 관련 정보가 환경변수에 있는 경우 MySQL을 디폴트 DB로 사용하도록 수정
+    '''
+    DATABASES['default'] = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('RDS_DB_NAME'),
         'USER': secrets.get('username'),
