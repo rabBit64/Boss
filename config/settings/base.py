@@ -166,6 +166,3 @@ def get_secret(secret_name, region_name) -> dict:
     return json.loads(secret)
 
 # AWS Secrets Manager 끝
-
-
-# AWS Parameter Store 시작

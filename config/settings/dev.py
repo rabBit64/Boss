@@ -35,3 +35,4 @@ if 'RDS_HOSTNAME' in os.environ:
         'HOST': os.getenv('RDS_HOSTNAME'),
         'PORT': os.getenv('RDS_PORT'),
     }
+    # print(DATABASES['default']['PASSWORD'])
