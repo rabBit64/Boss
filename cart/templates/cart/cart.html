@@ -10,6 +10,9 @@
   <a href="{% url 'cart:cart_remove' cart_item.product.pk %}">감소</a>
   <a href="{% url 'cart:full_remove' cart_item.product.pk %}">제거</a>
 </p>
+{% if forloop.last %}
+<p>{{ total }}</p>
+{% endif %}
 {% empty %}
 <p>장바구니가 비어있습니다. 텅~</p>
 {% endfor %}
