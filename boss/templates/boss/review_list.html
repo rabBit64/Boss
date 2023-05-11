@@ -1,0 +1,10 @@
+{% load static %}
+{% for review in reviews %}
+<p>{{ review }}</p>
+<div>
+  {{ review.reviewimage_set.all }}
+  {% for image in review.reviewimage_set.all %}
+  <img src="{{ image.image.url }}" alt="{{ image.image }}">
+  {% endfor %}
+</div>
+{% endfor %}

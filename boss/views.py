@@ -19,8 +19,10 @@ def index(request):
 
 def detail(request, product_pk):
     product = Product.objects.get(pk=product_pk)
+    reviews = Review.objects.filter(product=product)
     context = {
         'product': product,
+        'reviews': reviews,
         }
     return render(request, 'boss/detail.html', context)
 
@@ -149,4 +151,11 @@ def search(request):
     }
     return render(request, 'boss/search.html', context)
 
-
+@login_required
+def review_likes(request, product_pk, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    if review.like_users.filter(pk=request.user.pk).exists():
+        review.like_users.remove(request.user)
+    else:
+        review.like_users.add(request.user)
+    return redirect('boss:detail', product_pk)
