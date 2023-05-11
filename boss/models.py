@@ -23,7 +23,7 @@ class Product(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_products', blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(upload_to='product/', blank=True)
     price = models.IntegerField()
     weight = models.IntegerField() # 중량
     quantity = models.IntegerField() # 수량
