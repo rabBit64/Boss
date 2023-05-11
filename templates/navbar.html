@@ -3,11 +3,12 @@
 <div class="navbar">
   <div class="inner-navbar">
     <ul class="logo-with-search">
-      <div class="logo"><a href="#"><img src="{% static 'image/logo.png' %}" alt="logo"></a></div>
+      <a href="{% url 'boss:index' %}"><div class="logo"><img src="{% static 'image/logo.png' %}" alt="logo"></div></a>
       <div class="search-box">
-        <form class="navbar-search">
-          <input name="search-input" type="search" maxlength="50" autocomplete="off" class="inner-search" value="가정의 달 전 상품 쿠폰팩 증정!(~5/21)">
-          <button class="search-button">
+        <form action="{% url 'boss:search' %}" class="navbar-search">
+          <input name="keyword" id="keyword" maxlength="50" autocomplete="off" class="inner-search" placeholder="가정의 달 전 상품 쿠폰팩 증정!(~5/21)" >
+          <input type="hidden" name="page" value=1>
+          <button class="search-button" type="submit">
             <i class="ri-search-line"></i>
           </button>
         </form>

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Product, Review, ReviewImage
 from .forms import ProductForm, ReviewForm, ReviewImageForm
+from django.core.paginator import Paginator
 # Create your views here.
 
 def index(request):
@@ -91,3 +92,22 @@ def review_delete(request, product_pk, review_pk):
         review.delete()
 
     return redirect('boss:detail', product_pk)
+
+def search(request):
+    keyword = request.GET.get('keyword')
+    products = Product.objects.filter(name__contains = keyword) # SELECT ... FROM ... LIKE '%<keyword>%'
+    len_element = 8
+    paginator = Paginator(products, len_element)
+    page_number = request.GET.get('page')
+    if page_number == None :
+        page_number = 1
+    page_obj = paginator.get_page(page_number)
+    len_page = (len(products) + 1) // len_element
+    pages = range(1, len_page + 1)
+    context = {
+        'products': page_obj,
+        'keyword': keyword,
+        'pages': pages,
+        'page_number': int(page_number),
+    }
+    return render(request, 'boss/search.html', context)
