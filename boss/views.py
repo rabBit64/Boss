@@ -10,19 +10,21 @@ from django.http import JsonResponse
 
 def index(request):
     Products = Product.objects.order_by('-pk')
-    carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
-    for i in carousel_images:
-        print(i.image.url)
+    # carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
+    # for i in carousel_images:
+    #     print(i.image.url)
     context = {
         'Products': Products,
-        'carousel_images': carousel_images,
+        # 'carousel_images': carousel_images,
     }
     return render(request, 'boss/index.html', context)
 
 def detail(request, product_pk):
     product = Product.objects.get(pk=product_pk)
+    reviews = Review.objects.filter(product=product)
     context = {
         'product': product,
+        'reviews': reviews,
         }
     return render(request, 'boss/detail.html', context)
 
@@ -178,7 +180,6 @@ def search(request):
     }
     return render(request, 'boss/search.html', context)
 
-
 def subcategory_options(request):
     category_id = request.GET.get('category_id')
     subcategories = Subcategory.objects.filter(category_id=category_id)
@@ -189,3 +190,11 @@ def subcategory_options(request):
 
     return JsonResponse({'options': options})
 
+@login_required
+def review_likes(request, product_pk, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    if review.like_users.filter(pk=request.user.pk).exists():
+        review.like_users.remove(request.user)
+    else:
+        review.like_users.add(request.user)
+    return redirect('boss:detail', product_pk)

@@ -1,41 +1,152 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+
+.f_btn {
+  border: 2px solid #F7F7E6;
+  border-radius: 20px;
+  background-color: #FFFFE9;
+  box-shadow: 3px 3px 3px #E0E0E0;
+}
+
+.info {
+  border: 1px solid #E0E0E0;
+  border-radius: 5px;
+  height: 700px;
+  {% comment %} height: 100%; {% endcomment %}
+}
+
+.box1 {
+  border-right: 1px solid #E0E0E0;
+  {% comment %} background-color: #E9F5DB; {% endcomment %}
+  background-color: #EDF6DB;
+  width:25%;
+}
+
+.f_list {
+  color: gray;
+  font-size: 15px;
+}
+
+.p_img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.no_p {
+  width: 300px;
+  height: 300px;
+  left: 50%;
+}
+
+{% endblock style %}
+
 {% block content %}
-  <div>
-    <h1>
-      {{ person.username }}님의 프로필 페이지
-    </h1>
-  </div>
-  <div>
-    {% if person != user %}
-    <form action="{% url 'accounts:follow' person.pk %}" method="post">
-      {% csrf_token %}
-      {% if user in person.followers.all %}
-      <button type="submit">팔로우 취소</button>
-      {% else %}
-      <button type="submit">팔로우</button>
+
+<div class='row m-0' style='min-width: 810px;'>
+  <div class='d-flex align-items-center justify-content-between mt-3 mb-2'>
+    <div class='mt-2 mb-2 d-flex align-items-center'>
+      <h2>
+        {{ person.username }}님의 프로필 페이지
+      </h2>
+
+      <button type="button" class="btn f_list" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+        팔로잉 {{ person.followings.all | length }}
+      </button>
+
+      <p class='f_list' style='color: gray;'>|</p>
+
+      <button type="button" class="btn f_list" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+        팔로워 {{ person.followers.all | length }}
+      </button>
+      
+      <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">팔로잉 목록</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              {% if person.followings.all %}
+              <ul>
+                {% for following in person.followings.all %}
+                <li class='me-3' style='font-weight:bold;'>{{ following }}</li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p>팔로우하는 사람이 없습니다</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">팔로워 목록</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              {% if person.followers.all %}
+              <ul>
+                <div class='d-flex'>
+                  {% for follower in person.followers.all %}
+                  <li class='me-3' style='font-weight:bold;'>{{ follower }}</li>
+                  {% endfor %}
+                </div>
+              </ul>
+              {% else %}
+              <p>팔로워가 없습니다</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% comment %} 팔로우 관련 {% endcomment %}
+    <div>
+      {% if person != user %}
+      <form action="{% url 'accounts:follow' person.pk %}" method="post">
+        {% csrf_token %}
+        {% if user in person.followers.all %}
+        <button type="submit" class='f_btn'>Unfollow <i class="fa-solid fa-user-minus"></i></button>
+        {% else %}
+        <button type="submit" class='f_btn'>Follow <i class="fa-solid fa-user-plus"></i></button>
+        {% endif %}
+      </form>
       {% endif %}
-    </form>
-    {% endif %}
+    </div>
   </div>
-  <hr>
-  <h3>팔로우</h3>
-  {% if person.followings.all %}
-  <ul>
-    {% for following in person.followings.all %}
-    <li>{{ following }}</li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>팔로우하는 사람이 없습니다</p>
-  {% endif %}
-  <h3>팔로워</h3>
-  {% if person.followers.all %}
-  <ul>
-    {% for follower in person.followers.all %}
-    <li>{{ follower }}</li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>팔로워가 없습니다</p>
-  {% endif %}
+
+  {% comment %} 관심 상품 {% endcomment %}
+  <div class='info d-flex p-0'>
+    <div class='box1 d-flex flex-column'>
+      <p class='p-3'>관심 상품</p>
+      <hr class='m-0 ms-1 me-1'>
+    </div>
+
+    {% comment %} 만약 상품이 있으면 {% endcomment %}
+    <div class='box2 p-3 d-flex'>
+      <div class='d-flex flex-column align-items-center'>
+        <img src="{% static 'image/favicon.png' %}" class='p_img' alt="...">
+        <p>상품명</p>
+      </div> 
+    </div>
+
+    {% comment %} 만약 상품이 없으면 {% endcomment %}
+    {% comment %} <div class='box2 p-3 d-flex justify-content-center align-items-center' style='width:75%;'>
+      <img src="{% static 'image/no_product.png' %}" class='no_p' alt="...">
+    </div> {% endcomment %}
+    
+  </div>
+
+</div>
 {% endblock content %}
