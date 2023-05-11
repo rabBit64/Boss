@@ -1,7 +1,14 @@
-//카테고리 메뉴 hover 하면 span 텍스트 검정색으로
+//카테고리 메뉴 mouseover시 서브카테고리 박스 보이게
 const categoryButton = document.getElementById("sub1")
+const subcategoryBox = document.getElementById("sub1-2")
 console.log(categoryButton)
-console.log(categoryButton.children)
+console.log(subcategoryBox)
 categoryButton.addEventListener("mouseover", (event) => {
-  console.log("hovered!!!")
+  subcategoryBox.classList.remove("sub-category2-hide")
+  subcategoryBox.classList.add("sub-category2-display")
+})
+//카테고리 영역 벗어나면 서브바 안보이게
+subcategoryBox.addEventListener("mouseout", (event) =>{
+  console.log("mosueout")
+  subcategoryBox.classList.add("sub-category2-hide")
 })
