@@ -1,0 +1,168 @@
+[
+{
+    "model": "boss.product",
+    "pk": 1,
+    "fields": {
+        "name": "순살치킨 해마로 1kg 냉동",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "product/순살치킨_해마로_1kg_냉동.jpg",
+        "price": 12500,
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "like_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 2,
+    "fields": {
+        "name": "사세통상 순살치킨가라아게(냉동 1kg/ea)",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "product/사세통상_순살치킨가라아게.jpg",
+        "price": 12530,
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "like_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 3,
+    "fields": {
+        "name": "[먹깨비네] 진주햄 골드 스모크햄 1kgx1개(냉장)",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "product/진주햄_골드_스모크햄_1kg.jpg",
+        "price": 6700,
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 4,
+    "fields": {
+        "name": "아워홈 그릴드 치킨브레스트 1kg (냉장)",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "product/아워홈_그릴드_치킨브레스트_1kg.jpg",
+        "price": 16900,
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 5,
+    "fields": {
+        "name": "[택배]식자재왕 양념편육 430g",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "product/식자재왕_양념편육_430g.png",
+        "price": 11100,
+        "weight": 430,
+        "quantity": 1,
+        "country": "국내 제조",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 6,
+    "fields": {
+        "name": "상도 닭똥집 튀김 1kg",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "product/상도_닭똥집_튀김_1kg.jpg",
+        "price": 12500,
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 7,
+    "fields": {
+        "name": "에쓰푸드 통삼겹 차슈 700g",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "product/에쓰푸드_통삼겹_차슈_700g.jpg",
+        "price": 20170,
+        "weight": 700,
+        "quantity": 1,
+        "country": "대한민국",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 8,
+    "fields": {
+        "name": "에쓰푸드 보스턴핫 소시지 300g",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "product/에쓰푸드_보스턴핫_소시지_300g.jpg",
+        "price": 5970,
+        "weight": 300,
+        "quantity": 1,
+        "country": "대한민국",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 9,
+    "fields": {
+        "name": "[직배송]식자재왕 함박스테이크더블 1kg",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "product/직배송식자재왕_함박스테이크더블_1kg.png",
+        "price": 10300,
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 10,
+    "fields": {
+        "name": "[도매]순살치킨 1KG",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "",
+        "price": 14900,
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상세설명참조",
+        "like_users": [
+            2
+        ]
+    }
+}
+]
