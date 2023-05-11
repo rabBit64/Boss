@@ -8,12 +8,12 @@ from django.core.paginator import Paginator
 
 def index(request):
     Products = Product.objects.order_by('-pk')
-    carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
-    for i in carousel_images:
-        print(i.image.url)
+    # carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
+    # for i in carousel_images:
+    #     print(i.image.url)
     context = {
         'Products': Products,
-        'carousel_images': carousel_images,
+        # 'carousel_images': carousel_images,
     }
     return render(request, 'boss/index.html', context)
 
