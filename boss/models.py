@@ -45,3 +45,12 @@ class Review(models.Model):
 class ReviewImage(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     image = models.ImageField(blank=True)
+
+
+class IndexCarouselImage(models.Model):
+    image = models.ImageField('carousel_image', upload_to='carousel')
+    order = models.IntegerField('순서', default=0)
+
+    def __str__(self):
+        return self.image.name
+    

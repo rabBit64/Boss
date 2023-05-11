@@ -1,14 +1,19 @@
+import os
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Product, Review, ReviewImage
+from .models import Product, Review, ReviewImage, IndexCarouselImage
 from .forms import ProductForm, ReviewForm, ReviewImageForm
 from django.core.paginator import Paginator
-# Create your views here.
 
 def index(request):
     Products = Product.objects.order_by('-pk')
+    carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
+    for i in carousel_images:
+        print(i.image.url)
     context = {
-        'Products': Products
+        'Products': Products,
+        'carousel_images': carousel_images,
     }
     return render(request, 'boss/index.html', context)
 
@@ -90,9 +95,41 @@ def review_delete(request, product_pk, review_pk):
     review = Review.objects.get(pk=review_pk)
     if request.user == review.user:
         review.delete()
-
     return redirect('boss:detail', product_pk)
-
+  
+@login_required
+def review_update(request, product_pk, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    images = review.reviewimage_set.all()
+    if request.user != review.user:
+        return redirect('boss:detail', product_pk)
+    if request.method == 'POST':
+        review_form = ReviewForm(request.POST, request.FILES, instance=review)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.user = request.user
+            review.save()
+            for img in request.FILES.getlist('image'):
+                image = ReviewImage()
+                image.review = review
+                image.image = img
+                image.save()
+            images_to_delete = request.POST.getlist('delete_images')
+            for image_pk in images_to_delete:
+                image = ReviewImage.objects.get(pk=image_pk)
+                image.delete()
+            return redirect('boss:detail', product_pk)
+    else:
+        form = ReviewForm(instance=review)
+        reviewimage_form = ReviewImageForm()
+    context = {
+        'form': form,
+        'reviewimage_form': reviewimage_form,
+        'images': images,
+        'review': review,
+    }
+    return render(request, 'boss/review_update.html', context)
+  
 def search(request):
     keyword = request.GET.get('keyword')
     products = Product.objects.filter(name__contains = keyword) # SELECT ... FROM ... LIKE '%<keyword>%'
@@ -111,3 +148,5 @@ def search(request):
         'page_number': int(page_number),
     }
     return render(request, 'boss/search.html', context)
+
+

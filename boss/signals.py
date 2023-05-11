@@ -8,7 +8,3 @@ def auto_delete_image_on_delete(sender, instance, **kwargs):
     if instance.image:
         if os.path.isfile(instance.image.path):
             os.remove(instance.image.path)
-    # for review_image in instance.reviewimage_set.all():
-    #     os.remove(review_image.image.path)
-    # if instance.image:
-        # if os.path.isfile(review_image.image.path):
