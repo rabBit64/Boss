@@ -7,16 +7,27 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True   # False for prod.py
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+
+# Use this code snippet in your app.
+# If you need more information about configurations
+# or implementing the sample code, visit the AWS docs:
+# https://aws.amazon.com/developer/language/python/
+
 
 # mysql database
 # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-rds.html
 if 'RDS_HOSTNAME' in os.environ:
+    secrets = get_secret(
+        secret_name=os.getenv('SECRET_NAME'),
+        region_name=os.getenv('REGION_NAME'),
+    )
     DATABASES['users'] = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('RDS_DB_NAME'),
-        'USER': os.getenv('RDS_USERNAME'),
-        'PASSWORD': os.getenv('RDS_PASSWORD'),
+        'USER': secrets.get('username'),
+        'PASSWORD': secrets.get('password'),
         'HOST': os.getenv('RDS_HOSTNAME'),
         'PORT': os.getenv('RDS_PORT'),
     }

@@ -36,6 +36,7 @@ wcwidth = "==0.2.6"
 gunicorn = "*"
 mysqlclient = "*"
 pymysql = "*"
+boto3 = "*"
 
 [dev-packages]
 
