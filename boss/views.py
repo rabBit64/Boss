@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Product
-from .forms import ProductForm
+from .models import Product, Review, ReviewImage
+from .forms import ProductForm, ReviewForm, ReviewImageForm
 # Create your views here.
 
 def index(request):
@@ -53,3 +53,41 @@ def update_product(request, product_pk):
         'product': product,
     }
     return render(request, 'boss/update_product.html', context)
+
+@login_required
+def delete(request, product_pk):
+    product = Product.objects.get(pk=product_pk)
+    if request.user == product.user:
+        product.delete()
+    return redirect('boss:index')
+
+@login_required
+def review_create(request, product_pk):
+    product = Product.objects.get(pk=product_pk)
+    review_form = ReviewForm(request.POST)
+    reviewimage_form = ReviewImageForm(request.POST)
+    if review_form.is_valid():
+        review = review_form.save(commit=False)
+        review.product = product
+        review.user = request.user
+        review.save()
+        for img in request.FILES.getlist('image'):
+            image = ReviewImage()
+            image.review = review
+            image.image = img
+            image.save()
+        return redirect('boss:detail', product.pk)
+    context = {
+        'product': product,
+        'review_form': review_form,
+        'reviewimage_form': reviewimage_form
+    }
+    return render(request, 'boss/review_create.html', context)
+
+@login_required
+def review_delete(request, product_pk, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    if request.user == review.user:
+        review.delete()
+
+    return redirect('boss:detail', product_pk)
