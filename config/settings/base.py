@@ -9,9 +9,14 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import os
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -166,3 +171,13 @@ def get_secret(secret_name, region_name) -> dict:
     return json.loads(secret)
 
 # AWS Secrets Manager 끝
+
+
+# AWS Parameter Store 시작
+# AWS SSM 클라이언트 인스턴스 생성
+ssm_client = boto3.client("ssm", region_name=os.getenv('REGION_NAME'))
+
+# Parameter Store에 저장되어 있는 변수 가져오기
+secret_name = ssm_client.get_parameter(Name='/bossmarket/rds/secret_name', WithDecryption=True).get('Parameter').get('Value')
+hostname = ssm_client.get_parameter(Name='/bossmarket/rds/hostname', WithDecryption=True).get('Parameter').get('Value')
+db_name = ssm_client.get_parameter(Name='/bossmarket/rds/db_name', WithDecryption=True).get('Parameter').get('Value')
