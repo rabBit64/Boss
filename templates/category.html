@@ -3,9 +3,12 @@
   <div class="inner-category">
     <ul class="category-menu">
       <div class="menu1">
-        <svg width="24" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" fill="none"  color="#181A1C" style="margin-right: 8px;"><path d="M22 4H2v2h20V4Zm0 7H2v2h20v-2ZM2 18h20v2H2v-2Z" fill="#181A1C"></path></svg>
-        <span>카테고리</span>
-        <div class="category-wrap">
+        <button onclick="openCategory()">
+          <svg width="24" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" fill="none"  color="#181A1C" style="margin-right: 8px;"><path d="M22 4H2v2h20V4Zm0 7H2v2h20v-2ZM2 18h20v2H2v-2Z" fill="#181A1C"></path></svg>
+          <span>카테고리</span>
+        </button>
+        
+        <div class="category-wrap category-wrap-hide" id="category-area">
           <!--서브카테고리1--> 
           <div class="sub-category">
             <ul class="inner-subcategory">
