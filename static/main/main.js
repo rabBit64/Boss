@@ -34,6 +34,10 @@ categoryButton1.addEventListener("mouseover", (event) => {
     //서브카테고리가 display되어있는 영역을 다시 hide 먼저 해주기
     if(subNum==2){
       subcategoryBox2.classList.add("sub-category2-hide")
+    }else if(subNum==3){
+      subcategoryBox3.classList.add("sub-category2-hide")
+    }else if(subNum==4){
+      subcategoryBox4.classList.add("sub-category2-hide")
     }
   }
   isSubcategory=true
@@ -52,6 +56,8 @@ categoryButton2.addEventListener("mouseover", (event) =>{
       subcategoryBox1.classList.add("sub-category2-hide")
     }else if(subNum==3){
       subcategoryBox3.classList.add("sub-category2-hide")
+    }else if(subNum==4){
+      subcategoryBox4.classList.add("sub-category2-hide")
     }
   }
   isSubcategory=true
@@ -66,6 +72,8 @@ categoryButton3.addEventListener("mouseover", (event) =>{
       subcategoryBox2.classList.add("sub-category2-hide")
     }else if(subNum==4){
       subcategoryBox4.classList.add("sub-category2-hide")
+    }else if(subNum==1){
+      subcategoryBox1.classList.add("sub-category2-hide")
     }
   }
   isSubcategory=true
@@ -78,6 +86,10 @@ categoryButton4.addEventListener("mouseover", (event) =>{
   if(isSubcategory==true){
      if(subNum==3){
       subcategoryBox3.classList.add("sub-category2-hide")
+     }else if(subNum==1){
+      subcategoryBox1.classList.add("sub-category2-hide")
+     }else if(subNum==2){
+      subcategoryBox2.classList.add("sub-category2-hide")
      }
   }
   isSubcategory=true
