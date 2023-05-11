@@ -28,6 +28,10 @@ class Product(models.Model):
     weight = models.IntegerField() # 중량
     quantity = models.IntegerField() # 수량
     country = models.CharField(max_length=50) # 제조국
+    #### 모델 할인율, 1+1 상품 여부, 무료배송 여부 추가
+    discount_rate = models.IntegerField(default=0)
+    one_plus_one = models.BooleanField(default=False)
+    delivery_fee = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
