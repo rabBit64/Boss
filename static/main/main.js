@@ -1,3 +1,17 @@
+const categoryWrap = document.getElementById("category-area")
+console.log(categoryWrap)
+function openCategory(){
+  if(categoryWrap.classList.contains("category-wrap-hide")){
+    categoryWrap.classList.remove("category-wrap-hide")
+  }else{
+    categoryWrap.classList.add("category-wrap-hide")
+  }
+  
+}
+
+
+
+//#####기능: 서브카테고리 mouseover/mouseleave event######
 let isSubcategory = false
 let subNum = 0 
 //카테고리 메뉴 mouseover시 서브카테고리 박스 보이게

@@ -14,6 +14,15 @@ ul, p{
   margin:0;
   padding:0;
 }
+button{
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
 .navbar{
   width:100%;
   display:flex;
@@ -187,13 +196,17 @@ ul, p{
   z-index:1;
   display:flex;
 }
+.category-wrap-hide{
+  display:none;
+}
 .sub-category{
-  display:block; /*none*/
+  /* display:block; */
   width:128px;
+  height:224px;
 }
 .inner-subcategory{
   width:128px;
-  height:auto;
+  height:224px;
   min-height:396px;
   margin-left:0px;
 }
