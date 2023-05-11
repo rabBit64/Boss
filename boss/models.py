@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.validators import MinValueValidator
 # Create your models here.
 
 class Category(models.Model):
@@ -24,10 +25,12 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to='product/', blank=True)
-    price = models.IntegerField()
-    weight = models.IntegerField() # 중량
-    quantity = models.IntegerField() # 수량
+    price = models.IntegerField(validators=[MinValueValidator(1)])  #상품가격
+    weight = models.IntegerField(validators=[MinValueValidator(1)])  # 중량
+    quantity = models.IntegerField(default=1) # 수량
     country = models.CharField(max_length=50) # 제조국
+    delivery_fee = models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.name

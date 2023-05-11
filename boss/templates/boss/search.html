@@ -1,25 +1,135 @@
 {% extends 'base.html' %}
+{% block style %}
+.thick-hr {
+  height: 3px;
+  background-color: black;
+  opacity: 1;
+}
+
+h2 {
+  font-size:20px;
+  font-weight: 700;
+}
+.category {
+  margin-bottom: 10px;
+}
+
+.subcategory {
+  margin-left: 20px;
+}
+
+.subcategory.hidden {
+  display: none;
+}
+
+.category_filter.hidden {
+  display: none;
+}
+
+button{
+  background-color: white;
+}
+
+.expand-button,
+.collapse-button {
+  cursor: pointer;
+  width : 10%;
+  border : none;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.category-button {
+  width: 100%;
+  border : none;
+  text-align: left;
+  height: 56px;
+  font-size:16px;
+  font-weight: 700;
+}
+
+.subcategory-button {
+  width: 90%;
+  border: none;
+  text-align: left;
+  height: 56px;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid #ccc;
+}
+.subcategory-choice{
+  width:90%;
+  border: none;
+  text-align: left;
+  height: 44px;
+  font-size: 14px;
+}
+
+.filter-reset{
+  width: 100%;
+  margin-top: 15px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+{% endblock style %}
+
 {% block content %}
 
   {% if keyword == '' %}
     <h2 class="search-result">전체 검색결과</h2>
   {% else %}
-    <h2 class="search-result">{{ keyword }}의 검색결과</h2>
+    <h2 class="search-result">'{{ keyword }}'에 대한 검색결과</h2>
   {% endif %}
-    <div class="row g-4 col-12">
+  <hr class="thick-hr">
+  <div class ='d-flex'>
+    <div class="col-3" style = "margin-right : 20px;"> 
+      <form action="" method="GET" id="filter-form">
+        <input type="hidden" name="keyword" value="{{ keyword }}">
+        
+      
+        <button type="button" class="expand-category category-button">카테고리</button>
+        <div class = "category_filter">
+          {% for category in categories %}
+          <div class="category d-flex">
+            <button type="submit" name="category" value="{{ category.id }}" class="subcategory-button">{{ category.name }}</button>
+            <button type="button" class="expand-button">∨</button>
+          </div>
+            <div class="subcategory">
+              {% for subcategory in category.subcategory_set.all %}
+                <div>
+                  <button type="submit" name="subcategory" class="subcategory-choice" value="{{ subcategory.id }}">{{ subcategory.name }}</button>
+                </div>
+              {% endfor %}
+            </div>
+
+          {% endfor %}
+        </div>  
+        
+        <div>
+          <button type="submit" class ="filter-reset">필터 초기화</button>
+        </div>
+      </form>
+    </div>
+    <div class="row g-4 col-9">
+      <div style="display: flex; align-items: center; width: 100%; height: 40px; background-color: rgb(243, 245, 247);">
+        <p style="margin: 0;">총 <span style = "font-weight: 700;">{{ filtered_product_count }}</span>개의 상품</p>
+      </div>
         {% for product in products %}
             <div class="col-3">
                 <a href="{% url 'boss:detail' product.pk %}">
                     <div class="card">
                       <div>
                         {% if product.image %}
-                            <img src="{{ product.image.url }}" class="rounded-2" alt="image">
+                            <img src="{{ product.image.url }}" class="card-img-top rounded-1" alt="image">
                         {% comment %} {% else %}
                             <img src="{% static 'No-Image-Placeholder.svg.png' %}" class="card-img-top product-image" alt="image"> {% endcomment %}
                         {% endif %}
                       </div>
                         <div class="card-body p-0">
                             <p>{{product.name}} </p>
+                            <p>{{product.price}}원</p>
+                            <p>{{product.quantity}}개</p>
                         </div>
                     </div>
                 </a>
@@ -29,8 +139,9 @@
             <p>아직 등록된 상품이 없어요.</p>
         {% endfor %}
     </div>
-
-    <div class="pages-container">
+  </div>
+  
+  <div class="pages-container">
     {% for page in pages %}
     <form action="{% url 'boss:search' %}" method="GET" class="pages">
     <input type="hidden" name="page" value="{{ page }}">
@@ -42,13 +153,65 @@
     {% endif %}
     </form>
     {% endfor %}
-    </div>
-
-
-
-
-
-
-
+  </div>
 
 {% endblock content %}
+
+{% block script %}
+  <script>
+    $(document).ready(function() {
+      // Hide all subcategories initially
+      $('.subcategory').addClass('hidden');
+
+      // Expand all subcategories when the "Expand All" button is clicked
+      $('#expand-all-button').click(function() {
+        $('.subcategory').removeClass('hidden');
+      });
+
+      // Collapse all subcategories when the "Collapse All" button is clicked
+      $('#collapse-all-button').click(function() {
+        $('.subcategory').addClass('hidden');
+      });
+
+      // Toggle subcategories when a category button is clicked
+      $('.expand-button').click(function(e) {
+        e.preventDefault();
+        var subcategoryContainer = $(this).parent().next('.subcategory');
+        subcategoryContainer.toggleClass('hidden');
+        $(this).toggleClass('expanded');
+      });
+
+      $('.expand-button').click(function() {
+        $(this).toggleClass('rotate');
+        if ($(this).hasClass('rotate')) {
+          $(this).animate({ deg: -180 }, {
+            duration: 100, // 애니메이션 속도 조정 (단위: 밀리초)
+            step: function(now) {
+              $(this).css('transform', 'rotate(' + now + 'deg)');
+            }
+          });
+        } else {
+          $(this).animate({ deg: 0 }, {
+            duration: 100, // 애니메이션 속도 조정 (단위: 밀리초)
+            step: function(now) {
+              $(this).css('transform', 'rotate(' + now + 'deg)');
+            }
+          });
+        }
+      });
+      
+      $('.subcategory-button').click(function() {
+        $('.subcategory-button').removeClass('active');
+        $(this).addClass('active');
+      });
+
+      $('.expand-category').click(function() {
+        var category_filter = $(this).siblings('.category_filter');
+        category_filter.toggleClass('hidden');
+      });
+
+      
+    });
+  </script>
+
+{% endblock script %}

@@ -13,20 +13,26 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
   <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
   <script src="https://kit.fontawesome.com/7c2def04d0.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <style>
-{% block style %}{% endblock style %}
-
+{% block style %}
+{% endblock style %}
+.maincontainer{
+  width:1080px;
+}
 </style>
 
 <body>
   {% include 'navbar.html' %}
   {% comment %} {% include 'category.html' %} {% endcomment %}
-  <main class="container">
+  <main class="container maincontainer">
     {% block content %}
     {% endblock content %}
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  {% block script %}
+  {% endblock script %}
 </body>
 </html>
