@@ -39,7 +39,7 @@ class Product(models.Model):
     delivery_fee = models.IntegerField(default=0)
     
     # 쿠폰팩, 기획전을 CharField로 기록
-    events = models.CharField('이벤트', max_length=50, blank=True, default='')
+    event = models.CharField('이벤트', max_length=50, blank=True, default='')
 
     def __str__(self):
         return self.name
