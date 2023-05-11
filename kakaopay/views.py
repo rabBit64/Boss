@@ -32,11 +32,11 @@ def pay(request, cart_id):
     }
     params = {
         'cid': 'TC0ONETIME',    # 테스트용 코드
-        'partner_order_id': '1001',     # 주문번호
-        'partner_user_id': 'german', #request.user.username,    # 유저 아이디
-        'item_name': '연어초밥',        # 구매 물품 이름
-        'quantity': '1',                # 구매 물품 수량
-        'total_amount': '12000',        # 구매 물품 가격
+        'partner_order_id': cart_id,     # 주문번호
+        'partner_user_id': request.user.username, #request.user.username,    # 유저 아이디
+        'item_name': cart_item,        # 구매 물품 이름
+        'quantity': cnt,                # 구매 물품 수량
+        'total_amount': cart.total_amount(),        # 구매 물품 가격
         'tax_free_amount': '0',         # 구매 물품 비과세
         'approval_url': f'http://127.0.0.1:8000/kakaopay/approval/{cart_id}', # 결제 승인시 이동할 url # 카트아이디
         'cancel_url': 'http://127.0.0.1:8000/kakaopay/pay_fail/', # 결제 취소 시 이동할 url
