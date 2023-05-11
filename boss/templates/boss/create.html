@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-  <form action="{% url 'boss:create' %}" method="POST" enctype="multipart/form-data">
+  <form id="product-form" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit">
+
+    <input type="submit" value="Create">
   </form>
   <a href="{% url 'boss:index' %}">[back]</a>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#id_category').change(function() {
+      var categoryId = $(this).val();
+      var url = "{% url 'boss:subcategory_options' %}?category_id=" + categoryId;
+
+      $.get(url, function(data) {
+        $('#id_subcategory').html(data.options);
+      });
+    });
+  });
+  </script>
 {% endblock content %}
