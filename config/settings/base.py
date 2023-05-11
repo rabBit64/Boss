@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'accounts',
     'boss',
     'kakaopay',
+    'cart',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,6 +55,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'cart.context_processors.counter', # 장바구니 갯수 카운트기능 # 현재 버그있어서 주석처리
             ],
         },
     },

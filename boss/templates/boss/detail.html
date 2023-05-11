@@ -99,7 +99,7 @@
 
 
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-primary btn_size me-1">장바구니 담기</button>
+                <button type="button" class="btn btn-outline-primary btn_size me-1" onclick="location.href='{% url 'cart:add_cart' product.pk %}'">장바구니 담기</button>
 
                 <button type="button" class="btn btn-primary btn_size">바로구매</button>
             </div>
