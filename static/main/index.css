@@ -2,3 +2,46 @@
   width: 1080px;
   margin:auto;
 }
+.body-content{
+  width:100%;
+  background-color:rgb(243,245,247);
+  height:auto;
+}
+.body-wrap{
+  width:1080px;
+  margin:auto;
+}
+.body-content1{
+  width:100%;
+  height:380px;
+  display:flex;
+  flex-direction:column;
+  background-color:rgb(255,255,255);
+  padding-left:68px;
+  padding-right:68px;
+  padding:25px 25px 0;
+}
+.body-content1-header{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+}
+.body-content1-header-txt{
+  letter-spacing:-0.4px;
+  font-weight:500;
+  font-size:24px;
+  color:rgb(24,26,28);
+}
+.more-button{
+  color:rgb(126,128,130);
+  font-size:14px;
+  letter-spacing:-0.2px;
+  font-weight:400;
+  justify-content:center;
+  cursor:pointer;
+}
+.more-icon{
+  color:rgb(126,128,130);
+  font-size:1.2rem;
+}
