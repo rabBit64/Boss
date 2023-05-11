@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<h1>Cart</h1>
-<p>작성중</p>
-{% for cart_item in cart_items %}
-<p>{{ cart_item.product.name }}</p>
-{% endfor %}
-{% endblock content %}

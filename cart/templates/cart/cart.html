@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Cart</h1>
+<p>작성중</p>
+{% for cart_item in cart_items %}
+<p>{{ cart_item.product.name }} / {{ cart_item.quantity }} / {{ cart_item.product.price }} / {{ cart_item.sub_total }}</p>
+<p>
+  <a href="{% url 'cart:add_cart' cart_item.product.pk %}">증가</a>
+  <a href="{% url 'cart:cart_remove' cart_item.product.pk %}">감소</a>
+  <a href="{% url 'cart:full_remove' cart_item.product.pk %}">제거</a>
+</p>
+{% empty %}
+<p>장바구니가 비어있습니다. 텅~</p>
+{% endfor %}
+{% endblock content %}
