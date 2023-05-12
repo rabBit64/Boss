@@ -13,8 +13,12 @@ def index(request):
     # carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
     # for i in carousel_images:
     #     print(i.image.url)
+
+    #할인된 제품만 넘기기
+    discounted_products = Product.objects.exclude(discount_rate = 0)
     context = {
         'Products': Products,
+        'discounted_products': discounted_products,
         # 'carousel_images': carousel_images,
     }
     return render(request, 'boss/index.html', context)
