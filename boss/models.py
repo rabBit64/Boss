@@ -55,6 +55,19 @@ class Product(models.Model):
             # (할인액 / 정가) X 100
             return round(((before_price-after_price) / before_price) * 100)
 
+    #기준단가 계산 (100g당)
+    @property
+    def get_unit_price(self):
+        on_sale = False
+        unit_price = 0
+        if self.sale_price!=0:
+            on_sale=True
+        #할인되는 경우와 그렇지 않은 경우 나눠서 계산
+        if on_sale:
+            unit_price = (self.sale_price / self.weight) * 100
+        else:
+            unit_price = (self.price / self.weight) * 100
+        return int(unit_price)
 
 
 

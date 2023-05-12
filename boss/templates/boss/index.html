@@ -18,11 +18,11 @@
       <div class="content1-block">
         <!--product 1개 block(디테일 링크연결)-->
       
-        {% for product,rate in  discounted_info %}
+        {% for product,rate,unit_price in  discounted_info %}
         <a href="#" class="product-block">
             <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img" alt="img"></div>
             <div class="product-name">{{ product.name }}</div>
-            <div class="product-info">(몇그램당 얼마/ 갯수)</div>
+            <div class="product-info">100g당 {{unit_price}}원</div>
             <div class="offer-price">
               <div class="discount-rate">{{rate}}%</div>
               <div class="discount-price">{{product.sale_price}}원</div>  

@@ -10,22 +10,18 @@ from django.http import JsonResponse
 
 def index(request):
     Products = Product.objects.order_by('-pk')[:6]
-    # carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
-    # for i in carousel_images:
-    #     print(i.image.url)
 
     #할인된 제품만 넘기기
     discounted_info = []
     discounted_products = Product.objects.exclude(sale_price = 0)[:6]
     # print(discounted_products[0].get_discount_rate)
+    print(discounted_products[0].get_unit_price)
     for i in range(6):
-        discounted_info.append([discounted_products[i],discounted_products[i].get_discount_rate])
+        discounted_info.append([discounted_products[i],discounted_products[i].get_discount_rate,discounted_products[i].get_unit_price])
     print(discounted_info)
     context = {
         'Products': Products,
-        'discounted_products': discounted_products,
         'discounted_info': discounted_info,
-        # 'carousel_images': carousel_images,
     }
     return render(request, 'boss/index.html', context)
 
