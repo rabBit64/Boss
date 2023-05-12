@@ -14,15 +14,20 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
   <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
   <script src="https://kit.fontawesome.com/7c2def04d0.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <style>
-{% block style %}{% endblock style %}
-
+{% block style %}
+{% endblock style %}
+.maincontainer{
+  width:1080px;
+}
 </style>
 
 <body>
   {% include 'navbar.html' %}
+
   {% include 'category.html' %}
   <main class="body-content">
     {% block content %}

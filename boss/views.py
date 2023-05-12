@@ -2,9 +2,11 @@ import os
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Product, Review, ReviewImage, IndexCarouselImage
+from .models import Product, Review, ReviewImage, IndexCarouselImage, Category, Subcategory
 from .forms import ProductForm, ReviewForm, ReviewImageForm
 from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 def index(request):
     Products = Product.objects.order_by('-pk')
@@ -132,24 +134,61 @@ def review_update(request, product_pk, review_pk):
     }
     return render(request, 'boss/review_update.html', context)
   
+
+
 def search(request):
     keyword = request.GET.get('keyword')
-    products = Product.objects.filter(name__contains = keyword) # SELECT ... FROM ... LIKE '%<keyword>%'
-    len_element = 8
+    category_id = request.GET.get('category')
+    subcategory_id = request.GET.get('subcategory')
+    products = Product.objects.filter(name__contains=keyword)
+
+    if category_id:
+        category = get_object_or_404(Category, id=category_id)
+        products = products.filter(category=category)
+        if subcategory_id:
+            subcategory = get_object_or_404(Subcategory, id=subcategory_id)
+            if products.filter(subcategory=subcategory).exists():
+                products = products.filter(subcategory=subcategory)
+            else:
+                subcategory_id = None
+    categories = Category.objects.all()[:4]
+
+    if subcategory_id:
+        subcategory = get_object_or_404(Subcategory, id=subcategory_id)
+        products = products.filter(subcategory=subcategory)
+    subcategories = Subcategory.objects.filter(product__in=products).distinct()
+
+    len_element = 100
     paginator = Paginator(products, len_element)
     page_number = request.GET.get('page')
-    if page_number == None :
+    if page_number is None:
         page_number = 1
     page_obj = paginator.get_page(page_number)
     len_page = (len(products) + 1) // len_element
     pages = range(1, len_page + 1)
+    
+    filtered_product_count = products.count()  # 필터링된 상품 개수
+    
     context = {
         'products': page_obj,
         'keyword': keyword,
         'pages': pages,
         'page_number': int(page_number),
+        'categories': categories,
+        'subcategories': subcategories,
+        'filtered_product_count': filtered_product_count,  # 필터링된 상품 개수 전달
     }
     return render(request, 'boss/search.html', context)
+
+def subcategory_options(request):
+    category_id = request.GET.get('category_id')
+    subcategories = Subcategory.objects.filter(category_id=category_id)
+
+    options = '<option value="">---------</option>'
+    for subcategory in subcategories:
+        options += f'<option value="{subcategory.id}">{subcategory.name}</option>'
+
+    return JsonResponse({'options': options})
 
 @login_required
 def review_likes(request, product_pk, review_pk):
