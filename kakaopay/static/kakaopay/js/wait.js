@@ -8,7 +8,7 @@ window.onload = function() {
 }
 
 function openPopup() {
-  var popupWindow = window.open(`/kakaopay/${cartId}/`, 'pay', 'fullscreen=1, width=660, height=760, location=yes, status=yes, scrollbars=yes');
+  var popupWindow = window.open(`/kakaopay/${cartId}/`, 'pay', 'fullscreen=1, width=660, height=760, location=no, status=yes, scrollbars=yes');
 
   // 팝업이 닫혔는지 확인
   var checkPopupClosed = setInterval(function() {
