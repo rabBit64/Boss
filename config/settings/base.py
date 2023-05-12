@@ -26,6 +26,7 @@ load_dotenv()
 INSTALLED_APPS = [
     'accounts',
     'boss',
+    'django_seed',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
