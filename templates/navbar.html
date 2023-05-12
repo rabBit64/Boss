@@ -3,9 +3,11 @@
 <!--맨위에 로그인, 로그아웃-->
 <div class="account-top">
   {% if request.user.is_authenticated %}
-    <span class="account-menu">로그아웃</span>
+  <a href="{% url 'accounts:logout' %}">
+    <span class="account-menu">로그아웃</span></a>
   {% else %}
-    <span class="account-menu">로그인/회원가입</span>
+  <a href="{% url 'accounts:login' %}">
+    <span class="account-menu">로그인/회원가입</span></a>
   {% endif %}
 </div>
 <div class="navbar">
