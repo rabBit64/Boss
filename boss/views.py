@@ -15,7 +15,12 @@ def index(request):
     #     print(i.image.url)
 
     #할인된 제품만 넘기기
+    discounted_info = {}
     discounted_products = Product.objects.exclude(sale_price = 0)[:6]
+    # print(discounted_products[0].get_discount_rate)
+    for i in range(6):
+        discounted_info.append(discounted_products[i],discounted_products[i].get_discount_rate)
+    print(discounted_info)
     context = {
         'Products': Products,
         'discounted_products': discounted_products,
