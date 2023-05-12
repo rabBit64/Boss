@@ -93,3 +93,10 @@ def pay_cancel(request):
 
 def wait(request):
     return render(request, 'kakaopay/wait.html')
+
+def pay_finish(request, cart_id):
+    cart = Cart.objects.get(cart_id=cart_id)
+    cart_items = cart.cartitem_set.all()
+    for cart_item in cart_items:
+        cart_item.delete()
+    return redirect('accounts:profile', request.user.username)

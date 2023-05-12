@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="{% static 'kakaopay/css/approval.css' %}">
 </head>
 <body>
-  <div id="payment">
+  <div id="payment" data-cart-id="{{ result.partner_order_id }}">
     <div class="header">
-      
+      <h3>kakaopay</h3>
     </div>
     <div class="body">
       <div class="content">
@@ -21,9 +21,12 @@
         <p>결제일시: {{ result.approved_at }}</p>
         <p>상품명: {{ result.item_name }}</p>
         <p>결제금액: {{ result.amount.total }}원</p>
+        <p><button id="close-popup" class="btn btn-warning">닫기</button></p>
       </div>
     </div>
   </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{% static 'kakaopay/js/approval.js' %}"></script>
 </body>
 </html>
 
