@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
 # Create your models here.
 
 class Category(models.Model):
@@ -19,7 +20,7 @@ class Subcategory(models.Model):
 
 
 class Product(models.Model):
-    def get_upload_path(instance):
+    def get_upload_path(instance, filename):
         return f'products/{instance.user.username}/{instance.name}'
     name = models.CharField(max_length=100)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -33,9 +34,10 @@ class Product(models.Model):
     country = models.CharField(max_length=50) # 제조국
     
     #### 모델 할인율, 1+1 상품 여부, 무료배송 여부 추가
-    discount_rate = models.IntegerField(default=0)
+    # discount_rate = models.IntegerField(default=0)
+    sell_price = models.IntegerField(null=True, blank=True)
 
-    one_plus_one = models.BooleanField(default=False)
+    # one_plus_one = models.BooleanField(default=False) → event에 기록
     delivery_fee = models.IntegerField(default=0)
     
     # 쿠폰팩, 기획전을 CharField로 기록
@@ -43,6 +45,18 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
+    def clean(self):
+        '''
+        sell_price가 price보다 큰 값일 때 ValidationError 발생
+        sell_price를 입력하지 않았을 때 sell_price에 price 입력
+        '''
+        if self.sell_price is None or not self.sell_price:
+            self.sell_price = self.price
+        if self.sell_price > self.price:
+            raise ValidationError('판매가격은 기존 가격보다 낮아야 합니다.')
+        super().clean()
 
 
 class Review(models.Model):
