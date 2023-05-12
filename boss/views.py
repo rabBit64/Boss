@@ -6,6 +6,7 @@ from .models import Product, Review, ReviewImage, IndexCarouselImage, Category, 
 from .forms import ProductForm, ReviewForm, ReviewImageForm
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 def index(request):
     Products = Product.objects.order_by('-pk')
@@ -179,6 +180,15 @@ def search(request):
     }
     return render(request, 'boss/search.html', context)
 
+def subcategory_options(request):
+    category_id = request.GET.get('category_id')
+    subcategories = Subcategory.objects.filter(category_id=category_id)
+
+    options = '<option value="">---------</option>'
+    for subcategory in subcategories:
+        options += f'<option value="{subcategory.id}">{subcategory.name}</option>'
+
+    return JsonResponse({'options': options})
 
 @login_required
 def review_likes(request, product_pk, review_pk):
