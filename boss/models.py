@@ -59,6 +59,32 @@ class Product(models.Model):
             raise ValidationError('판매가격은 기존 가격보다 낮아야 합니다.')
         super().clean()
 
+    #할인율 계산
+    @property  #데코레이터는 메소드를 마치 필드인 것처럼 취급할 수 있도록 만들어 준다
+    def get_discount_rate(self):
+        before_price = self.price
+        after_price = self.sale_price
+        if after_price==0:
+            return 0
+        else:
+            # (할인액 / 정가) X 100
+            return round(((before_price-after_price) / before_price) * 100)
+
+    #기준단가 계산 (100g당)
+    @property
+    def get_unit_price(self):
+        on_sale = False
+        unit_price = 0
+        if self.sale_price!=0:
+            on_sale=True
+        #할인되는 경우와 그렇지 않은 경우 나눠서 계산
+        if on_sale:
+            unit_price = (self.sale_price / self.weight) * 100
+        else:
+            unit_price = (self.price / self.weight) * 100
+        return int(unit_price)
+
+
 
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
