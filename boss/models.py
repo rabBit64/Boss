@@ -39,7 +39,7 @@ class Product(models.Model):
     #### 모델 할인율, 1+1 상품 여부, 무료배송 여부 추가
     # discount_rate = models.IntegerField(default=0)
     delivery_fee = models.IntegerField(default=0)
-    one_plus_one = models.BooleanField(default=False)
+
     # 쿠폰팩, 기획전, 1+1 등 이벤트를 CharField로 기록
     event = models.CharField('이벤트', max_length=50, blank=True, default='')
 
