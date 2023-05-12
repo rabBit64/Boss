@@ -174,10 +174,22 @@ def get_secret(secret_name, region_name) -> dict:
 
 
 # AWS Parameter Store 시작
-# AWS SSM 클라이언트 인스턴스 생성
-ssm_client = boto3.client("ssm", region_name=os.getenv('REGION_NAME'))
+if 'REGION_NAME' in os.environ:
+    '''
+    컴퓨터에 충분한 권한이 있다면 실행하게 하려면?
+    '''
+    # AWS SSM 클라이언트 인스턴스 생성
+    ssm_client = boto3.client("ssm", region_name=os.getenv('REGION_NAME'))
 
-# Parameter Store에 저장되어 있는 변수 가져오기
-secret_name = ssm_client.get_parameter(Name='/bossmarket/rds/secret_name', WithDecryption=True).get('Parameter').get('Value')
-hostname = ssm_client.get_parameter(Name='/bossmarket/rds/hostname', WithDecryption=True).get('Parameter').get('Value')
-db_name = ssm_client.get_parameter(Name='/bossmarket/rds/db_name', WithDecryption=True).get('Parameter').get('Value')
+    # Parameter Store에 저장되어 있는 변수 가져오기
+    try:
+        secret_name = ssm_client.get_parameter(Name='/bossmarket/rds/secret_name', WithDecryption=True).get('Parameter').get('Value')
+        hostname = ssm_client.get_parameter(Name='/bossmarket/rds/hostname', WithDecryption=True).get('Parameter').get('Value')
+        db_name = ssm_client.get_parameter(Name='/bossmarket/rds/db_name', WithDecryption=True).get('Parameter').get('Value')
+    except ClientError as e:
+        if e.response['Error']['Code'] == 'AccessDeniedException':
+            print("Parameter Store로 접근이 거부되었습니다.")
+        else:
+            print("에러 내용(Parameter Store) :", e.response)
+
+# AWS Parameter Store 끝
