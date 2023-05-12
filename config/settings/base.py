@@ -161,6 +161,7 @@ def get_secret(secret_name, region_name) -> dict:
     except ClientError as e:
         # For a list of exceptions thrown, see
         # https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+        print('secretes manageasegaserrormeseresge')
         raise e
 
     # Decrypts secret using the associated KMS key.
@@ -186,6 +187,39 @@ if 'REGION_NAME' in os.environ:
         secret_name = ssm_client.get_parameter(Name='/bossmarket/rds/secret_name', WithDecryption=True).get('Parameter').get('Value')
         hostname = ssm_client.get_parameter(Name='/bossmarket/rds/hostname', WithDecryption=True).get('Parameter').get('Value')
         db_name = ssm_client.get_parameter(Name='/bossmarket/rds/db_name', WithDecryption=True).get('Parameter').get('Value')
+
+
+        # Use this code snippet in your app.
+        # If you need more information about configurations
+        # or implementing the sample code, visit the AWS docs:
+        # https://aws.amazon.com/developer/language/python/
+
+        # mysql database
+        # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-rds.html
+        if 'RDS_PORT' in os.environ and 'REGION_NAME' in os.environ:
+            try:
+                secrets = get_secret(
+                    secret_name=secret_name,
+                    # region_name=os.getenv('REGION_NAME'),
+                    region_name='ap-northeast-2',
+                )
+                '''
+                Model Manager를 'users' DB를 사용하도록 일일이 커스텀 할 수 없어서
+                RDS 관련 정보가 환경변수에 있는 경우 MySQL을 디폴트 DB로 사용하도록 수정
+                '''
+                DATABASES['default'] = {
+                    'ENGINE': 'django.db.backends.mysql',
+                    'NAME': db_name,
+                    'USER': secrets.get('username'),
+                    'PASSWORD': secrets.get('password'),
+                    'HOST': hostname,
+                    # 'PORT': os.getenv('RDS_PORT'),
+                    'PORT': '3306',
+                }
+                # print(DATABASES['default']['PASSWORD'])
+            except ClientError as e:
+                print("에러 내용(Secrets Manager) :", e.response)
+
     except ClientError as e:
         if e.response['Error']['Code'] == 'AccessDeniedException':
             print("Parameter Store로 접근이 거부되었습니다.")
@@ -193,3 +227,4 @@ if 'REGION_NAME' in os.environ:
             print("에러 내용(Parameter Store) :", e.response)
 
 # AWS Parameter Store 끝
+# print(DATABASES)
