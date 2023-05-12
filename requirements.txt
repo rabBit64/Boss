@@ -9,7 +9,9 @@ Django==3.2.18
 django-appconf==1.0.5
 django-extensions==3.2.1
 django-imagekit==4.1.0
+django-seed==0.3.1
 executing==1.2.0
+Faker==18.7.0
 gunicorn==20.1.0
 ipython==8.13.2
 jedi==0.18.2
@@ -33,6 +35,7 @@ s3transfer==0.6.1
 six==1.16.0
 sqlparse==0.4.3
 stack-data==0.6.2
+toposort==1.10
 traitlets==5.9.0
 urllib3==1.26.15
 wcwidth==0.2.6

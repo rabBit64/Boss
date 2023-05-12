@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a724a5b9c70d5b4ab9ff8cd7cf82949949b2f6dfd2d4c6623c07591153b21301"
+            "sha256": "c61ef6c2e0e36d934821701a2910994d7cc637d8353131157797ff8e71ba7158"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -61,7 +61,7 @@
                 "sha256:422186c13406a2c2668e4b2d9070097b4b024a9290a6af2a8e21eb2bd17322d6",
                 "sha256:9b6d2b60325b815ff9123f172af83b7b866c8813088d969eeb9030fa189417f6"
             ],
-            "markers": "python_version >= '3.7'",
+            "index": "pypi",
             "version": "==1.29.132"
         },
         "decorator": {
@@ -104,6 +104,13 @@
             "index": "pypi",
             "version": "==4.1.0"
         },
+        "django-seed": {
+            "hashes": [
+                "sha256:93e65d2c10449c464b83e9031be02763ec10e786aa064d649c4dd5ad06fa0eea"
+            ],
+            "index": "pypi",
+            "version": "==0.3.1"
+        },
         "executing": {
             "hashes": [
                 "sha256:0314a69e37426e3608aada02473b4161d4caf5a4b244d1d0c48072b8fee7bacc",
@@ -111,6 +118,14 @@
             ],
             "index": "pypi",
             "version": "==1.2.0"
+        },
+        "faker": {
+            "hashes": [
+                "sha256:38dbc3b80e655d7301e190426ab30f04b6b7f6ca4764c5dd02772ffde0fa6dcd",
+                "sha256:f02c6d3fdb5bc781f80b440cf2bdec336ed47ecfb8d620b20c3d4188ed051831"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==18.7.0"
         },
         "gunicorn": {
             "hashes": [
@@ -141,7 +156,7 @@
                 "sha256:02e2e4cc71b5bcab88332eebf907519190dd9e6e82107fa7f83b1003a6252980",
                 "sha256:90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe"
             ],
-            "markers": "python_version >= '3.7'",
+            "index": "pypi",
             "version": "==1.0.1"
         },
         "matplotlib-inline": {
@@ -313,7 +328,7 @@
                 "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86",
                 "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
+            "index": "pypi",
             "version": "==2.8.2"
         },
         "python-dotenv": {
@@ -337,7 +352,7 @@
                 "sha256:3c0da2d074bf35d6870ef157158641178a4204a6e689e82546083e31e0311346",
                 "sha256:640bb492711f4c0c0905e1f62b6aaeb771881935ad27884852411f8e9cacbca9"
             ],
-            "markers": "python_version >= '3.7'",
+            "index": "pypi",
             "version": "==0.6.1"
         },
         "setuptools": {
@@ -372,6 +387,13 @@
             "index": "pypi",
             "version": "==0.6.2"
         },
+        "toposort": {
+            "hashes": [
+                "sha256:bfbb479c53d0a696ea7402601f4e693c97b0367837c8898bc6471adfca37a6bd",
+                "sha256:cbdbc0d0bee4d2695ab2ceec97fe0679e9c10eab4b2a87a9372b929e70563a87"
+            ],
+            "version": "==1.10"
+        },
         "traitlets": {
             "hashes": [
                 "sha256:9e6ec080259b9a5940c797d58b613b5e31441c2257b87c2e795c5228ae80d2d8",
@@ -385,7 +407,7 @@
                 "sha256:8a388717b9476f934a21484e8c8e61875ab60644d29b9b39e11e4b9dc1c6b305",
                 "sha256:aa751d169e23c7479ce47a0cb0da579e3ede798f994f5816a74e4f4500dcea42"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
+            "index": "pypi",
             "version": "==1.26.15"
         },
         "wcwidth": {

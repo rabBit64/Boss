@@ -26,7 +26,19 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_products', blank=True)
+    
+    # CATEGORIES = (
+    #     (1, '가공식품'),
+    #     (2, '농수축산물'),
+    #     (3, '배달용품'),
+    #     (4, '주방용품'),
+    # )
+    # category = models.CharField('카테고리', choices=CATEGORIES)
+
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    
+
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to=get_upload_path, blank=True)
     weight = models.IntegerField(validators=[MinValueValidator(1)])  # 중량
