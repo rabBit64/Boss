@@ -15,7 +15,7 @@
       <p>
         <a href="{% url 'cart:increase_item' cart_item.product.pk %}">증가</a>
         <a href="{% url 'cart:decrease_item' cart_item.product.pk %}">감소</a>
-        <a href="{% url 'cart:full_remove' cart_item.product.pk %}">제거</a>
+        <a href="{% url 'cart:remove_item' cart_item.product.pk %}">제거</a>
       </p>
     </div>
   </div>

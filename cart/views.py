@@ -89,7 +89,7 @@ def decrease_item(request, product_pk):
 
 
 # 상품 제거
-def full_remove(request, product_pk):
+def remove_item(request, product_pk):
     cart = Cart.objects.get(cart_id = _cart_id(request))
     product = get_object_or_404(Product, pk=product_pk)
     cart_item = CartItem.objects.get(product=product, cart=cart)
