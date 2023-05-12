@@ -2,3 +2,128 @@
   width: 1080px;
   margin:auto;
 }
+.body-content{
+  width:100%;
+  background-color:rgb(243,245,247);
+  height:auto;
+}
+.body-wrap{
+  width:1080px;
+  margin:auto;
+}
+.body-content1{
+  width:100%;
+  height:auto;
+  display:flex;
+  flex-direction:column;
+  background-color:rgb(255,255,255);
+  padding:25px 55px 0;
+}
+.body-content1-header{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+}
+.body-content1-header-txt{
+  letter-spacing:-0.4px;
+  font-weight:500;
+  font-size:24px;
+  color:rgb(24,26,28);
+}
+.more-button{
+  color:rgb(126,128,130);
+  font-size:16px;
+  letter-spacing:-0.2px;
+  font-weight:400;
+  justify-content:center;
+  cursor:pointer;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:center;
+  margin-top:10px;
+}
+.more-icon{
+  color:rgb(126,128,130);
+  font-size:1.4rem;
+}
+/*content1*/
+.goods-image-wrap{
+  position:relative;
+  width:150px;
+  height:150px;
+}
+.product-img{
+  width:150px;
+  height:150px;
+  object-fit: cover;
+}
+.content1-products{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  background:rgb(255,255,255);
+}
+.content1-block{
+  display:flex;
+  flex-flow:row nowrap;
+  justify-content: space-evenly;
+  margin-top:30px;
+}
+.product-block{
+  width:150px;
+  display:block;
+  max-width:144px;
+  height:100%;
+  /* margin:0 10px 0 10px; */
+}
+.product-name{
+  color:rgb(24,26,28);
+  margin-bottom:4px;
+  overflow:hidden;
+  font-size:18px;
+  line-height:20px;
+  letter-spacing:-0.2px;
+  font-weight:400;
+  margin-top:14px;
+  width:150px;
+}
+.product-info{
+  color:rgb(126,128,130);
+  display:block;
+  font-size:14px;
+  line-height:16px;
+  letter-spacing:-0.2px;
+  font-weight:400;
+  margin:7px 0 3px 0;
+  width:150px;
+}
+.offer-price{
+  display:flex;
+  margin:7px 0 3px 0;
+  width:150px;
+}
+.discount-rate{
+  font-size:18px;
+  line-height:24px;
+  letter-spacing:-0.4px;
+  font-weight:700;
+  color:rgb(255,64,62);
+}
+.discount-price{
+  font-weight:700;
+  color:rbg(24,26,28);
+  font-size:18px;
+  line-height:24px;
+  letter-spacing:-0.4px;
+}
+.before-price{
+  font-size:15px;
+  line-height:20px;
+  letter-spacing:-0.2px;
+  font-weight:500;
+  color:rgb(177,179,181);
+  text-decoration:line-through;
+}

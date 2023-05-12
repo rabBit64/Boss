@@ -9,12 +9,16 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 
 def index(request):
-    Products = Product.objects.order_by('-pk')
+    Products = Product.objects.order_by('-pk')[:6]
     # carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
     # for i in carousel_images:
     #     print(i.image.url)
+
+    #할인된 제품만 넘기기
+    discounted_products = Product.objects.exclude(sale_price = 0)[:6]
     context = {
         'Products': Products,
+        'discounted_products': discounted_products,
         # 'carousel_images': carousel_images,
     }
     return render(request, 'boss/index.html', context)

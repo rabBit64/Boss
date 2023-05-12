@@ -19,7 +19,7 @@ class Subcategory(models.Model):
 
 
 class Product(models.Model):
-    def get_upload_path(instance):
+    def get_upload_path(instance,filename):
         return f'products/{instance.user.username}/{instance.name}'
     name = models.CharField(max_length=100)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -27,14 +27,15 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to=get_upload_path, blank=True)
+    # image = models.ImageField(upload_to='product/', blank=True)
     price = models.IntegerField(validators=[MinValueValidator(1)])  #상품가격
     weight = models.IntegerField(validators=[MinValueValidator(1)])  # 중량
     quantity = models.IntegerField(default=1) # 수량
     country = models.CharField(max_length=50) # 제조국
     
     #### 모델 할인율, 1+1 상품 여부, 무료배송 여부 추가
-    discount_rate = models.IntegerField(default=0)
-
+    #discount_rate = models.IntegerField(default=0)
+    sale_price = models.IntegerField(default=0) #할인될 경우만 입력! (나중에 0이면 걸러내기 위해서)
     one_plus_one = models.BooleanField(default=False)
     delivery_fee = models.IntegerField(default=0)
     
