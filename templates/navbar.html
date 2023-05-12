@@ -3,10 +3,14 @@
 <!--맨위에 로그인, 로그아웃-->
 <div class="account-top">
   {% if request.user.is_authenticated %}
-    <span class="account-menu">로그아웃</span>
+  <form action="{% url 'accounts:logout' %}">
+    {% csrf_token %}
+    <input type="submit" value='로그아웃' class="account-menu" style="border:none; background-color:transparent;">
+  </form>
   {% else %}
-    <span class="account-menu">로그인/회원가입</span>
+    <a href="{% url 'accounts:signup' %}"><span class="account-menu">로그인/회원가입</span></a>
   {% endif %}
+</div>
 </div>
 <div class="navbar">
   <div class="inner-navbar">
