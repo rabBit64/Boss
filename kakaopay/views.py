@@ -60,13 +60,15 @@ def approval(request, cart_id):
     params = {
         'cid':'TC0ONETIME',
         'tid': request.session['tid'], #결제 고유 번호
-        'partner_order_id': '1001', #주문 번호
+        'partner_order_id': cart_id, #주문 번호
         'partner_user_id': request.user.username, #유저 아이디
         'pg_token': request.GET['pg_token'] # 쿼리 스트링으로 받은 pg토큰
     }
     res = requests.post(url, headers=headers, params=params)
     # amount = res.json()['amount']['total']
     result = res.json()
+    print(result)
+    print(dir(result))
     context = {
         # 'res':res,
         'result': result,

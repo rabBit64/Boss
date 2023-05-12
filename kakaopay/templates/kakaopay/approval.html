@@ -18,9 +18,9 @@
     <div class="body">
       <div class="content">
         <p>카카오페이 결제가 정상적으로 완료되었습니다.</p>
-        <p>결제일시: 2023-05-11T23:32:03</p>
-        <p>상품명: 커피</p>
-        <p>결제금액: 5500원</p>
+        <p>결제일시: {{ result.approved_at }}</p>
+        <p>상품명: {{ result.item_name }}</p>
+        <p>결제금액: {{ result.amount.total }}원</p>
       </div>
     </div>
   </div>
