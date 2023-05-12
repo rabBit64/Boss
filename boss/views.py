@@ -1,5 +1,6 @@
 import os
 from django.conf import settings
+from django.db.models import F
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Product, Review, ReviewImage, IndexCarouselImage, Category, Subcategory
@@ -7,19 +8,22 @@ from .forms import ProductForm, ReviewForm, ReviewImageForm
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-
+from django.db.models import F
 def index(request):
     Products = Product.objects.order_by('-pk')[:6]
-    # carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
-    # for i in carousel_images:
-    #     print(i.image.url)
 
     #할인된 제품만 넘기기
-    discounted_products = Product.objects.exclude(sale_price = 0)[:6]
+    discounted_info = []
+    # discounted_products = Product.objects.exclude(sale_price = 0)[:6]
+    discounted_products = Product.objects.filter(price__gt=F('sale_price')).exclude(sale_price=0)[:6]
+    # print(discounted_products[0].get_discount_rate)
+    #print(discounted_products[0].get_unit_price)
+    for i in range(6):
+       discounted_info.append([discounted_products[i],discounted_products[i].get_discount_rate,discounted_products[i].get_unit_price])
+    print(discounted_info)
     context = {
         'Products': Products,
-        'discounted_products': discounted_products,
-        # 'carousel_images': carousel_images,
+        'discounted_info': discounted_info,
     }
     return render(request, 'boss/index.html', context)
 
