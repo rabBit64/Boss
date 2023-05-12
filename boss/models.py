@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
-# Create your models here.
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -44,6 +43,19 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    #할인율 계산
+    @property  #데코레이터는 메소드를 마치 필드인 것처럼 취급할 수 있도록 만들어 준다
+    def get_discount_rate(self):
+        before_price = self.price
+        after_price = self.sale_price
+        if after_price==0:
+            return 0
+        else:
+            # (할인액 / 정가) X 100
+            return round(((before_price-after_price) / before_price) * 100)
+
+
 
 
 class Review(models.Model):
