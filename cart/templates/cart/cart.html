@@ -8,13 +8,13 @@
   {% for cart_item in cart_items %}
   <div class="d-flex">
     <div>
-      <img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.name }}" width="100px;">
+      <a href="{% url 'boss:detail' cart_item.product.pk %}"><img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.name }}" width="100px;"></a>
     </div>
     <div>
       <p>{{ cart_item.product.name }} / {{ cart_item.quantity }} / {{ cart_item.product.price }} / {{ cart_item.sub_total }}</p>
       <p>
-        <a href="{% url 'cart:add_cart' cart_item.product.pk %}">증가</a>
-        <a href="{% url 'cart:cart_remove' cart_item.product.pk %}">감소</a>
+        <a href="{% url 'cart:increase_item' cart_item.product.pk %}">증가</a>
+        <a href="{% url 'cart:decrease_item' cart_item.product.pk %}">감소</a>
         <a href="{% url 'cart:full_remove' cart_item.product.pk %}">제거</a>
       </p>
     </div>
