@@ -1,7 +1,5 @@
 const cartIdTag = document.querySelector('#pay_url')
-console.log(cartIdTag)
 const cartId = cartIdTag.dataset.cartId
-// console.log(cartId)
 
 window.onload = function() {
   openPopup()
@@ -12,7 +10,6 @@ function openPopup() {
 
   // 팝업이 닫혔는지 확인
   var checkPopupClosed = setInterval(function() {
-    console.log('@@@@@@@@@@@');
     if (popupWindow.closed) {
       // 팝업이 닫힌 경우, 원래 페이지를 특정 URL로 이동한다.
       clearInterval(checkPopupClosed);

@@ -3,18 +3,26 @@
 
 {% block content %}
 <h1>Cart</h1>
-<p>작성중</p>
 <div class="row">
   <div class="col-8">
   {% for cart_item in cart_items %}
-  <p>{{ cart_item.product.name }} / {{ cart_item.quantity }} / {{ cart_item.product.price }} / {{ cart_item.sub_total }}</p>
-  <p>
-    <a href="{% url 'cart:add_cart' cart_item.product.pk %}">증가</a>
-    <a href="{% url 'cart:cart_remove' cart_item.product.pk %}">감소</a>
-    <a href="{% url 'cart:full_remove' cart_item.product.pk %}">제거</a>
-  </p>
+  <div class="d-flex">
+    <div>
+      <img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.name }}" width="100px;">
+    </div>
+    <div>
+      <p>{{ cart_item.product.name }} / {{ cart_item.quantity }} / {{ cart_item.product.price }} / {{ cart_item.sub_total }}</p>
+      <p>
+        <a href="{% url 'cart:add_cart' cart_item.product.pk %}">증가</a>
+        <a href="{% url 'cart:cart_remove' cart_item.product.pk %}">감소</a>
+        <a href="{% url 'cart:full_remove' cart_item.product.pk %}">제거</a>
+      </p>
+    </div>
+  </div>
   {% if forloop.last %}
-  <p>{{ total }}</p>
+  <div>
+  <p>총액 : {{ total }}</p>
+  </div>
   {% endif %}
   {% empty %}
   <p>장바구니가 비어있습니다. 텅~</p>
@@ -26,9 +34,7 @@
     {% csrf_token %}
       <input type="hidden" name="cart_id" value="{{ cart.cart_id }}">
       <button class="btn btn-warning" id="pay_btn" type="submit">카카오페이로 결제하기</button>
-      {% comment %} <button class="btn btn-warning" id="pay_btn" onclick="openPopup()" data-url="{% url 'kakaopay:pay' cart.cart_id %}">카카오페이로 결제하기</button> {% endcomment %}
     </form>
   </div>
 </div>
-<script src="{% static 'cart/js/popup.js' %}"></script>
 {% endblock content %}

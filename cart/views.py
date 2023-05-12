@@ -4,6 +4,7 @@ from .models import Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
 
 
+# 세션 key
 def _cart_id(request):
     cart = request.session.session_key
     if not cart:
@@ -11,6 +12,7 @@ def _cart_id(request):
     return cart
 
 
+# 카트 추가 / 상품 개수 추가
 def add_cart(request, product_pk):
     product = Product.objects.get(pk=product_pk)
     try:
@@ -35,10 +37,10 @@ def add_cart(request, product_pk):
     return redirect('cart:cart_detail')
 
 
+# 카트 상세
 def cart_detail(request, total=0, counter=0, cart_items=None):
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request))
-        # print(cart)
         cart_items = CartItem.objects.filter(cart=cart, active=True)
         for cart_item in cart_items:
             total += (cart_item.product.price * cart_item.quantity)
@@ -56,6 +58,7 @@ def cart_detail(request, total=0, counter=0, cart_items=None):
     return render(request, 'cart/cart.html', context)
 
 
+# 상품 수량 감소
 def cart_remove(request, product_pk):
     cart = Cart.objects.get(cart_id = _cart_id(request))
     product = get_object_or_404(Product, pk=product_pk)
@@ -66,6 +69,7 @@ def cart_remove(request, product_pk):
     return redirect('cart:cart_detail')
 
 
+# 상품 제거
 def full_remove(request, product_pk):
     cart = Cart.objects.get(cart_id = _cart_id(request))
     product = get_object_or_404(Product, pk=product_pk)
