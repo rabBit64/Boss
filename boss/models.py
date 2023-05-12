@@ -113,10 +113,10 @@ class Order(models.Model):
     order_datetime = models.DateTimeField('주문일자', auto_now_add=True)
     
     # 주문 후 회원 탈퇴하더라도 배송이 이루어져야 한다 → models.DO_NOTHING
-    customer_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='주문고객', on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='주문고객', on_delete=models.DO_NOTHING)
 
-    ship_to = models.CharField('배송지 주소', max_length=200)
-    ship_contact = models.CharField('배송지 연락처', max_length=50)
+    ship_to = models.CharField('배송지 주소', max_length=200, null=True, blank=True)
+    ship_contact = models.CharField('배송지 연락처', max_length=50, null=True, blank=True)
 
     shipped = models.BooleanField('배송완료여부', default=False)
 
@@ -126,7 +126,7 @@ class Order(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_NAME, on_delete=models.CASCADE)
-    postal_code = models.CharField('우편번호', max_length=5)
-    address = models.CharField('주소', max_length=200)
-    contact = models.CharField('연락처', max_length=50)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    postal_code = models.CharField('우편번호', max_length=5, null=True, blank=True)
+    address = models.CharField('주소', max_length=200, null=True, blank=True)
+    contact = models.CharField('연락처', max_length=50, null=True, blank=True)
