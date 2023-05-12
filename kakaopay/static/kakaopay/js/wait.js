@@ -15,5 +15,5 @@ function openPopup() {
       clearInterval(checkPopupClosed);
       window.location = '/cart/' // 특정 페이지 URL 추가
     }
-  }, 1000);
+  }, 2000);
 }

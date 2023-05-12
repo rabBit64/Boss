@@ -10,7 +10,7 @@ KAKAO_AK = os.getenv('KAKAO_AK')
 # 결제창으로 연결
 def pay(request, cart_id):
     cart = Cart.objects.get(cart_id=cart_id)
-    current_domain = request.META['HTTP_HOST']
+    current_site = request.build_absolute_uri()[:-34]
     cnt = 0
     cart_item = 'none'
     for item in cart.cartitem_set.all():
@@ -32,9 +32,9 @@ def pay(request, cart_id):
         'quantity': cnt,                # 구매 물품 수량
         'total_amount': cart.total_amount(),        # 구매 물품 가격
         'tax_free_amount': '0',         # 구매 물품 비과세
-        'approval_url': f'{current_domain}/kakaopay/approval/{cart_id}', # 결제 승인시 이동할 url
-        'cancel_url': f'{current_domain}/kakaopay/pay_fail/', # 결제 취소 시 이동할 url
-        'fail_url': f'{current_domain}/kakaopay/pay_cancel/', # 결제 실패 시 이동할 url
+        'approval_url': f'{current_site}/approval/{cart_id}', # 결제 승인시 이동할 url
+        'cancel_url': f'{current_site}/pay_fail/', # 결제 취소 시 이동할 url
+        'fail_url': f'{current_site}/pay_cancel/', # 결제 실패 시 이동할 url
     }
 
     res = requests.post(URL, headers=headers, params=params)
@@ -59,7 +59,12 @@ def approval(request, cart_id):
     }
     res = requests.post(url, headers=headers, params=params)
     result = res.json()
-   
+
+    # 장바구니 비우기
+    cart_items = cart.cartitem_set.all()
+    for cart_item in cart_items:
+        cart_item.delete()
+    
     context = {
         'result': result,
     }
