@@ -5,4 +5,37 @@
 {# index components 폴더에 만들어진 요소들을 삽입합니다 #}
 {% include 'boss/index_components/index_carousel.html' %}
 
+<!--바디 컨텐츠1 : 할인 제공하는 제품목-->
+<div class="body-wrap">
+  <div class="body-content1">
+    <div class="body-content1-header">
+      <div class="body-content1-header-txt">오직 사장님을 위한! 쿠폰팩 증정</div>
+      <a href="#"><button class="more-button">더보기<i class="ri-arrow-right-s-line more-icon"></i></button></a>
+    </div>
+    
+    <div style="margin-top:3px;">💥 반값 초특가 상품도 만나보세요</div>
+    <div class="content1-products">
+      <div class="content1-block">
+        <!--product 1개 block(디테일 링크연결)-->
+      
+        {% for product in  discounted_products %}
+        <a href="#" class="product-block">
+            <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img" alt="img"></div>
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-info">(몇그램당 얼마/ 갯수)</div>
+            <div class="offer-price">
+              <div class="discount-rate">(할인율)%</div>
+              <div class="discount-price">{{product.sale_price}}원</div>  
+            </div>
+            <div class="before-price">{{product.price}}원</div>
+        </a>
+        {% endfor %}
+       
+      </div>
+    </div>
+   
+  </div>
+  
+</div>
+
 {% endblock content %}
