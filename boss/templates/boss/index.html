@@ -18,18 +18,22 @@
       <div class="content1-block">
         <!--product 1개 block(디테일 링크연결)-->
       
-        {% for product in  discounted_products %}
+        {% for product,rate in  discounted_info %}
         <a href="#" class="product-block">
             <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img" alt="img"></div>
             <div class="product-name">{{ product.name }}</div>
             <div class="product-info">(몇그램당 얼마/ 갯수)</div>
             <div class="offer-price">
-              <div class="discount-rate">(할인율)%</div>
+              <div class="discount-rate">{{rate}}%</div>
               <div class="discount-price">{{product.sale_price}}원</div>  
             </div>
             <div class="before-price">{{product.price}}원</div>
         </a>
         {% endfor %}
+        {% comment %} {% for a,b in discounted_info %}
+          <div>{{a.name}}</div>
+          <div>{{b}}</div>
+        {% endfor %} {% endcomment %}
        
       </div>
     </div>
