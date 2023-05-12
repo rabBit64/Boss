@@ -34,7 +34,9 @@
           <div>{{a.name}}</div>
           <div>{{b}}</div>
         {% endfor %} {% endcomment %}
-       
+        {% for v1, v2 in test %}
+          {% include 'boss/index_components/section.html' with v1=v1 v2=v2 %}
+        {% endfor %}
       </div>
     </div>
    
