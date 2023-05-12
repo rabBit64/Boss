@@ -161,14 +161,12 @@ def get_secret(secret_name, region_name) -> dict:
     except ClientError as e:
         # For a list of exceptions thrown, see
         # https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-        print('secretes manageasegaserrormeseresge')
         raise e
 
     # Decrypts secret using the associated KMS key.
     secret = get_secret_value_response['SecretString']
     
     # Your code goes here.
-    # print(secret)
     return json.loads(secret)
 
 # AWS Secrets Manager 끝
@@ -177,7 +175,7 @@ def get_secret(secret_name, region_name) -> dict:
 # AWS Parameter Store 시작
 if 'REGION_NAME' in os.environ:
     '''
-    컴퓨터에 충분한 권한이 있다면 실행하게 하려면?
+    필요한 환경 변수와 충분한 권한이 있는 경우 mysql 접속을 시도하도록 수정
     '''
     # AWS SSM 클라이언트 인스턴스 생성
     ssm_client = boto3.client("ssm", region_name=os.getenv('REGION_NAME'))
@@ -200,8 +198,8 @@ if 'REGION_NAME' in os.environ:
             try:
                 secrets = get_secret(
                     secret_name=secret_name,
-                    # region_name=os.getenv('REGION_NAME'),
-                    region_name='ap-northeast-2',
+                    region_name=os.getenv('REGION_NAME'),
+                    # region_name='ap-northeast-2',
                 )
                 '''
                 Model Manager를 'users' DB를 사용하도록 일일이 커스텀 할 수 없어서
@@ -213,10 +211,9 @@ if 'REGION_NAME' in os.environ:
                     'USER': secrets.get('username'),
                     'PASSWORD': secrets.get('password'),
                     'HOST': hostname,
-                    # 'PORT': os.getenv('RDS_PORT'),
-                    'PORT': '3306',
+                    'PORT': os.getenv('RDS_PORT'),
+                    # 'PORT': '3306',
                 }
-                # print(DATABASES['default']['PASSWORD'])
             except ClientError as e:
                 print("에러 내용(Secrets Manager) :", e.response)
 
@@ -227,4 +224,3 @@ if 'REGION_NAME' in os.environ:
             print("에러 내용(Parameter Store) :", e.response)
 
 # AWS Parameter Store 끝
-# print(DATABASES)
