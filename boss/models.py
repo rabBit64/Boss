@@ -123,3 +123,10 @@ class Order(models.Model):
     # order_set으로 역참조하는것도 직관적이다
     # 여러 상품을 주문할 수 있고, 한 상품이 여러 주문에 등록될 수 있다.
     items_to_ship = models.ManyToManyField(to=Product, verbose_name='판매상품')
+
+
+class Address(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_NAME, on_delete=models.CASCADE)
+    postal_code = models.CharField('우편번호', max_length=5)
+    address = models.CharField('주소', max_length=200)
+    contact = models.CharField('연락처', max_length=50)
