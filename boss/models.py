@@ -107,3 +107,19 @@ class IndexCarouselImage(models.Model):
     def __str__(self):
         return self.image.name
     
+
+class Order(models.Model):
+    # 주문 시점에 레코드 생성
+    order_datetime = models.DateTimeField('주문일자', auto_now_add=True)
+    
+    # 주문 후 회원 탈퇴하더라도 배송이 이루어져야 한다 → models.DO_NOTHING
+    customer_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='주문고객', on_delete=models.DO_NOTHING)
+
+    ship_to = models.CharField('배송지 주소', max_length=200)
+    ship_contact = models.CharField('배송지 연락처', max_length=50)
+
+    shipped = models.BooleanField('배송완료여부', default=False)
+
+    # order_set으로 역참조하는것도 직관적이다
+    # 여러 상품을 주문할 수 있고, 한 상품이 여러 주문에 등록될 수 있다.
+    items_to_ship = models.ManyToManyField(to=Product, verbose_name='판매상품')
