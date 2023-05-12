@@ -16,9 +16,9 @@ def index(request):
     discounted_info = []
     discounted_products = Product.objects.exclude(sale_price = 0)[:6]
     # print(discounted_products[0].get_discount_rate)
-    print(discounted_products[0].get_unit_price)
+    #print(discounted_products[0].get_unit_price)
     for i in range(6):
-        discounted_info.append([discounted_products[i],discounted_products[i].get_discount_rate,discounted_products[i].get_unit_price])
+       discounted_info.append([discounted_products[i],discounted_products[i].get_discount_rate,discounted_products[i].get_unit_price])
     print(discounted_info)
     context = {
         'Products': Products,
