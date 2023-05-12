@@ -1,11 +1,57 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+{% endblock style %}
+
 {% block content %}
-  <div>
-    <h1>로그인</h1>
-    <form action="{% url 'accounts:login' %}" method="POST">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="로그인">
-    </form>
+  <div class='row justify-content-center'>
+    <div class='d-flex flex-column align-items-center'>
+      {% comment %} 
+      <h1>로그인</h1>
+      <form action="{% url 'accounts:login' %}" method="POST">
+        {% csrf_token %}
+
+        <p>{{ form.username }}</p>
+        <p>{{ form.password }}</p>
+        <input class='btn ' type="submit" value="로그인"> {% endcomment %}
+
+      <h1 class='mt-4 mb-3'>로그인</h1>
+      <form method="post">
+        {% csrf_token %}
+        <p class='mb-3'>{{ form.username }}</p>
+        <p class='mb-3'>{{ form.password }}</p>
+        <div class='d-flex flex-column'>
+          <button type="submit" class="btn" style='background-color:#617A55; color:white;'>로그인</button>
+        </div>
+      </form>
+
+      {% if form.errors %}
+        <div class="mt-3 mb-0 alert alert-danger">
+          아이디 또는 비밀번호가 올바르지 않습니다.
+        </div>
+      {% endif %}
+
+    </div>
+
+    <hr class='mt-4' style='width: 400px;'>
+
+    <div class='d-flex flex-column align-items-center'>
+      <div class='d-flex justify-content-center'>
+        <p>이 사이트가 처음이신가요?<span class='ms-2'><a href="{% url 'accounts:signup' %}" style='font-weight:bold;'>회원가입</a></span></p>
+      </div>
+
+      <p class='mt-3 mb-2' style='color: gray;'>소셜 로그인</p>
+
+      <img src="{% static 'image/kakao.png' %}" alt="kakao_logo" style='width: 60px; height: 60px; border-radius: 50px;'>
+
+    </div>
   </div>
+
+        
+
+
+
+
+        
 {% endblock content %}

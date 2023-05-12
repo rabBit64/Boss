@@ -1,7 +1,53 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, ReadOnlyPasswordHashField, AuthenticationForm
 from django.utils.translation import gettext_lazy as _
+
+
+
+# class CustomAuthenticationForm(AuthenticationForm):
+#     username = forms.CharField(
+#         label='',
+#         widget=forms.TextInput(
+#             attrs={
+#                 'class': 'form-control',
+#                 'placeholder': '아이디 입력',
+#                 'style': 'width: 360px; height: 40px;',
+                
+#             }))
+
+#     password = forms.CharField(
+#         label='',
+#         widget=forms.PasswordInput(
+#             attrs={
+#                 'class': 'form-control',
+#                 'placeholder': '비밀번호 입력',
+#                 'style': 'width: 360px; height: 40px;',
+#             }))
+    
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(
+        label='사용자 이름', 
+        widget=forms.TextInput(
+            attrs={
+                'autofocus': True, 
+                'class': 'form-control',
+                'style': 'width: 360px; height: 40px;',
+                }))
+
+    password = forms.CharField(
+        label='비밀번호', 
+        strip=False, 
+        widget=forms.PasswordInput(
+            attrs={
+                'autocomplete': 'current-password', 
+                'class': 'form-control',
+                'style': 'width: 360px; height: 40px;',
+                }))
+
+
+
 
 
 class CustomUserCreationForm(UserCreationForm):
