@@ -40,8 +40,33 @@
   font-weight:400;
   justify-content:center;
   cursor:pointer;
+  
 }
 .more-icon{
   color:rgb(126,128,130);
   font-size:1.2rem;
+}
+/*content1*/
+.goods-image-wrap{
+  position:relative;
+  width:144px;
+  height:144px;
+}
+.product-img{
+  width:144px;
+  height:144px;
+  object-fit: cover;
+}
+.content1-products{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  background:rgb(255,255,255);
+  padding-left:68px;
+  padding-right:68px;
+}
+.content1-block{
+  display:flex;
+  flex-flow:row nowrap;
 }

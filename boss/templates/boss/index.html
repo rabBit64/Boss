@@ -12,10 +12,17 @@
     </div>
     
     <div>💥 반값 초특가 상품도 만나보세요</div>
-    {% for product in  Products %}
-      <div>{{ product.name }}</div>
-      <div> <img src="{{ product.image.url }} " alt=""></div>
-    {% endfor %}
+    <div class="content1-products">
+      <div class="content1-block">
+        
+        {% for product in  Products %}
+          {% comment %} <div>{{ product.name }}</div> {% endcomment %}
+          <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img" alt="img"></div>
+        {% endfor %}
+       
+      </div>
+    </div>
+   
   </div>
   
 </div>

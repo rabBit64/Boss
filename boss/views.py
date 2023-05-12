@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 
 def index(request):
-    Products = Product.objects.order_by('-pk')
+    Products = Product.objects.order_by('-pk')[:6]
     # carousel_images = IndexCarouselImage.objects.order_by('pk').order_by('order')
     # for i in carousel_images:
     #     print(i.image.url)
