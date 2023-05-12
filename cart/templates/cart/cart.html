@@ -5,29 +5,43 @@
 <h1>Cart</h1>
 <div class="row">
   <div class="col-8">
+  
   {% for cart_item in cart_items %}
-  <div class="d-flex">
-    <div>
+  {% ifchanged cart_item.product.user %}
+  <div>
+    <p>{{ cart_item.product.user }}</p>
+  </div>
+  {% endifchanged %}
+  <div class="row mt-3">
+    <div class="col-2">
       <a href="{% url 'boss:detail' cart_item.product.pk %}"><img src="{{ cart_item.product.image.url }}" alt="{{ cart_item.product.name }}" width="100px;"></a>
     </div>
-    <div>
-      <p>{{ cart_item.product.name }} / {{ cart_item.quantity }} / {{ cart_item.product.price }} / {{ cart_item.sub_total }}</p>
+    <div class="col-5">
+      <p>{{ cart_item.product.name }}</p>
+      <p>{{ cart_item.product.price }}</p>
+    </div>
+    <div class="col-3">
       <p>
-        <a href="{% url 'cart:increase_item' cart_item.product.pk %}">증가</a>
+        <a href="{% url 'cart:increase_item' cart_item.product.pk %}">증가</a> 
+        {{ cart_item.quantity }} 
         <a href="{% url 'cart:decrease_item' cart_item.product.pk %}">감소</a>
-        <a href="{% url 'cart:remove_item' cart_item.product.pk %}">제거</a>
       </p>
+    </div>
+    <div class="col-2">
+      <p>{{ cart_item.sub_total }}</p>
+      <p><a href="{% url 'cart:remove_item' cart_item.product.pk %}">제거</a></p>
     </div>
   </div>
   {% if forloop.last %}
-  <div>
-  <p>총액 : {{ total }}</p>
+  <div class="total-price d-flex">
+  <p class="ms-auto">합계 : {{ cart.total_amount }}</p>
   </div>
   {% endif %}
   {% empty %}
   <p>장바구니가 비어있습니다. 텅~</p>
   {% endfor %}
   </div>
+  {% if cart_items %}
   <div class="col-4">
     <h1 class="text-center">KAKAO PAY</h1>
     <form method="post" class="col-12 text-center" action="{% url 'kakaopay:wait' %}">
@@ -36,5 +50,6 @@
       <button class="btn btn-warning" id="pay_btn" type="submit">카카오페이로 결제하기</button>
     </form>
   </div>
+  {% endif %}
 </div>
 {% endblock content %}
