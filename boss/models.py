@@ -50,8 +50,8 @@ class Product(models.Model):
     
     def clean(self):
         '''
-        sell_price가 price보다 큰 값일 때 ValidationError 발생
-        sell_price를 입력하지 않았을 때 sell_price에 price 입력
+        sale_price가 price보다 큰 값일 때 ValidationError 발생
+        sale_price를 입력하지 않았을 때 sale_price에 price 입력
         '''
         if self.sale_price is None or not self.sale_price:
             self.sale_price = self.price

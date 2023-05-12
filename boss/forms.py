@@ -11,7 +11,6 @@ class ProductForm(forms.ModelForm):
         help_text='판매가격을 입력하지 않으시면 \'가격\'이 적용됩니다.',
     )
 
-
     class Meta:
         model = Product
         fields = (
@@ -23,7 +22,7 @@ class ProductForm(forms.ModelForm):
             'category',
             'subcategory',
             'price',
-            'sell_price',
+            'sale_price',
         )
         
 
