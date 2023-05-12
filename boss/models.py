@@ -34,8 +34,8 @@ class Product(models.Model):
     country = models.CharField(max_length=50) # 제조국
     
     #### 모델 할인율, 1+1 상품 여부, 무료배송 여부 추가
-    discount_rate = models.IntegerField(default=0)
-
+    #discount_rate = models.IntegerField(default=0)
+    sale_price = models.IntegerField(default=0)
     one_plus_one = models.BooleanField(default=False)
     delivery_fee = models.IntegerField(default=0)
     

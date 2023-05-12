@@ -42,6 +42,7 @@
   flex-direction:row;
   align-items:center;
   justify-content:center;
+  margin-top:10px;
 }
 .more-icon{
   color:rgb(126,128,130);
