@@ -17,9 +17,7 @@
   display:flex;
   flex-direction:column;
   background-color:rgb(255,255,255);
-  padding-left:68px;
-  padding-right:68px;
-  padding:25px 25px 0;
+  padding:25px 64px 0;
 }
 .body-content1-header{
   display:flex;
@@ -40,7 +38,6 @@
   font-weight:400;
   justify-content:center;
   cursor:pointer;
-  
 }
 .more-icon{
   color:rgb(126,128,130);
@@ -63,10 +60,15 @@
   display:flex;
   flex-direction:column;
   background:rgb(255,255,255);
-  padding-left:68px;
-  padding-right:68px;
 }
 .content1-block{
   display:flex;
   flex-flow:row nowrap;
+}
+.product-block{
+  width:140px;
+  display:block;
+  max-width:144px;
+  height:100%;
+  margin:0 10px 0 10px;
 }

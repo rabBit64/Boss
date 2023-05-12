@@ -14,10 +14,16 @@
     <div>💥 반값 초특가 상품도 만나보세요</div>
     <div class="content1-products">
       <div class="content1-block">
-        
+        <!--product 1개 block(디테일 링크연결)-->
+      
         {% for product in  Products %}
-          {% comment %} <div>{{ product.name }}</div> {% endcomment %}
-          <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img" alt="img"></div>
+        <a href="#" class="product-block">
+            <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img" alt="img"></div>
+            <div>{{ product.name }}</div>
+            <div>(몇그램당 얼마/ 갯수)</div>
+            <div>(할인된 가격)</div>
+            <div>{{product.price}}</div>
+        </a>
         {% endfor %}
        
       </div>
