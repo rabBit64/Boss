@@ -5,7 +5,7 @@ from .models import Product, Review, ReviewImage, Category, Subcategory
 
 class ProductForm(forms.ModelForm):
     price = forms.IntegerField(label='가격', required=True)
-    sell_price = forms.IntegerField(
+    sale_price = forms.IntegerField(
         label='판매가격',
         required=False,
         help_text='판매가격을 입력하지 않으시면 \'가격\'이 적용됩니다.',
