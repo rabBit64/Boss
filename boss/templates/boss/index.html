@@ -24,8 +24,8 @@
             <div class="product-name">{{ product.name }}</div>
             <div class="product-info">(몇그램당 얼마/ 갯수)</div>
             <div class="offer-price">
-              {% comment %} <div class="discount-rate">{{product.discount_rate}}%</div> {% endcomment %}
-              <div class="discount-price">(할인된 가격)원</div>  
+              <div class="discount-rate">(할인율)%</div>
+              <div class="discount-price">{{product.sale_price}}원</div>  
             </div>
             <div class="before-price">{{product.price}}원</div>
         </a>

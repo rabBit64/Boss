@@ -35,7 +35,7 @@ class Product(models.Model):
     
     #### 모델 할인율, 1+1 상품 여부, 무료배송 여부 추가
     #discount_rate = models.IntegerField(default=0)
-    sale_price = models.IntegerField(default=0) #할인될 경우만 입력!
+    sale_price = models.IntegerField(default=0) #할인될 경우만 입력! (나중에 0이면 걸러내기 위해서)
     one_plus_one = models.BooleanField(default=False)
     delivery_fee = models.IntegerField(default=0)
     
