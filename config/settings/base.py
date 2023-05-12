@@ -215,7 +215,7 @@ if 'REGION_NAME' in os.environ:
                     # 'PORT': '3306',
                     'OPTIONS': {
                         'sql_mode': 'STRICT_ALL_TABLES'
-                    }
+                    },
                 }
             except ClientError as e:
                 print("에러 내용(Secrets Manager) :", e.response)
