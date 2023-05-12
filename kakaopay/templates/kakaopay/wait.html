@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <h1>wait</h1>
+<span id="pay_url" data-cart-id="{{ cart_id }}" hidden></span>
+<script src="{% static 'kakaopay/js/wait.js' %}"></script>
 {% endblock content %}

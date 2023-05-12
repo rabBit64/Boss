@@ -69,6 +69,9 @@ def approval(request, cart_id):
     result = res.json()
     print(result)
     print(dir(result))
+    # cart_items = cart.cartitem_set.all()
+    # for cart_item in cart_items:
+    #     cart_item.delete()
     context = {
         # 'res':res,
         'result': result,
@@ -92,11 +95,21 @@ def pay_cancel(request):
     return render(request, 'kakaopay/pay_cancel.html')
 
 def wait(request):
-    return render(request, 'kakaopay/wait.html')
+    if request.method == 'POST':
+        cart_id = request.POST.get('cart_id')
+        cart = Cart.objects.get(cart_id=cart_id) # 삭제
+    
+    context = {
+        'cart': cart, # 삭제
+        'cart_id': cart_id,
+    }
+    return render(request, 'kakaopay/wait.html', context)
 
-def pay_finish(request, cart_id):
-    cart = Cart.objects.get(cart_id=cart_id)
-    cart_items = cart.cartitem_set.all()
-    for cart_item in cart_items:
-        cart_item.delete()
-    return redirect('accounts:profile', request.user.username)
+# 안쓰는 코드
+# def pay_finish(request, cart_id):
+#     cart = Cart.objects.get(cart_id=cart_id)
+#     cart_items = cart.cartitem_set.all()
+#     # for cart_item in cart_items:
+#     #     cart_item.delete()
+#     print('finish로 오나?')
+#     return redirect('accounts:profile', request.user.username)

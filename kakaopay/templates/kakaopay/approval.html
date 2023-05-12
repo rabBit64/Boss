@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{% static 'kakaopay/css/approval.css' %}">
 </head>
 <body>
-  <div id="payment" data-cart-id="{{ result.partner_order_id }}">
+  <div id="payment" data-cart-id="{{ result.partner_order_id }}" data-user-name="{{ request.user.username }}">
     <div class="header">
       <h3>kakaopay</h3>
     </div>

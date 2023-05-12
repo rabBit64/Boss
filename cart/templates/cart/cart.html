@@ -24,7 +24,9 @@
     <h1 class="text-center">KAKAO PAY</h1>
     <form method="post" class="col-12 text-center" action="{% url 'kakaopay:wait' %}">
     {% csrf_token %}
-      <button class="btn btn-warning" id="pay_btn" onclick="openPopup()" data-url="{% url 'kakaopay:pay' cart.cart_id %}">카카오페이로 결제하기</button>
+      <input type="hidden" name="cart_id" value="{{ cart.cart_id }}">
+      <button class="btn btn-warning" id="pay_btn" type="submit">카카오페이로 결제하기</button>
+      {% comment %} <button class="btn btn-warning" id="pay_btn" onclick="openPopup()" data-url="{% url 'kakaopay:pay' cart.cart_id %}">카카오페이로 결제하기</button> {% endcomment %}
     </form>
   </div>
 </div>
