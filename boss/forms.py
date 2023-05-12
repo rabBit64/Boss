@@ -25,16 +25,6 @@ class ProductForm(forms.ModelForm):
             'price',
             'sell_price',
         )
-    
-    def clean(self):
-        cleaned_data = super().clean()
-        price = cleaned_data.get('price')
-        sell_price = cleaned_data.get('sell_price')
-        if not sell_price or sell_price is None:
-            cleaned_data['sell_price'] = sell_price = price
-        if sell_price > price:
-            raise forms.ValidationError('판매가격은 기존 가격보다 낮아야 합니다.')
-        return cleaned_data
         
 
 class ReviewForm(forms.ModelForm):
