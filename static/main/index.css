@@ -38,6 +38,10 @@
   font-weight:400;
   justify-content:center;
   cursor:pointer;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:center;
 }
 .more-icon{
   color:rgb(126,128,130);
@@ -64,11 +68,58 @@
 .content1-block{
   display:flex;
   flex-flow:row nowrap;
+  justify-content: space-evenly;
+  margin-top:30px;
 }
 .product-block{
   width:140px;
   display:block;
   max-width:144px;
   height:100%;
-  margin:0 10px 0 10px;
+  /* margin:0 10px 0 10px; */
+}
+.product-name{
+  color:rgb(24,26,28);
+  margin-bottom:4px;
+  overflow:hidden;
+  font-size:18px;
+  line-height:20px;
+  letter-spacing:-0.2px;
+  font-weight:400;
+  margin-top:14px;
+}
+.product-info{
+  color:rgb(126,128,130);
+  display:block;
+  font-size:14px;
+  line-height:16px;
+  letter-spacing:-0.2px;
+  font-weight:400;
+  margin:7px 0 3px 0;
+}
+.offer-price{
+  display:flex;
+  margin:7px 0 3px 0;
+}
+.discount-rate{
+  font-size:18px;
+  line-height:24px;
+  letter-spacing:-0.4px;
+  font-weight:700;
+  color:rgb(255,64,62);
+}
+.discount-price{
+  font-weight:700;
+  color:rbg(24,26,28);
+  font-size:20px;
+  line-height:24px;
+  letter-spacing:-0.4px;
+}
+.before-price{
+  font-size:17px;
+  line-height:20px;
+  letter-spacing:-0.2px;
+  font-weight:500;
+  color:rgb(177,179,181);
+  text-decoration:line-through;
 }
