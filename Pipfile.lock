@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4d902ad9ddcf53120272a8c187bd3be8d6b254b88a9d2dc635cea908390c840e"
+            "sha256": "19374e179d64c973d8b89ff58df10499d2e6dd3ce37751f86805c588d50b4761"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -104,13 +104,6 @@
             "index": "pypi",
             "version": "==4.1.0"
         },
-        "django-seed": {
-            "hashes": [
-                "sha256:93e65d2c10449c464b83e9031be02763ec10e786aa064d649c4dd5ad06fa0eea"
-            ],
-            "index": "pypi",
-            "version": "==0.3.1"
-        },
         "executing": {
             "hashes": [
                 "sha256:0314a69e37426e3608aada02473b4161d4caf5a4b244d1d0c48072b8fee7bacc",
@@ -118,14 +111,6 @@
             ],
             "index": "pypi",
             "version": "==1.2.0"
-        },
-        "faker": {
-            "hashes": [
-                "sha256:38dbc3b80e655d7301e190426ab30f04b6b7f6ca4764c5dd02772ffde0fa6dcd",
-                "sha256:f02c6d3fdb5bc781f80b440cf2bdec336ed47ecfb8d620b20c3d4188ed051831"
-            ],
-            "markers": "python_version >= '3.7'",
-            "version": "==18.7.0"
         },
         "gunicorn": {
             "hashes": [
@@ -454,13 +439,6 @@
             ],
             "index": "pypi",
             "version": "==0.6.2"
-        },
-        "toposort": {
-            "hashes": [
-                "sha256:bfbb479c53d0a696ea7402601f4e693c97b0367837c8898bc6471adfca37a6bd",
-                "sha256:cbdbc0d0bee4d2695ab2ceec97fe0679e9c10eab4b2a87a9372b929e70563a87"
-            ],
-            "version": "==1.10"
         },
         "traitlets": {
             "hashes": [

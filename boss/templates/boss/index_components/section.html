@@ -1,2 +1,8 @@
-<h1>{{ v1 }}</h1>
-<h4>{{ v2 }}</h4>
+<h1>{{ title }}</h1>
+<h4>{{ subtitle }}</h4>
+<ul>
+  {% for d in data %}
+    <li>{{ d.name }}</li>
+    <li>{{ d.sale_price }}</li>
+  {% endfor %}
+</ul>

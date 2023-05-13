@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
-
+from datetime import datetime, timedelta
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -33,12 +33,9 @@ class Product(models.Model):
     #     (3, '배달용품'),
     #     (4, '주방용품'),
     # )
-    # category = models.CharField('카테고리', choices=CATEGORIES)
+    # category = models.CharField('카테고리', choices=CATEGORIES, max_length=100)
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-    
-
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to=get_upload_path, blank=True)
     weight = models.IntegerField(validators=[MinValueValidator(1)])  # 중량
@@ -70,6 +67,7 @@ class Product(models.Model):
         if self.sale_price > self.price:
             raise ValidationError('판매가격은 기존 가격보다 낮아야 합니다.')
         super().clean()
+
 
     #할인율 계산
     @property  #데코레이터는 메소드를 마치 필드인 것처럼 취급할 수 있도록 만들어 준다

@@ -1,6 +1,6 @@
 import os
 from django.conf import settings
-from django.db.models import F
+from django.db.models import F, Q
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Product, Review, ReviewImage, Category, Subcategory
@@ -8,6 +8,9 @@ from .forms import ProductForm, ReviewForm, ReviewImageForm
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from django.db.models import Count
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 
 def index(request):
@@ -21,7 +24,7 @@ def index(request):
     #print(discounted_products[0].get_unit_price)
     for i in range(6):
        discounted_info.append([discounted_products[i],discounted_products[i].get_discount_rate,discounted_products[i].get_unit_price])
-    print(discounted_info)
+
 
     # boss/index_components/section.html에 들어갈 자료들
     titles = [
@@ -31,19 +34,48 @@ def index(request):
         '쟁여두면 좋은 식재료',
     ]
     subtitles = [
+
         '사장님들이 많이 찾는 배달비품 모음',
         '고민은 배송만 늦출뿐',
         '홀도, 배달도 여기서 장사 준비해요',
         '여기에서 만나보세요',
     ]
+    
+    year_ago = timezone.now() - timedelta(days=365)
+    best_products = Product.objects.annotate(
+            num_orders=Count(
+                'order',
+                filter=Q(order__order_datetime__gt=year_ago)
+            )
+        ).order_by('-num_orders')
+    
+    delivery_prod_best = best_products.filter(
+        subcategory__in=(
+            16, 17, 18, 19, 20, 22, 26
+        ))
+    
+    ingredients_best = best_products.filter(
+        subcategory__in=(
+            i for i in range(1, 16)
+        )
+    )
+
+
     data = [
-        
+        delivery_prod_best,
+        ingredients_best,
+        Product.objects.filter(
+            subcategory__gte=16
+        ),
+        Product.objects.filter(
+            Q(subcategory__lte=15) & Q(weight__gte=1000)
+        ),
     ]
 
     context = {
         'Products': Products,
         'discounted_info': discounted_info,
-        'test': ((i, j) for i, j in enumerate(range(10,20))),
+        'section_data': zip(titles, subtitles, data),
     }
     return render(request, 'boss/index.html', context)
 
