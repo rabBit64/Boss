@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,17 +12,19 @@
   <link rel="stylesheet" href="{% static 'kakaopay/css/approval.css' %}">
 </head>
 <body>
-  <div id="payment" data-cart-id="{{ result.partner_order_id }}" data-user-name="{{ request.user.username }}">
+  <div id="payment" class="p-4" data-cart-id="{{ result.partner_order_id }}" data-user-name="{{ request.user.username }}">
     <div class="header">
-      <h3>kakaopay</h3>
+      <div class="k-logo">
+        <img src="{% static 'kakaopay/image/pay2.png' %}" alt="">
+      </div>
     </div>
-    <div class="body">
+    <div class="body pt-3">
       <div class="content">
         <p>카카오페이 결제가 정상적으로 완료되었습니다.</p>
         <p>결제일시: {{ result.approved_at }}</p>
         <p>상품명: {{ result.item_name }}</p>
-        <p>결제금액: {{ result.amount.total }}원</p>
-        <p><button id="close-popup" class="btn btn-warning">닫기</button></p>
+        <p>결제금액: {{ result.amount.total|intcomma }}원</p>
+        <p><button id="close-popup" class="btn btn-warning">내 정보로 가기</button></p>{# 추후에 주문내역으로 #}
       </div>
     </div>
   </div>

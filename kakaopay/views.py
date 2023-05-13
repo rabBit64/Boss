@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from cart.models import Cart
 import requests
 import os
+from django.contrib.auth.decorators import login_required
 from dotenv import load_dotenv
 load_dotenv()
 KAKAO_AK = os.getenv('KAKAO_AK')
@@ -83,6 +84,7 @@ def pay_cancel(request):
 
 
 # 결제 대기
+@login_required
 def wait(request):
     cart_id = request.POST.get('cart_id')
     
