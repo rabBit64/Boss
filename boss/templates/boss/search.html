@@ -76,40 +76,68 @@ button{
 
 {% block content %}
 
-  {% if keyword == '' %}
-    <h2 class="search-result">전체 검색결과</h2>
-  {% else %}
-    <h2 class="search-result">'{{ keyword }}'에 대한 검색결과</h2>
-  {% endif %}
+  
+    {% if keyword == '' %}
+      <h2 class="search-result mt-4">전체 검색결과</h2>
+    {% else %}
+      <h2 class="search-result mt-4">'{{ keyword }}'에 대한 검색결과</h2>
+    {% endif %}
   <hr class="thick-hr">
   <div class ='d-flex'>
     <div class="col-3" style = "margin-right : 20px;"> 
+      <div>
+        <button class="expand-category category-button">혜택</button>
+        <form action="" method="GET" id="search-form">
+          <input type="hidden" name="keyword" value="{{ keyword }}">
+          <label>
+            <input type="checkbox" name="delivery_fee_zero" value="1" onclick="this.form.submit()">
+            무료 배송
+          </label>
+        </form>
+      </div>
       <form action="" method="GET" id="filter-form">
         <input type="hidden" name="keyword" value="{{ keyword }}">
-        
-      
-        <button type="button" class="expand-category category-button">카테고리</button>
-        <div class = "category_filter">
-          {% for category in categories %}
-          <div class="category d-flex">
-            <button type="submit" name="category" value="{{ category.id }}" class="subcategory-button">{{ category.name }}</button>
-            <button type="button" class="expand-button">∨</button>
-          </div>
-            <div class="subcategory">
-              {% for subcategory in category.subcategory_set.all %}
-                <div>
-                  <button type="submit" name="subcategory" class="subcategory-choice" value="{{ subcategory.id }}">{{ subcategory.name }}</button>
-                </div>
-              {% endfor %}
-            </div>
-
-          {% endfor %}
-        </div>  
-        
-        <div>
-          <button type="submit" class ="filter-reset">필터 초기화</button>
-        </div>
       </form>
+              <!-- Category filter section -->
+              <div>
+                <button type="button" class="expand-category category-button">카테고리</button>
+                <div class="category_filter">
+                  <!-- Category filtering options -->
+                  {% for category in categories %}
+                  <div class="category d-flex">
+                    <button name="category" value="{{ category.id }}" class="subcategory-button filtering">{{ category.name }}</button>
+                    <button type="button" class="expand-button">∨</button>
+                  </div>
+                  <div class="subcategory">
+                    <!-- Subcategory filtering options -->
+                    {% for subcategory in category.subcategory_set.all %}
+                    <div>
+                      <button name="subcategory" value="{{ subcategory.id }}" class="subcategory-choice filtering" >{{ subcategory.name }}</button>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              
+              <!-- Price range section -->
+              <div>
+                <button type="button" class="expand-category category-button">가격</button>
+                <div class="price-range-options">
+                  <!-- Price range options -->
+                  <div><button name="min_price" value="0" class="price-option filtering {% if min_price == "0" %}selected{% endif %}">~7,000원 미만</button></div>
+                  <div><button name="min_price" value="7000" class="price-option filtering {% if min_price == "7000" %}selected{% endif %}">7,000원~ 15,000원</button></div>
+                  <div><button name="min_price" value="15000" class="price-option filtering {% if min_price == "15000" %}selected{% endif %}">15,000원~ 30,000원</button></div>
+                  <div><button name="min_price" value="30000" class="price-option filtering {% if min_price == "30000" %}selected{% endif %}">30,000원~ 50,000원</button></div>
+                  <div><button name="min_price" value="50000" class="price-option filtering {% if min_price == "50000" %}selected{% endif %}">50,000원~ 100,000원</button></div>
+                  <div><button name="min_price" value="100000" class="price-option filtering {% if min_price == "100000" %}selected{% endif %}">100,000원 이상</button></div>
+                </div>
+              </div>
+            
+              <!-- Filter reset button -->
+              <div>
+                <button type="submit" class="filter-reset">필터 초기화</button>
+              </div>
     </div>
     <div class="row g-4 col-9">
       <div style="display: flex; align-items: center; width: 100%; height: 40px; background-color: rgb(243, 245, 247);">
@@ -128,8 +156,13 @@ button{
                       </div>
                         <div class="card-body p-0">
                             <p>{{product.name}} </p>
+                            <p>{{product.weight}}g </p>
                             <p>{{product.price}}원</p>
                             <p>{{product.quantity}}개</p>
+                            {% if product.delivery_fee == 0 %}
+                              <p>무료배송</p>
+                            {% endif %}
+
                         </div>
                     </div>
                 </a>
@@ -158,7 +191,7 @@ button{
 {% endblock content %}
 
 {% block script %}
-  <script>
+
     $(document).ready(function() {
       // Hide all subcategories initially
       $('.subcategory').addClass('hidden');
@@ -209,9 +242,47 @@ button{
         var category_filter = $(this).siblings('.category_filter');
         category_filter.toggleClass('hidden');
       });
-
-      
     });
-  </script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('search-form');
+      var button = form.querySelector('.category-button');
+  
+      button.addEventListener('click', function() {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'delivery_fee_zero');
+        input.setAttribute('value', '1');
+        form.appendChild(input);
+  
+        form.submit();
+      });
+    });
+
+    const buttons = document.querySelectorAll('.filtering')
+
+    buttons.forEach((btn) => {
+
+      const btnName = btn.getAttribute('name')
+      const btnValue = btn.getAttribute('value')
+
+      btn.addEventListener('click', () => {
+        const Url = window.location.href
+
+        if (Url.includes(`&${btnName}=${btnValue}`)) {
+
+          const newUrl = Url.replace(`&${btnName}=${btnValue}`,'')
+          window.location.href = newUrl
+
+        } else {
+
+          const newUrl = `${Url}&${btnName}=${btnValue}`
+          window.location.href = newUrl
+          
+        }
+        
+      })
+    })
+ 
 
 {% endblock script %}

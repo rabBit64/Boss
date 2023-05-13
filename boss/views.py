@@ -8,6 +8,7 @@ from .forms import ProductForm, ReviewForm, ReviewImageForm
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from django.db.models import Q
 from django.db.models import F
 def index(request):
     Products = Product.objects.order_by('-pk')[:6]
@@ -148,27 +149,45 @@ def search(request):
     keyword = request.GET.get('keyword')
     category_id = request.GET.get('category')
     subcategory_id = request.GET.get('subcategory')
-    products = Product.objects.filter(name__contains=keyword)
+    min_price = request.GET.get('min_price')
+    delivery_fee_zero = request.GET.get('delivery_fee_zero')
+    q = Q()
+    q &= Q(name__contains=keyword)
 
     if category_id:
         category = get_object_or_404(Category, id=category_id)
-        products = products.filter(category=category)
-        if subcategory_id:
-            subcategory = get_object_or_404(Subcategory, id=subcategory_id)
-            if products.filter(subcategory=subcategory).exists():
-                products = products.filter(subcategory=subcategory)
-            else:
-                subcategory_id = None
-    categories = Category.objects.all()[:4]
+        q &= Q(category=category)
 
     if subcategory_id:
         subcategory = get_object_or_404(Subcategory, id=subcategory_id)
-        products = products.filter(subcategory=subcategory)
-    subcategories = Subcategory.objects.filter(product__in=products).distinct()
+        q &= Q(subcategory=subcategory)
 
+    if delivery_fee_zero == '1':  # delivery_fee_zero 값이 1인 경우 필터링
+        q &= Q(delivery_fee=0)
+
+    if min_price:
+        # Apply price range filtering
+        min_price = int(min_price)
+        if min_price < 7000:
+            q &= Q(price__lt=7000)
+        elif min_price < 15000:
+            q &= Q(price__gte=7000, price__lt=15000)
+        elif min_price < 30000:
+            q &= Q(price__gte=15000, price__lt=30000)
+        elif min_price < 50000:
+            q &= Q(price__gte=30000, price__lt=50000)
+        elif min_price < 100000:
+            q &= Q(price__gte=50000, price__lt=100000)    
+        else:
+            q &= Q(price__gte=100000)
+
+    categories = Category.objects.all()[:4]
+    subcategories = Subcategory.objects.all()
+    products = Product.objects.filter(q)
     len_element = 100
     paginator = Paginator(products, len_element)
     page_number = request.GET.get('page')
+
     if page_number is None:
         page_number = 1
     page_obj = paginator.get_page(page_number)
@@ -185,6 +204,7 @@ def search(request):
         'categories': categories,
         'subcategories': subcategories,
         'filtered_product_count': filtered_product_count,  # 필터링된 상품 개수 전달
+        'min_price': min_price,
     }
     return render(request, 'boss/search.html', context)
 
