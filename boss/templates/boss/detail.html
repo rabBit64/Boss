@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block style %}
 .box1{
@@ -52,9 +53,7 @@
 
 {% block content %}
 <div class='row'>
-    <h3>product detail</h3>
-
-    <div class="d-flex justify-content-around">
+    <div class="d-flex justify-content-around pt-5">
          <!-- 상품 이미지  -->
         <div style="width: 460px;">
             <img src="{{ product.image.url }}" alt="image" style="width: 460px;">
@@ -62,23 +61,27 @@
 
          <!-- 상품명 & 가격  -->
         <div class='d-flex flex-column ms-3'>
-            <p style="font-size: 16px; font-weight: bold;">카테고리 </p>
-            <p style="font-size: 20px; font-weight: bold;">제품명</p>
-            <p style="font-size: 24px; font-weight: bold;">가격</p>
+            <p style="font-size: 16px; font-weight: bold;">{{ product.category }} - {{ product.subcategory }} </p>
+            <p style="font-size: 20px; font-weight: bold;">제품명 {{ product.name }}</p>
+            <p style="font-size: 24px; font-weight: bold;">
+                <span class="text-danger">{{ product.get_discount_rate }}%</span> 
+                <span>{{ product.sale_price|intcomma }}원</span> 
+                <del class="text-secondary">{{ product.price|intcomma }}원</del>
+            </p>
             <p style="font-size: 14px; color: gray;">배송비 <span class="ms-4" style="color: black;">3500원 | CJ대한통운</span></p>
 
 
             <div class='box1 d-flex flex-column mb-3'>
-                <p class="m-0 fw" style="height: 35px; font-size: 14px; color: gray;">중량</p>
-                <p class="m-0 fw" style="height: 35px; font-size: 14px; color: gray;">제공 수량</p>
-                <p class="m-0 fw" style="height: 35px; font-size: 14px; color: gray;">기준 단가</p>
-                <p class="m-0 fw" style="height: 35px; font-size: 14px; color: gray;">원산지</p>
+                <p class="m-0 fw" style="height: 35px; font-size: 14px; color: gray;">중량 : {{ product.weight|intcomma }}g</p>
+                <p class="m-0 fw" style="height: 35px; font-size: 14px; color: gray;">제공 수량 : {{ product.quantity|intcomma }}ea</p>
+                <p class="m-0 fw" style="height: 35px; font-size: 14px; color: gray;">기준 단가 : 100g당 {{ product.get_unit_price|intcomma }} 원</p>
+                <p class="m-0 fw" style="height: 35px; font-size: 14px; color: gray;">원산지 : {{ product.country }}</p>
             </div>
 
 
             <div class="box2">
                 <div class="mt-1">
-                    <p style="font-size: 14px;">제품명</p>
+                    <p style="font-size: 14px;">{{ product.name }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="cnt">
                             <button id="decrement" style="width: 32px; height: 32px;"><i class="fa-solid fa-minus"></i></button>
@@ -86,7 +89,7 @@
                             <button id="increment" style="width: 32px; height: 32px;"><i class="fa-solid fa-plus"></i></button>
                         </div>
 
-                        <div style="font-size: 18px; font-weight: bold;">가격</div>
+                        <div style="font-size: 18px; font-weight: bold;"><span id="sub_total_price" data-price="{{ product.sale_price }}">{{ product.sale_price|intcomma }}</span>원</div>
                     </div>
                 </div>
             </div>
@@ -94,14 +97,14 @@
 
             <div class="mt-3 d-flex justify-content-between align-items-center">
                 <p style="font-size: 16px; font-weight: bold;">총 상품금액</p>
-                <p style="font-size: 20px; font-weight: bold;">가격</p>
+                <p style="font-size: 20px; font-weight: bold;"><span id="total_price">{{ product.sale_price|intcomma }}</span>원</p>
             </div>
 
 
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-outline-primary btn_size me-1">장바구니 담기</button>
 
-                <button type="button" class="btn btn-primary btn_size">바로구매</button>
+                <button type="button" class="btn btn-primary btn_size" onclick="test()">바로구매</button>
             </div>
 
         </div>
@@ -111,7 +114,7 @@
 
     <!-- 상품 후기 -->
     <p style="font-size: 24px; font-weight: bold;">상품 후기</p>
-
+    <a href="{% url 'boss:review_create' product.pk %}">[후기 작성]</a>
     <!-- 만약 상품 후기가 있다면 -->
     {% for review in reviews %}
     <div class="d-flex">
@@ -151,23 +154,44 @@
     const incrementBtn = document.getElementById("increment");
     const decrementBtn = document.getElementById("decrement");
     const countSpan = document.getElementById("count");
+    const subTotalPriceSpan = document.getElementById("sub_total_price");
+    const totalPriceSpan = document.getElementById("total_price");
+    const price = subTotalPriceSpan.dataset.price
     
     // 현재 숫자를 저장할 변수 선언
-    let count = 0;
+    let count = 1;
+    let subTotalPrice = price;
+    let totalPrice = price;
     
     // +1 버튼 클릭 시 현재 숫자 증가
-    incrementBtn.addEventListener("click", () => {
-      count++;
-      countSpan.textContent = count;
+    incrementBtn.addEventListener("click", () => {    
+        count++;
+        countSpan.textContent = count;
+        
+        subTotalPrice = count * price
+        totalPrice = count * price
+        
+        subTotalPriceSpan.textContent = subTotalPrice.toLocaleString()
+        totalPriceSpan.textContent = totalPrice.toLocaleString()
     });
     
     // -1 버튼 클릭 시 현재 숫자 감소
     decrementBtn.addEventListener("click", () => {
-      if (count > 1) { // 현재 숫자가 1보다 큰 경우에만 감소
-        count--;
-        countSpan.textContent = count;
-      }
+        if (count > 1) { // 현재 숫자가 1보다 큰 경우에만 감소
+            count--;
+            countSpan.textContent = count;
+            
+            subTotalPrice = count * price
+            totalPrice = count * price
+            
+            subTotalPriceSpan.textContent = subTotalPrice.toLocaleString()
+            totalPriceSpan.textContent = totalPrice.toLocaleString()
+        }
     });
+
+    function test() {
+        console.log(totalPrice)
+    }
 </script>
 
 
