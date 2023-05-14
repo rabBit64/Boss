@@ -26,6 +26,8 @@ load_dotenv()
 INSTALLED_APPS = [
     'accounts',
     'boss',
+    'kakaopay',
+    'cart',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -59,6 +61,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.counter',
             ],
         },
     },

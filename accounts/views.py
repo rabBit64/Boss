@@ -6,6 +6,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
+from cart.models import Cart, CartItem
+from cart.views import _cart_id
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm
 
@@ -37,6 +39,36 @@ def profile(request, username):
 #     }
 #     return render(request, 'accounts/login.html', context)
 
+@login_required
+def merge_cart(request):
+    # 로그인 한 사용자의 장바구니
+    user_cart, _ = Cart.objects.get_or_create(
+        user=request.user,
+        defaults={'cart_id': _cart_id(request)}
+    )
+
+    # 세션에 있는 장바구니
+    session_cart = Cart.objects.get(cart_id=_cart_id(request))
+
+    if session_cart.cartitem_set.exists():
+        # 세션에 있는 장바구니를 사용자의 카트로 합치기
+        for session_item in session_cart.cartitem_set.all():
+            cart_item, created = CartItem.objects.get_or_create(
+                product=session_item.product, cart=user_cart, defaults={'quantity': session_item.quantity}
+            )
+
+            if not created:
+                cart_item.quantity += session_item.quantity
+                cart_item.save()
+        
+        # 세션의 장바구니 삭제
+        session_cart.delete()
+
+    # 새로운 장바구니 ID를 로그인 한 사용자의 ID로 설정
+    request.session['cart_id'] = str(user_cart.cart_id)
+
+    return redirect('cart_detail')
+
 
 def login(request):
     if request.user.is_authenticated:
@@ -49,7 +81,29 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = auth_authenticate(request, username=username, password=password)
             if user is not None:
+                # 세션에 있는 장바구니
+                old_cart = Cart.objects.get(cart_id=_cart_id(request))
+
                 auth_login(request, user)
+
+                # 로그인 한 사용자의 장바구니
+                try:
+                    new_cart = Cart.objects.get(cart_id=_cart_id(request))
+                except Cart.DoesNotExist:
+                    new_cart = Cart.objects.create(cart_id = _cart_id(request))
+                    new_cart.save()
+                # 세션에 있는 장바구니를 사용자의 카트로 옮기기
+                if old_cart.cartitem_set.exists():
+                    for session_item in old_cart.cartitem_set.all():
+                        cart_item, created = CartItem.objects.get_or_create(
+                            product=session_item.product, cart=new_cart, defaults={'quantity': session_item.quantity}
+                        )
+                        if not created:
+                            cart_item.quantity += session_item.quantity
+                            cart_item.save()
+                    # 세션의 장바구니 삭제
+                    old_cart.delete()
+
                 return redirect('boss:index')
             else:
                 form.add_error(None, '아이디 또는 비밀번호가 올바르지 않습니다.')
@@ -73,7 +127,31 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+
+            # 세션에 있는 장바구니
+            old_cart = Cart.objects.get(cart_id=_cart_id(request))
+            
             auth_login(request, user)
+            
+            # 로그인 한 사용자의 장바구니
+            try:
+                new_cart = Cart.objects.get(cart_id=_cart_id(request))
+            except Cart.DoesNotExist:
+                new_cart = Cart.objects.create(cart_id = _cart_id(request))
+                new_cart.save()
+            # 세션에 있는 장바구니를 사용자의 카트로 합치기
+            if old_cart.cartitem_set.exists():
+                for session_item in old_cart.cartitem_set.all():
+                    cart_item, created = CartItem.objects.get_or_create(
+                        product=session_item.product, cart=new_cart, defaults={'quantity': session_item.quantity}
+                    )
+                    if not created:
+                        cart_item.quantity += session_item.quantity
+                        cart_item.save()
+                # 세션의 장바구니 삭제
+                old_cart.delete()
+
+
             return redirect('boss:index')
     else:
         form = CustomUserCreationForm()

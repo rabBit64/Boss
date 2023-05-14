@@ -24,4 +24,6 @@ urlpatterns = [
     path('', views.index),
     path('boss/', include('boss.urls')),
     path('accounts/', include('accounts.urls')),
+    path('kakaopay/', include('kakaopay.urls')),
+    path('cart/', include('cart.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
