@@ -87,11 +87,11 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="cnt">
                             <button id="decrement" style="width: 32px; height: 32px;"><i class="fa-solid fa-minus"></i></button>
-                            {% comment %} <span id="count" style="font-weight: bold;">1</span> {% endcomment %}
-                            <form action="#" class="d-inline" id="count_form" method="POST">
+                            <form action="{% url 'kakaopay:wait_product' %}" class="d-inline" id="count_form" method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" name="product_pk" value="{{ product.pk }}">
-                                <input id="count" type="number" value=1 class="" name="count" disabled>
+                                <input id="count" type="hidden" name="count">
+                                <input id="count1" type="number" name="count1" disabled>
                             </form>
                             <button id="increment" style="width: 32px; height: 32px;"><i class="fa-solid fa-plus"></i></button>
                         </div>
@@ -111,7 +111,7 @@
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-outline-primary btn_size me-1" onclick="addCart()">장바구니 담기</button>
 
-                <button type="submit" class="btn btn-primary btn_size" form="count_form">바로구매</button>
+                <button class="btn btn-primary btn_size" onclick="submitForm()">바로구매</button>
             </div>
 
         </div>
@@ -122,7 +122,7 @@
 
     <!-- 상품 후기 -->
     <p style="font-size: 24px; font-weight: bold;">상품 후기</p>
-    <a href="{% url 'boss:review_create' product.pk %}">[후기 작성]</a>
+    <div><a href="{% url 'boss:review_create' product.pk %}">[후기 작성]</a></div>
     <!-- 만약 상품 후기가 있다면 -->
     {% for review in reviews %}
     <div class="d-flex">
@@ -161,7 +161,8 @@
     // DOM 요소 가져오기
     const incrementBtn = document.getElementById("increment");
     const decrementBtn = document.getElementById("decrement");
-    const countSpan = document.getElementById("count");
+    const countInput = document.getElementById("count");
+    const count1Input = document.getElementById("count1");
     const subTotalPriceSpan = document.getElementById("sub_total_price");
     const price = subTotalPriceSpan.dataset.price
     const totalPriceSpan = document.getElementById("total_price");
@@ -174,10 +175,14 @@
     let subTotalPrice = price;
     let totalPrice = price;
     
+    countInput.value = count
+    count1Input.value = count
+
     // +1 버튼 클릭 시 현재 숫자 증가
     incrementBtn.addEventListener("click", () => {    
         count++;
-        countSpan.setAttribute("value", count)
+        countInput.value = count
+        count1Input.value = count
         
         subTotalPrice = count * price
         totalPrice = count * price
@@ -190,7 +195,8 @@
     decrementBtn.addEventListener("click", () => {
         if (count > 1) { // 현재 숫자가 1보다 큰 경우에만 감소
             count--;
-            countSpan.setAttribute("value", count)
+            countInput.value = count
+            count1Input.value = count
 
             subTotalPrice = count * price
             totalPrice = count * price
@@ -207,6 +213,11 @@
     function addCart() {
         location.href=`/cart/add/${productPk}/${count}/` 
         alert("장바구니에 담았습니다.")
+    }
+
+    function submitForm() {
+        countInput.value = count
+        document.getElementById('count_form').submit();
     }
 </script>
 
