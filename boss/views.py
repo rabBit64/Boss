@@ -1,16 +1,14 @@
-import os
-from django.conf import settings
-from django.db.models import F, Q
-from django.shortcuts import render, redirect
+from datetime import timedelta
+
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.db.models import Count, F, Q
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+
 from .models import Product, Review, ReviewImage, Category, Subcategory
 from .forms import ProductForm, ReviewForm, ReviewImageForm
-from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
-from django.db.models import Count
-from datetime import datetime, timedelta
-from django.utils import timezone
 
 
 def index(request):
@@ -24,7 +22,6 @@ def index(request):
     #print(discounted_products[0].get_unit_price)
     for i in range(6):
        discounted_info.append([discounted_products[i],discounted_products[i].get_discount_rate,discounted_products[i].get_unit_price])
-
 
     # boss/index_components/section.html에 들어갈 자료들
     titles = [
@@ -60,7 +57,6 @@ def index(request):
         )
     )
 
-
     data = [
         delivery_prod_best,
         ingredients_best,
@@ -79,6 +75,7 @@ def index(request):
     }
     return render(request, 'boss/index.html', context)
 
+  
 def detail(request, product_pk):
     product = Product.objects.get(pk=product_pk)
     reviews = Review.objects.filter(product=product)
@@ -88,6 +85,7 @@ def detail(request, product_pk):
         }
     return render(request, 'boss/detail.html', context)
 
+  
 @login_required
 def create(request):
     if request.method == "POST":
@@ -104,6 +102,7 @@ def create(request):
     }
     return render(request, 'boss/create.html', context)
 
+  
 @login_required
 def update_product(request, product_pk):
     product = Product.objects.get(pk=product_pk)
@@ -124,6 +123,7 @@ def update_product(request, product_pk):
     }
     return render(request, 'boss/update_product.html', context)
 
+  
 @login_required
 def delete(request, product_pk):
     product = Product.objects.get(pk=product_pk)
@@ -131,6 +131,7 @@ def delete(request, product_pk):
         product.delete()
     return redirect('boss:index')
 
+  
 @login_required
 def review_create(request, product_pk):
     product = Product.objects.get(pk=product_pk)
@@ -154,12 +155,14 @@ def review_create(request, product_pk):
     }
     return render(request, 'boss/review_create.html', context)
 
+  
 @login_required
 def review_delete(request, product_pk, review_pk):
     review = Review.objects.get(pk=review_pk)
     if request.user == review.user:
         review.delete()
     return redirect('boss:detail', product_pk)
+
   
 @login_required
 def review_update(request, product_pk, review_pk):
@@ -195,32 +198,49 @@ def review_update(request, product_pk, review_pk):
     return render(request, 'boss/review_update.html', context)
   
 
-
 def search(request):
     keyword = request.GET.get('keyword')
     category_id = request.GET.get('category')
     subcategory_id = request.GET.get('subcategory')
-    products = Product.objects.filter(name__contains=keyword)
+    min_price = request.GET.get('min_price')
+    delivery_fee_zero = request.GET.get('delivery_fee_zero')
+    q = Q()
+    q &= Q(name__contains=keyword)
 
     if category_id:
         category = get_object_or_404(Category, id=category_id)
-        products = products.filter(category=category)
-        if subcategory_id:
-            subcategory = get_object_or_404(Subcategory, id=subcategory_id)
-            if products.filter(subcategory=subcategory).exists():
-                products = products.filter(subcategory=subcategory)
-            else:
-                subcategory_id = None
-    categories = Category.objects.all()[:4]
+        q &= Q(category=category)
 
     if subcategory_id:
         subcategory = get_object_or_404(Subcategory, id=subcategory_id)
-        products = products.filter(subcategory=subcategory)
-    subcategories = Subcategory.objects.filter(product__in=products).distinct()
+        q &= Q(subcategory=subcategory)
 
+    if delivery_fee_zero == '1':  # delivery_fee_zero 값이 1인 경우 필터링
+        q &= Q(delivery_fee=0)
+
+    if min_price:
+        # Apply price range filtering
+        min_price = int(min_price)
+        if min_price < 7000:
+            q &= Q(price__lt=7000)
+        elif min_price < 15000:
+            q &= Q(price__gte=7000, price__lt=15000)
+        elif min_price < 30000:
+            q &= Q(price__gte=15000, price__lt=30000)
+        elif min_price < 50000:
+            q &= Q(price__gte=30000, price__lt=50000)
+        elif min_price < 100000:
+            q &= Q(price__gte=50000, price__lt=100000)    
+        else:
+            q &= Q(price__gte=100000)
+
+    categories = Category.objects.all()[:4]
+    subcategories = Subcategory.objects.all()
+    products = Product.objects.filter(q)
     len_element = 100
     paginator = Paginator(products, len_element)
     page_number = request.GET.get('page')
+
     if page_number is None:
         page_number = 1
     page_obj = paginator.get_page(page_number)
@@ -237,9 +257,11 @@ def search(request):
         'categories': categories,
         'subcategories': subcategories,
         'filtered_product_count': filtered_product_count,  # 필터링된 상품 개수 전달
+        'min_price': min_price,
     }
     return render(request, 'boss/search.html', context)
 
+  
 def subcategory_options(request):
     category_id = request.GET.get('category_id')
     subcategories = Subcategory.objects.filter(category_id=category_id)
@@ -250,6 +272,7 @@ def subcategory_options(request):
 
     return JsonResponse({'options': options})
 
+  
 @login_required
 def review_likes(request, product_pk, review_pk):
     review = Review.objects.get(pk=review_pk)

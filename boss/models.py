@@ -41,7 +41,6 @@ class Product(models.Model):
     weight = models.IntegerField(validators=[MinValueValidator(1)])  # 중량
     quantity = models.IntegerField(default=1) # 수량
     country = models.CharField(max_length=50) # 제조국
-
     price = models.IntegerField(validators=[MinValueValidator(1)])  #상품가격
     sale_price = models.IntegerField()
     
