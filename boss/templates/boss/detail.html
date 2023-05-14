@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load humanize %}
 
 {% block style %}
@@ -52,6 +53,7 @@
 
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'boss/css/detail.css' %}">
 <div class='row'>
     <div class="d-flex justify-content-around pt-5">
          <!-- 상품 이미지  -->
@@ -85,7 +87,12 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="cnt">
                             <button id="decrement" style="width: 32px; height: 32px;"><i class="fa-solid fa-minus"></i></button>
-                            <span id="count" style="font-weight: bold;">1</span>
+                            {% comment %} <span id="count" style="font-weight: bold;">1</span> {% endcomment %}
+                            <form action="#" class="d-inline" id="count_form" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_pk" value="{{ product.pk }}">
+                                <input id="count" type="number" value=1 class="" name="count" disabled>
+                            </form>
                             <button id="increment" style="width: 32px; height: 32px;"><i class="fa-solid fa-plus"></i></button>
                         </div>
 
@@ -102,13 +109,14 @@
 
 
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-outline-primary btn_size me-1" onclick="location.href='{% url 'cart:add_cart' product.pk %}'">장바구니 담기</button>
+                <button type="button" class="btn btn-outline-primary btn_size me-1" onclick="addCart()">장바구니 담기</button>
 
-                <button type="button" class="btn btn-primary btn_size" onclick="test()">바로구매</button>
+                <button type="submit" class="btn btn-primary btn_size" form="count_form">바로구매</button>
             </div>
 
         </div>
     </div>
+    <div id="my-data" data-product-pk="{{ product.pk }}"></div>
 
     <hr class="mt-5 mb-4">
 
@@ -155,8 +163,11 @@
     const decrementBtn = document.getElementById("decrement");
     const countSpan = document.getElementById("count");
     const subTotalPriceSpan = document.getElementById("sub_total_price");
-    const totalPriceSpan = document.getElementById("total_price");
     const price = subTotalPriceSpan.dataset.price
+    const totalPriceSpan = document.getElementById("total_price");
+    const dataElement = document.querySelector('#my-data');
+    const productPk = dataElement.dataset.productPk
+    
     
     // 현재 숫자를 저장할 변수 선언
     let count = 1;
@@ -166,7 +177,7 @@
     // +1 버튼 클릭 시 현재 숫자 증가
     incrementBtn.addEventListener("click", () => {    
         count++;
-        countSpan.textContent = count;
+        countSpan.setAttribute("value", count)
         
         subTotalPrice = count * price
         totalPrice = count * price
@@ -179,8 +190,8 @@
     decrementBtn.addEventListener("click", () => {
         if (count > 1) { // 현재 숫자가 1보다 큰 경우에만 감소
             count--;
-            countSpan.textContent = count;
-            
+            countSpan.setAttribute("value", count)
+
             subTotalPrice = count * price
             totalPrice = count * price
             
@@ -191,6 +202,11 @@
 
     function test() {
         console.log(totalPrice)
+    }
+
+    function addCart() {
+        location.href=`/cart/add/${productPk}/${count}/` 
+        alert("장바구니에 담았습니다.")
     }
 </script>
 

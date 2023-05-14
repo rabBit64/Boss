@@ -13,7 +13,7 @@ def _cart_id(request):
 
 
 # 카트 추가
-def add_cart(request, product_pk):
+def add_cart(request, product_pk, count):
     product = Product.objects.get(pk=product_pk)
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request))
@@ -22,12 +22,12 @@ def add_cart(request, product_pk):
         cart.save()
     try:
         cart_item = CartItem.objects.get(product=product, cart=cart)
-        cart_item.quantity += 1
+        cart_item.quantity += count
         cart_item.save()
     except CartItem.DoesNotExist:
         cart_item = CartItem.objects.create(
             product = product,
-            quantity = 1,
+            quantity = count,
             cart = cart
         )
         cart_item.save()
