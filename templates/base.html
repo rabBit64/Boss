@@ -30,10 +30,14 @@
 
   {% include 'category.html' %}
   {% comment %} <main class="body-content"> {% endcomment %}
-  <main class="body-content container maincontainer">
+  <main class="container maincontainer">
     {% block content %}
     {% endblock content %}
   </main>
+  <div class="body-content">
+    {% block content2 %}
+    {% endblock content2 %}
+  </div>
 
   <footer class="project-footer">
 
