@@ -160,7 +160,7 @@ def pay_product_cancel(request):
 # 결제 대기
 @login_required
 def wait_product(request):
-    count = request.POST.get('count')
+    count = request.POST.get('count1')
     product_pk = request.POST.get('product_pk')
     context = {
         'count': int(count),
