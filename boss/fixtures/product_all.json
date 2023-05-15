@@ -1,0 +1,831 @@
+[
+{
+    "model": "boss.product",
+    "pk": 1,
+    "fields": {
+        "name": "순살치킨 해마로 1kg 냉동",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/순살치킨_해마로_1kg_냉동_DELqVbJ",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "price": 12500,
+        "sale_price": 6000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 2,
+    "fields": {
+        "name": "사세통상 순살치킨가라아게(냉동 1kg/ea)",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/사세통상 순살치킨가라아게(냉동 1kg/ea_Wam0S9h",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "price": 12530,
+        "sale_price": 8500,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": [
+            1
+        ]
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 3,
+    "fields": {
+        "name": "[먹깨비네] 진주햄 골드 스모크햄 1kgx1개(냉장)",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/먹깨비네_진주햄_골드_스모크햄_1kgx1개냉장_EQ18mFS",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "price": 6700,
+        "sale_price": 5000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 4,
+    "fields": {
+        "name": "아워홈 그릴드 치킨브레스트 1kg (냉장)",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/아워홈_그릴드_치킨브레스트_1kg_냉장_ByM7NgI",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "price": 16900,
+        "sale_price": 10000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 5,
+    "fields": {
+        "name": "[택배]식자재왕 양념편육 430g",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/택배식자재왕_양념편육_430g_CssPXEe",
+        "weight": 430,
+        "quantity": 1,
+        "country": "국내 제조",
+        "price": 11100,
+        "sale_price": 10000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 6,
+    "fields": {
+        "name": "상도 닭똥집 튀김 1kg",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/상도_닭똥집_튀김_1kg_a1CR1sy",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "price": 12500,
+        "sale_price": 12000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 7,
+    "fields": {
+        "name": "에쓰푸드 통삼겹 차슈 700g",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/에쓰푸드_통삼겹_차슈_700g_DZvWMQm",
+        "weight": 700,
+        "quantity": 1,
+        "country": "대한민국",
+        "price": 20170,
+        "sale_price": 10000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 8,
+    "fields": {
+        "name": "에쓰푸드 보스턴핫 소시지 300g",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/에쓰푸드_보스턴핫_소시지_300g_loOgoEJ",
+        "weight": 300,
+        "quantity": 1,
+        "country": "대한민국",
+        "price": 5970,
+        "sale_price": 5000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 9,
+    "fields": {
+        "name": "[직배송]식자재왕 함박스테이크더블 1kg",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/직배송식자재왕_함박스테이크더블_1kg_a5tFlmO",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "price": 10300,
+        "sale_price": 9500,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 10,
+    "fields": {
+        "name": "[도매]순살치킨 1KG",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/식자재민족/도매순살치킨_1KG_aAYr3CL",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상세설명참조",
+        "price": 14900,
+        "sale_price": 13000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": [
+            2
+        ]
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 11,
+    "fields": {
+        "name": "친환경미니탕용기 158파이 중 (EL/흑색)",
+        "user": 3,
+        "category": 3,
+        "subcategory": 16,
+        "image": "products/씨앤라이프/친환경미니탕용기 158파이 중 (EL/흑색)/친환경미니탕용기_158파이_중.png",
+        "weight": 0,
+        "quantity": 400,
+        "country": "상품정보고시 참조",
+        "price": 90000,
+        "sale_price": 69000,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 12,
+    "fields": {
+        "name": "JH 4칸 도시락 신형",
+        "user": 3,
+        "category": 3,
+        "subcategory": 16,
+        "image": "products/씨앤라이프/JH 4칸 도시락 신형/JH_4칸_도시락_신형.png",
+        "weight": 0,
+        "quantity": 400,
+        "country": "상세내용참조",
+        "price": 45000,
+        "sale_price": 36500,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 13,
+    "fields": {
+        "name": "JH 냉면용기 대(백색)",
+        "user": 3,
+        "category": 3,
+        "subcategory": 16,
+        "image": "products/씨앤라이프/JH 냉면용기 대(백색)/JH_냉면용기_대.png",
+        "weight": 0,
+        "quantity": 400,
+        "country": "상세내용참조",
+        "price": 47000,
+        "sale_price": 38500,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 14,
+    "fields": {
+        "name": "크라프트 종이용기 800ml 300개",
+        "user": 3,
+        "category": 3,
+        "subcategory": 17,
+        "image": "products/씨앤라이프/크라프트 종이용기 800ml 300개/크라프트_종이용기_800ml_300개.png",
+        "weight": 0,
+        "quantity": 300,
+        "country": "상품정보고시 참조",
+        "price": 50900,
+        "sale_price": 50900,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 15,
+    "fields": {
+        "name": "덮밥용기 750cc 체크 종이용기 떡볶이컵(1000개)",
+        "user": 3,
+        "category": 3,
+        "subcategory": 17,
+        "image": "products/씨앤라이프/덮밥용기 750cc 체크 종이용기 떡볶이컵(1000개)/덮밥용기_750cc_체크_종이용기_떡볶이컵.png",
+        "weight": 0,
+        "quantity": 1000,
+        "country": "상품정보고시 참조",
+        "price": 79300,
+        "sale_price": 79300,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": [
+            3
+        ]
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 16,
+    "fields": {
+        "name": "107파이 32온스 PET 아이스컵_1박스 (600개입)",
+        "user": 3,
+        "category": 3,
+        "subcategory": 18,
+        "image": "products/씨앤라이프/107파이 32온스 PET 아이스컵_1박스 (600개입)/107파이_32온스_PET_아이스컵_1박스_.png",
+        "weight": 0,
+        "quantity": 600,
+        "country": "중국",
+        "price": 80280,
+        "sale_price": 80280,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 17,
+    "fields": {
+        "name": "유캔 캔시머 페트 투명캔 500ml",
+        "user": 3,
+        "category": 3,
+        "subcategory": 18,
+        "image": "products/씨앤라이프/유캔 캔시머 페트 투명캔 500ml/유캔_캔시머_페트_투명캔_500ml.png",
+        "weight": 0,
+        "quantity": 100,
+        "country": "상품정보고시 참조",
+        "price": 33550,
+        "sale_price": 30000,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 18,
+    "fields": {
+        "name": "비닐봉투(특소/소/중/대)-가족이 배달 포장 100장",
+        "user": 3,
+        "category": 3,
+        "subcategory": 19,
+        "image": "products/씨앤라이프/비닐봉투(특소/소/중/대)-가족이 배달 포장 100장/비닐봉투-가족이_배달_포장_100장.png",
+        "weight": 0,
+        "quantity": 100,
+        "country": "한성화학/국산",
+        "price": 4600,
+        "sale_price": 3900,
+        "delivery_fee": 0,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 19,
+    "fields": {
+        "name": "크라프트 도시락플랫 쇼핑백(중/무지)",
+        "user": 3,
+        "category": 3,
+        "subcategory": 19,
+        "image": "products/씨앤라이프/크라프트 도시락플랫 쇼핑백(중/무지)/크라프트_도시락플랫_쇼핑백.png",
+        "weight": 0,
+        "quantity": 200,
+        "country": "상품정보고시 참조",
+        "price": 31900,
+        "sale_price": 31900,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 20,
+    "fields": {
+        "name": "수저세트(한끼뚝딱/투명) [소량]",
+        "user": 3,
+        "category": 3,
+        "subcategory": 20,
+        "image": "products/씨앤라이프/수저세트(한끼뚝딱/투명) [소량]/수저세트_한끼뚝딱투명.png",
+        "weight": 0,
+        "quantity": 250,
+        "country": "중국",
+        "price": 23700,
+        "sale_price": 23700,
+        "delivery_fee": 0,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 21,
+    "fields": {
+        "name": "해피락 은박 보온/보냉팩(300x400) 200매",
+        "user": 3,
+        "category": 3,
+        "subcategory": 22,
+        "image": "products/씨앤라이프/해피락 은박 보온/보냉팩(300x400) 200매/해피락_은박_보온보냉팩_200매.png",
+        "weight": 0,
+        "quantity": 200,
+        "country": "한국",
+        "price": 80000,
+        "sale_price": 63400,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 22,
+    "fields": {
+        "name": "투명 워터아이스팩 (12x17) 소 128개",
+        "user": 3,
+        "category": 3,
+        "subcategory": 22,
+        "image": "products/씨앤라이프/투명 워터아이스팩 (12x17) 소 128개/투명_워터아이스팩소_128개.png",
+        "weight": 0,
+        "quantity": 128,
+        "country": "상품정보고시 참조",
+        "price": 22000,
+        "sale_price": 19800,
+        "delivery_fee": 0,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 23,
+    "fields": {
+        "name": "일회용 수저세트 숟가락 젓가락 냅킨 이쑤시개 밥이보약 KR 500개 [13:00출고마감]",
+        "user": 3,
+        "category": 3,
+        "subcategory": 20,
+        "image": "products/씨앤라이프/일회용 수저세트 숟가락 젓가락 냅킨 이쑤시개 밥이보약 KR 500개 [13:00출고마감]/일회용_수저세트_숟가락_젓가락_냅킨_이쑤시_KnwvGdZ.png",
+        "weight": 0,
+        "quantity": 500,
+        "country": "상품정보고시 참조",
+        "price": 67200,
+        "sale_price": 60000,
+        "delivery_fee": 0,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 24,
+    "fields": {
+        "name": "[무료배송]사세 버팔로윙, 1kg * 10봉",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/user1/[무료배송]사세 버팔로윙, 1kg * 10봉/사세_버팔로윙_10봉.png",
+        "weight": 1000,
+        "quantity": 10,
+        "country": "상품정보고시 참조",
+        "price": 180000,
+        "sale_price": 141000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": [
+            2
+        ]
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 25,
+    "fields": {
+        "name": "[22년/영암통합] 기운찬 신동진쌀 (신동진/상) 20kg",
+        "user": 2,
+        "category": 2,
+        "subcategory": 10,
+        "image": "products/user1/[22년/영암통합] 기운찬 신동진쌀 (신동진/상) 20kg/기운찬_신동진쌀_20kg.png",
+        "weight": 20000,
+        "quantity": 1,
+        "country": "전라남도 영암군",
+        "price": 57000,
+        "sale_price": 48800,
+        "delivery_fee": 3000,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 26,
+    "fields": {
+        "name": "사세 순살치킨가라게, 1kg",
+        "user": 2,
+        "category": 1,
+        "subcategory": 1,
+        "image": "products/user1/사세 순살치킨가라게, 1kg/사세_순살치킨가라게.png",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상품정보고시 참고",
+        "price": 11200,
+        "sale_price": 10000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 27,
+    "fields": {
+        "name": "허쉬 초콜릿칩 모찌쿠키 240g x 10개",
+        "user": 2,
+        "category": 1,
+        "subcategory": 3,
+        "image": "products/user1/허쉬 초콜릿칩 모찌쿠키 240g x 10개/허쉬_초콜릿칩_모찌쿠키_240g.png",
+        "weight": 240,
+        "quantity": 10,
+        "country": "상품정보고시 참조",
+        "price": 32000,
+        "sale_price": 31500,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 28,
+    "fields": {
+        "name": "[다홍] 알타리 총각김치 5kg + 아이스박스 발송",
+        "user": 2,
+        "category": 1,
+        "subcategory": 8,
+        "image": "products/user1/[다홍] 알타리 총각김치 5kg + 아이스박스 발송/알타리_총각김치_5kg_아이스박스_발송.png",
+        "weight": 5000,
+        "quantity": 1,
+        "country": "상세페이지참조",
+        "price": 35000,
+        "sale_price": 18500,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 29,
+    "fields": {
+        "name": "덴마크 클래식 우유 1L (16개)",
+        "user": 2,
+        "category": 1,
+        "subcategory": 6,
+        "image": "products/user1/덴마크 클래식 우유 1L (16개)/덴마크_클래식_우유_1L.png",
+        "weight": 1000,
+        "quantity": 16,
+        "country": "대한민국",
+        "price": 31472,
+        "sale_price": 30000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 30,
+    "fields": {
+        "name": "토스코 베이직 웍 28cm 5개입",
+        "user": 2,
+        "category": 4,
+        "subcategory": 23,
+        "image": "products/user1/토스코 베이직 웍 28cm 5개입/토스코_베이직_웍_28cm_5개입.png",
+        "weight": 0,
+        "quantity": 5,
+        "country": "대한민국",
+        "price": 76200,
+        "sale_price": 59800,
+        "delivery_fee": 3000,
+        "event": "쿠폰팩",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 31,
+    "fields": {
+        "name": "우드핸들 에스프레소 원웨이/투웨이 샷잔 5종 택1 50ml 100ml 150ml",
+        "user": 2,
+        "category": 4,
+        "subcategory": 25,
+        "image": "products/user1/우드핸들 에스프레소 원웨이/투웨이 샷잔 5종 택1 50ml 100ml 150ml/우드핸들_에스프레소_원웨이투웨이_샷잔_5종_택1_5_MmRPa8e.png",
+        "weight": 0,
+        "quantity": 1,
+        "country": "상품정보고시 참조",
+        "price": 5000,
+        "sale_price": 4500,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 32,
+    "fields": {
+        "name": "주코(JOOCO) 멜라민 민컵",
+        "user": 2,
+        "category": 4,
+        "subcategory": 24,
+        "image": "products/user1/주코(JOOCO) 멜라민 민컵/주코멜라민_민컵.png",
+        "weight": 0,
+        "quantity": 1,
+        "country": "대한민국",
+        "price": 1600,
+        "sale_price": 1400,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 33,
+    "fields": {
+        "name": "아이스팩-멀티(중)",
+        "user": 2,
+        "category": 3,
+        "subcategory": 22,
+        "image": "products/user1/아이스팩-멀티(중)/아이스팩-멀티.png",
+        "weight": 0,
+        "quantity": 300,
+        "country": "상품정보고시 참조",
+        "price": 23300,
+        "sale_price": 2000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 34,
+    "fields": {
+        "name": "유산지(150x150)",
+        "user": 2,
+        "category": 3,
+        "subcategory": 22,
+        "image": "products/user1/유산지(150x150)/유산지.png",
+        "weight": 0,
+        "quantity": 1000,
+        "country": "상품정보고시 참조",
+        "price": 19000,
+        "sale_price": 18000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 35,
+    "fields": {
+        "name": "에코코팅 노루지(정사각)",
+        "user": 2,
+        "category": 3,
+        "subcategory": 22,
+        "image": "products/user1/에코코팅 노루지(정사각)/에코코팅_노루지.png",
+        "weight": 0,
+        "quantity": 1000,
+        "country": "상품정보고시 참조",
+        "price": 23100,
+        "sale_price": 19000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 36,
+    "fields": {
+        "name": "PET보틀-사각주스(350ml)",
+        "user": 2,
+        "category": 3,
+        "subcategory": 18,
+        "image": "products/user1/PET보틀-사각주스(350ml)/PET보틀-사각주스.png",
+        "weight": 0,
+        "quantity": 100,
+        "country": "상품정보고시 참조",
+        "price": 57200,
+        "sale_price": 52000,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 37,
+    "fields": {
+        "name": "[박스/무료배송] 청정원 고소한 마요네즈 3.2Kg *4개입",
+        "user": 2,
+        "category": 1,
+        "subcategory": 5,
+        "image": "products/user1/[박스/무료배송] 청정원 고소한 마요네즈 3.2Kg *4개입/청정원_고소한_마요네즈_3.2Kg_4개입.png",
+        "weight": 0,
+        "quantity": 4,
+        "country": "상품정보고시 참조",
+        "price": 81600,
+        "sale_price": 51600,
+        "delivery_fee": 3000,
+        "event": "",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 38,
+    "fields": {
+        "name": "9+1 쫀쫀 스마트 니트릴 장갑 100매 블랙 대형 중형 소형 S M L",
+        "user": 2,
+        "category": 4,
+        "subcategory": 27,
+        "image": "products/user1/9+1 쫀쫀 스마트 니트릴 장갑 100매 블랙 대형 중형 소형 S M L/쫀쫀_스마트_니트릴_장갑.png",
+        "weight": 0,
+        "quantity": 100,
+        "country": "한국",
+        "price": 11000,
+        "sale_price": 4800,
+        "delivery_fee": 3000,
+        "event": "1+1",
+        "like_users": [
+            2
+        ]
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 39,
+    "fields": {
+        "name": "1+1 레몬에이드 350ml X 24캔 총48캔",
+        "user": 2,
+        "category": 1,
+        "subcategory": 2,
+        "image": "products/user1/1+1 레몬에이드 350ml X 24캔 총48캔/11_레몬에이드_350ml.png",
+        "weight": 350,
+        "quantity": 48,
+        "country": "국내",
+        "price": 20900,
+        "sale_price": 20900,
+        "delivery_fee": 3000,
+        "event": "1+1",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 40,
+    "fields": {
+        "name": "담터 국내산 사양 벌꿀 1kg 1+1",
+        "user": 2,
+        "category": 1,
+        "subcategory": 2,
+        "image": "products/user1/담터 국내산 사양 벌꿀 1kg 1+1/담터_국내산_사양_벌꿀_1kg_.png",
+        "weight": 1000,
+        "quantity": 2,
+        "country": "상품정보고시 참조",
+        "price": 19200,
+        "sale_price": 19200,
+        "delivery_fee": 3000,
+        "event": "1+1",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 41,
+    "fields": {
+        "name": "[2+1][소량] 비닐봉투 리뷰 (중/2호) 200장",
+        "user": 2,
+        "category": 3,
+        "subcategory": 19,
+        "image": "products/user1/[2+1][소량] 비닐봉투 리뷰 (중/2호) 200장/비닐봉투_리뷰_중2호200장.png",
+        "weight": 0,
+        "quantity": 200,
+        "country": "상품정보고시 참조",
+        "price": 18000,
+        "sale_price": 14500,
+        "delivery_fee": 3000,
+        "event": "1+1",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 42,
+    "fields": {
+        "name": "[2+1] [굿프랜즈] 롱오징어튀김 1000g",
+        "user": 2,
+        "category": 1,
+        "subcategory": 7,
+        "image": "products/user1/[2+1] [굿프랜즈] 롱오징어튀김 1000g/롱오징어튀김_1000g.png",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "상세페이지참조",
+        "price": 44070,
+        "sale_price": 33900,
+        "delivery_fee": 3000,
+        "event": "1+1",
+        "like_users": []
+    }
+},
+{
+    "model": "boss.product",
+    "pk": 43,
+    "fields": {
+        "name": "[5+1] 업소용 냉동 타코야끼 1kg 문어함량 13%",
+        "user": 2,
+        "category": 2,
+        "subcategory": 14,
+        "image": "products/user1/[5+1] 업소용 냉동 타코야끼 1kg 문어함량 13%/업소용_냉동_타코야끼_1kg.png",
+        "weight": 1000,
+        "quantity": 1,
+        "country": "중국",
+        "price": 7000,
+        "sale_price": 6300,
+        "delivery_fee": 3000,
+        "event": "1+1",
+        "like_users": []
+    }
+}
+]
