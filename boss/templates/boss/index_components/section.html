@@ -1,3 +1,4 @@
+
 <div class="body-content1-header">
   <div class="body-content1-header-txt">{{ title }}</div>
   <a href="#"><button class="more-button">더보기<i class="ri-arrow-right-s-line more-icon"></i></button></a>
@@ -6,20 +7,20 @@
 <div class="body-content1-subtitle">{{ subtitle }}</div>
 
 
-  <div class="content1-block">
-    {% for d,rate,unit_price in data %}
-    <a href="#" class="product-block">
-        <div class="goods-image-wrap"><img src="{{ d.image.url }}" class="product-img" alt="img"></div>
-        <div class="product-name">{{ d.name }}</div>
-        <div class="product-info">개당 {{unit_price}}원 / {{d.quantity}}ea</div>
-        <div class="offer-price">
-          <div class="discount-rate">{{rate}}%</div>
-          <div class="discount-price">{{d.sale_price}}원</div>  
-        </div>
-        <div class="before-price">{{d.price}}원</div>
-    </a>
-    {% endfor %}
-  </div>
+<div class="content2-block">
+  {% for d,rate,unit_price in data %}
+  <a href="#" class="product-block">
+      <div class="goods-image-wrap"><img src="{{ d.image.url }}" class="product-img" alt="img"></div>
+      <div class="product-name">{{ d.name }}</div>
+      <div class="product-info">개당 {{unit_price}}원 / {{d.quantity}}ea</div>
+      <div class="offer-price">
+        <div class="discount-rate">{{rate}}%</div>
+        <div class="discount-price">{{d.sale_price}}원</div>  
+      </div>
+      <div class="before-price">{{d.price}}원</div>
+  </a>
+  {% endfor %}
+</div>
 
 
 {% comment %} <ul>

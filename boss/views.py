@@ -26,14 +26,24 @@ def index(request):
     # boss/index_components/section.html에 들어갈 자료들
     titles = [
         '배달비품 BEST',
-        '믿고사는 식재료 BEST',
+        #'믿고사는 식재료 BEST',
         '주방용품부터 배달용기까지',
-        '쟁여두면 좋은 식재료',
+        #'쟁여두면 좋은 식재료',
     ]
     subtitles = [
         '사장님들이 많이 찾는 배달비품 모음',
-        '고민은 배송만 늦출뿐',
+        #'고민은 배송만 늦출뿐',
         '홀도, 배달도 여기서 장사 준비해요',
+        #'여기에서 만나보세요',
+    ]
+
+    #개당, g당 분리
+    titles2 = [
+        '믿고사는 식재료 BEST',
+        '쟁여두면 좋은 식재료',
+    ]
+    subtitles2 = [
+        '고민은 배송만 늦출뿐',
         '여기에서 만나보세요',
     ]
     
@@ -49,26 +59,35 @@ def index(request):
         subcategory__in=(
             16, 17, 18, 19, 20, 22, 26
         ),
-        price__gt=F('sale_price'))[:6]
-    # Product.objects.filter(price__gt=F('sale_price')).exclude(sale_price=0)[:6]
+        price__gt=F('sale_price'))
     ingredients_best = best_products.filter(
         subcategory__in=(
             i for i in range(1, 16)
         )
-    )
+    ) 
+    delivery_prod_all = Product.objects.all().order_by('-id').filter(
+            subcategory__gte=16
+        )
 
     #배달비품 기준단가 (개당) 계산
     delivery_prod_best_info = []
-    for i in range(6):
+    #믿고사는 식재료 BEST 기준단가 (g당/개당) 분리 
+    ingredients_best_info = []
+    #주방용품부터 배달용기까지
+    delivery_prod_all_info = []
+    for i in range(12):
         delivery_prod_best_info.append([delivery_prod_best[i], delivery_prod_best[i].get_discount_rate,delivery_prod_best[i].get_unit_price2])  
-
+        # ingredients_best_info.append([ingredients_best[i], ingredients_best[i].get_discount_rate,delivery_prod_best[i].get_unit_price2])
+        delivery_prod_all_info.append([delivery_prod_all[i],delivery_prod_all[i].get_discount_rate,delivery_prod_all[i].get_unit_price2])
     data = [
         # delivery_prod_best,
         delivery_prod_best_info,
         # ingredients_best,
+        # ingredients_best_info,
         # Product.objects.filter(
         #     subcategory__gte=16
         # ),
+        delivery_prod_all_info,
         # Product.objects.filter(
         #     Q(subcategory__lte=15) & Q(weight__gte=1000)
         # ),

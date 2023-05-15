@@ -43,7 +43,7 @@ class Product(models.Model):
     country = models.CharField(max_length=50) # 제조국
     price = models.IntegerField(validators=[MinValueValidator(1)])  #상품가격
     sale_price = models.IntegerField(blank=True)
-    
+    # timestamp = models.DateTimeField(default=timezone.now)
     #### 모델 할인율, 1+1 상품 여부, 무료배송 여부 추가
     # discount_rate = models.IntegerField(default=0)
     delivery_fee = models.IntegerField(default=0)
