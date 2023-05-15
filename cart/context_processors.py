@@ -3,6 +3,11 @@ from .views import _cart_id
 
 
 def counter(request):
+    try:
+        cart = Cart.objects.get(cart_id=_cart_id(request))
+    except Cart.DoesNotExist:
+        cart = Cart.objects.create(cart_id = _cart_id(request))
+        cart.save()
     item_count = 0
     try:
         cart = Cart.objects.filter(cart_id=_cart_id(request))
