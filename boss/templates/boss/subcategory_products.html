@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+{% block style %}
+.thick-hr {
+  height: 3px;
+  background-color: black;
+  opacity: 1;
+}
+.body-content {
+  background-color: white;
+  min-height: 1000px;
+}
+.category {
+  margin-bottom: 10px;
+}
+
+.subcategory {
+  margin-left: 20px;
+}
+
+.subcategory.hidden {
+  display: none;
+}
+
+.category_filter.hidden {
+  display: none;
+}
+
+button{
+  background-color: white;
+}
+
+.expand-button,
+.collapse-button {
+  cursor: pointer;
+  width : 10%;
+  border : none;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.category-button {
+  width: 100%;
+  border: none;
+  text-align: left;
+  height: 56px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.subcategory-button {
+  width: 90%;
+  border: none;
+  text-align: left;
+  height: 56px;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid #ccc;
+}
+.subcategory-choice{
+  width:90%;
+  border: none;
+  text-align: left;
+  height: 44px;
+  font-size: 14px;
+}
+
+.filter-reset{
+  width: 100%;
+  margin-top: 15px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.filter-check{
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  display: flex;
+  padding-left: 8px;
+  cursor: pointer;
+  color: inherit;
+  user-select: none;
+  min-height: 26px;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.filter-checkdiv{
+  height: 44px;
+}
+.card{
+  border:none;
+}
+
+.card-body{
+  height: 120px;
+}
+.card_name{
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-align: start;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 40px;
+  word-break: break-all;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  color: rgb(24, 26, 28);
+}
+.card_weight{
+  border: 0px;
+  padding: 0px;
+  margin: 2px 0px 0px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-align: start;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  max-height: 16px;
+  word-break: break-all;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  color: rgb(126, 128, 130);
+}
+.card_discount_percent{
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.4px;
+  font-weight: 700;
+  color: rgb(255, 64, 62);
+  margin-right: 4px;
+}
+.card_saleprice{
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.4px;
+  font-weight: 700;
+  color: rgb(24, 26, 28);
+  margin-right: 3px;
+}
+.card_price{
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  font-weight: 500;
+  color: rgb(177, 179, 181);
+  text-decoration: line-through;
+}
+.card_ppw{
+  border: 0px;
+  padding: 0px;
+  margin: 2px 0px 0px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-align: start;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 32px;
+  word-break: break-all;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  color: rgb(24, 26, 28);
+}
+.card_free_delivery{
+  display: inline-block;
+  padding: 4px;
+  height: 20px;
+  color: rgb(126, 128, 130);
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(213, 215, 217);
+  border-radius: 4px;
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: -0.2px;
+  font-weight: 500;
+}
+.price_container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sorting_button{
+  border: 0px;
+  padding: 0px;
+  margin-left: 10px;
+  outline: none;
+  background: none;
+  appearance: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  color: rgb(126, 128, 130);
+}
+.pages-container {
+  display: flex;
+  justify-content: center; /* 가운데 정렬을 원하면 추가 */
+}
+.cart_button{
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  outline: none;
+  appearance: none;
+  position: absolute;
+  top: 140px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.sorting_button::after {
+  content: "";
+  margin-left:10px;
+  width: 1px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sorting_button.no-after::after {
+  display: none;
+}
+
+.custom-col-2 {
+  width: calc(100% / 5);
+}
+
+.categoryname {
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.4px;
+  font-weight: 500;
+  border: 0px;
+  padding: 0px;
+  margin: 1px 0px 40px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+{% endblock style %}
+{% block content %}
+  <div class = "categoryname">
+    <h2>{{category_name}}</h2>
+  </div>
+  <div class="row g-4" style = "height : 100%;">
+    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; height: 40px; background-color: rgb(243, 245, 247);">
+      <div>
+        <p style="margin: 0;">총 <span style = "font-weight: 700;">{{ product_count }}</span>개의 상품</p>
+      </div>
+      <div class="d-flex">
+        <button name="sort" value="1" class="sorting_button filtering filter-check ">kg당 단가순</button>
+        <button name="sort" value="2" class="sorting_button filtering filter-check ">개당 단가순</button>
+        <button name="sort" value="3" class="sorting_button no-after filtering filter-check ">낮은가격순</button>
+      </div>
+    </div>
+      {% for product in products %}
+          <div class="col-2 custom-col-2" style="height: 350px; flex-grow: 0;">
+                  <div class="card ">
+                    <div>
+                      {% if product.image %}
+                        <div>
+                          <a href="{% url 'boss:detail' product.pk %}">
+                            <img src="{{ product.image.url }}" class="card-img-top rounded-1 position-relative" alt="image">
+                          </a>
+                          <button type="button" class="cart_button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <svg width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M23.713 7.118c.158.077.296.188.405.325a1.167 1.167 0 01.256 1.016L22.17 17.5a1.167 1.167 0 01-1.166.875H8.169a1.167 1.167 0 01-1.166-.956l-2.1-11.784a1.167 1.167 0 00-1.167-.968h-1.4V2.334h1.4a3.5 3.5 0 013.453 2.893L7.504 7h15.704c.175.001.348.041.505.118zM9.15 16.042h10.944l1.633-6.709H7.936l1.213 6.709zm-.396 3.406a3.267 3.267 0 103.266 3.267 3.278 3.278 0 00-3.266-3.267zm0 4.434a1.167 1.167 0 110-2.333 1.167 1.167 0 010 2.333zm12.25-4.434a3.267 3.267 0 103.266 3.267 3.278 3.278 0 00-3.266-3.267zm0 4.434a1.166 1.166 0 110-2.333 1.166 1.166 0 010 2.333z" fill="#1A7CFF"></path></svg>
+                          </button>
+                        </div>
+                      {% comment %} {% else %}
+                          <img src="{% static 'No-Image-Placeholder.svg.png' %}" class="card-img-top product-image" alt="image"> {% endcomment %}
+                      {% endif %}
+                    </div>
+                      <a href="{% url 'boss:detail' product.pk %}">
+                        <div class="card-body p-0">
+                          <p class="card_name">{{product.name}} </p>
+                          <p class="card_weight">{{product.weight}}g </p>
+                          {% if  product.price == product.sale_price %}
+                          <span class = "card_saleprice">{{product.price}}원</span>
+                          {% else%}
+                          <div class="price_container">
+                            <span class="card_discount_percent">
+                              {{ product.get_discount_rate|floatformat:0 }}%
+                            </span>
+                            <span class = "card_saleprice">{{product.sale_price}}원</span> 
+                            <span class = "card_price">{{product.price}}원</span>
+                          </div>
+                          {% endif %}
+                          <p class="card_ppw">100g 당 {{product.get_unit_price}}원/{{product.quantity}}ea</p>
+                          {% if product.delivery_fee == 0 %}
+                            <div class = "card_free_delivery">무료배송</div>
+                          {% endif %}
+                        </div>
+                      </a>
+                  </div>
+          </div>
+
+      {% empty %}
+          <p>아직 등록된 상품이 없어요.</p>
+      {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block script %}
+
+    $(document).ready(function() {
+      // Hide all subcategories initially
+      $('.subcategory').addClass('hidden');
+
+      // Expand all subcategories when the "Expand All" button is clicked
+      $('#expand-all-button').click(function() {
+        $('.subcategory').removeClass('hidden');
+      });
+
+      // Collapse all subcategories when the "Collapse All" button is clicked
+      $('#collapse-all-button').click(function() {
+        $('.subcategory').addClass('hidden');
+      });
+
+      // Toggle subcategories when a category button is clicked
+      $('.expand-button').click(function(e) {
+        e.preventDefault();
+        var subcategoryContainer = $(this).parent().next('.subcategory');
+        subcategoryContainer.toggleClass('hidden');
+        $(this).toggleClass('expanded');
+      });
+
+      $('.expand-button').click(function() {
+        $(this).toggleClass('rotate');
+        if ($(this).hasClass('rotate')) {
+          $(this).animate({ deg: -180 }, {
+            duration: 100, // 애니메이션 속도 조정 (단위: 밀리초)
+            step: function(now) {
+              $(this).css('transform', 'rotate(' + now + 'deg)');
+            }
+          });
+        } else {
+          $(this).animate({ deg: 0 }, {
+            duration: 100, // 애니메이션 속도 조정 (단위: 밀리초)
+            step: function(now) {
+              $(this).css('transform', 'rotate(' + now + 'deg)');
+            }
+          });
+        }
+      });
+      
+      $('.subcategory-button').click(function() {
+        $('.subcategory-button').removeClass('active');
+        $(this).addClass('active');
+      });
+
+      $('.expand-category').click(function() {
+        var category_filter = $(this).siblings('.category_filter');
+        category_filter.toggleClass('hidden');
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('search-form');
+      var button = form.querySelector('.category-button');
+  
+      button.addEventListener('click', function() {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'delivery_fee_zero');
+        input.setAttribute('value', '1');
+        form.appendChild(input);
+  
+        form.submit();
+      });
+    });
+
+    const buttons = document.querySelectorAll('.filtering');
+
+    buttons.forEach((btn) => {
+      const btnName = btn.getAttribute('name');
+      const btnValue = btn.getAttribute('value');
+      btn.addEventListener('click', () => {
+        const Url = window.location.href;
+    
+        if (Url.includes(`${btnName}=${btnValue}`)) {
+          const newUrl = Url.replace(`${btnName}=${btnValue}`, '');
+          window.location.href = newUrl;
+        } else if (Url.includes(`${btnName}=`)) {
+          const newUrl = Url.replace(new RegExp(`${btnName}=[^&]+`), `${btnName}=${btnValue}`);
+          window.location.href = newUrl;
+        } else {
+          const separator = Url.includes('?') ? '&' : '?';
+          const newUrl = `${Url}${separator}${btnName}=${btnValue}`;
+          window.location.href = newUrl;
+        }
+      });
+    });
+ 
+
+{% endblock script %}

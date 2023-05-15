@@ -14,5 +14,6 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('<int:product_pk>/reviews/<int:review_pk>/likes/', views.review_likes, name='review_likes'),
     path('subcategory-options/', views.subcategory_options, name='subcategory_options'),
-
+    path('category_products/<int:category_id>/', views.category_products, name='category_products'),
+    path('subcategory_products/<int:subcategory_id>/', views.subcategory_products, name='subcategory_products'),
 ]

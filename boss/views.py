@@ -291,3 +291,39 @@ def review_likes(request, product_pk, review_pk):
     else:
         review.like_users.add(request.user)
     return redirect('boss:detail', product_pk)
+
+def category_products(request, category_id):
+    sort = request.GET.get('sort')
+    category = get_object_or_404(Category, id=category_id)
+    category_products = Product.objects.filter(category_id=category_id)
+    if sort == '1':  # 무게당 가격
+        category_products = category_products.annotate(unit_price=Cast(F('sale_price') / F('weight') * 100, output_field=FloatField())).order_by('unit_price')
+    elif sort == '2': # 개당 가격
+        category_products = category_products.annotate(unit_price=Cast(F('sale_price') / F('quantity') * 100, output_field=FloatField())).order_by('unit_price')
+    else : #낮은 가격
+        category_products = category_products.order_by('sale_price')
+    product_count = category_products.count()  # 상품 개수
+    context = {
+        'category_name': category.name,
+        'products': category_products,
+        'product_count': product_count,
+    }
+    return render(request, 'boss/category_products.html', context)
+
+def subcategory_products(request, subcategory_id):
+    sort = request.GET.get('sort')
+    category = get_object_or_404(Subcategory, id=subcategory_id)
+    category_products = Product.objects.filter(subcategory_id=subcategory_id)
+    if sort == '1':  # 무게당 가격
+        category_products = category_products.annotate(unit_price=Cast(F('sale_price') / F('weight') * 100, output_field=FloatField())).order_by('unit_price')
+    elif sort == '2': # 개당 가격
+        category_products = category_products.annotate(unit_price=Cast(F('sale_price') / F('quantity') * 100, output_field=FloatField())).order_by('unit_price')
+    else : #낮은 가격
+        category_products = category_products.order_by('sale_price')
+    product_count = category_products.count()  # 상품 개수
+    context = {
+        'category_name': category.name,
+        'products': category_products,
+        'product_count': product_count,
+    }
+    return render(request, 'boss/subcategory_products.html', context)
