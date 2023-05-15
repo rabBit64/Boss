@@ -2,14 +2,13 @@ from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Count, F, Q
+from django.db.models import Count, F, Q, Avg, FloatField
 from django.http import JsonResponse
+from django.db.models.functions import Cast
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
-
 from .models import Product, Review, ReviewImage, Category, Subcategory
 from .forms import ProductForm, ReviewForm, ReviewImageForm
-
 
 def index(request):
     Products = Product.objects.order_by('-pk')[:6]
@@ -142,11 +141,11 @@ def index(request):
 
   
 def detail(request, product_pk):
-    product = Product.objects.get(pk=product_pk)
-    reviews = Review.objects.filter(product=product)
+    product = Product.objects.prefetch_related('review_set').get(pk=product_pk)
     context = {
         'product': product,
-        'reviews': reviews,
+        'reviews': product.review_set.all(),
+        'rating': round(product.review_set.aggregate(Avg('rating')).get('rating__avg'), 1),
         }
     return render(request, 'boss/detail.html', context)
 
@@ -269,6 +268,8 @@ def search(request):
     subcategory_id = request.GET.get('subcategory')
     min_price = request.GET.get('min_price')
     delivery_fee_zero = request.GET.get('delivery_fee_zero')
+    discount = request.GET.get('discount')
+    sort = request.GET.get('sort')
     q = Q()
     q &= Q(name__contains=keyword)
 
@@ -282,26 +283,34 @@ def search(request):
 
     if delivery_fee_zero == '1':  # delivery_fee_zero 값이 1인 경우 필터링
         q &= Q(delivery_fee=0)
-
+    if discount == '1': 
+        q &= Q(sale_price__lt=F('price')) 
     if min_price:
         # Apply price range filtering
         min_price = int(min_price)
         if min_price < 7000:
-            q &= Q(price__lt=7000)
+            q &= Q(sale_price__lt=7000)
         elif min_price < 15000:
-            q &= Q(price__gte=7000, price__lt=15000)
+            q &= Q(sale_price__gte=7000, sale_price__lt=15000)
         elif min_price < 30000:
-            q &= Q(price__gte=15000, price__lt=30000)
+            q &= Q(sale_price__gte=15000, sale_price__lt=30000)
         elif min_price < 50000:
-            q &= Q(price__gte=30000, price__lt=50000)
+            q &= Q(sale_price__gte=30000, sale_price__lt=50000)
         elif min_price < 100000:
-            q &= Q(price__gte=50000, price__lt=100000)    
+            q &= Q(sale_price__gte=50000, sale_price__lt=100000)    
         else:
-            q &= Q(price__gte=100000)
+            q &= Q(sale_price__gte=100000)
 
     categories = Category.objects.all()[:4]
     subcategories = Subcategory.objects.all()
     products = Product.objects.filter(q)
+
+    if sort == '1':  # 무게당 가격
+        products = products.annotate(unit_price=Cast(F('sale_price') / F('weight') * 100, output_field=FloatField())).order_by('unit_price')
+    elif sort == '2': # 개당 가격
+        products = products.annotate(unit_price=Cast(F('sale_price') / F('quantity') * 100, output_field=FloatField())).order_by('unit_price')
+    else : #낮은 가격
+        products = products.order_by('sale_price')
     len_element = 100
     paginator = Paginator(products, len_element)
     page_number = request.GET.get('page')
@@ -311,9 +320,8 @@ def search(request):
     page_obj = paginator.get_page(page_number)
     len_page = (len(products) + 1) // len_element
     pages = range(1, len_page + 1)
-    
     filtered_product_count = products.count()  # 필터링된 상품 개수
-    
+
     context = {
         'products': page_obj,
         'keyword': keyword,
@@ -323,6 +331,7 @@ def search(request):
         'subcategories': subcategories,
         'filtered_product_count': filtered_product_count,  # 필터링된 상품 개수 전달
         'min_price': min_price,
+
     }
     return render(request, 'boss/search.html', context)
 
@@ -346,3 +355,39 @@ def review_likes(request, product_pk, review_pk):
     else:
         review.like_users.add(request.user)
     return redirect('boss:detail', product_pk)
+
+def category_products(request, category_id):
+    sort = request.GET.get('sort')
+    category = get_object_or_404(Category, id=category_id)
+    category_products = Product.objects.filter(category_id=category_id)
+    if sort == '1':  # 무게당 가격
+        category_products = category_products.annotate(unit_price=Cast(F('sale_price') / F('weight') * 100, output_field=FloatField())).order_by('unit_price')
+    elif sort == '2': # 개당 가격
+        category_products = category_products.annotate(unit_price=Cast(F('sale_price') / F('quantity') * 100, output_field=FloatField())).order_by('unit_price')
+    else : #낮은 가격
+        category_products = category_products.order_by('sale_price')
+    product_count = category_products.count()  # 상품 개수
+    context = {
+        'category_name': category.name,
+        'products': category_products,
+        'product_count': product_count,
+    }
+    return render(request, 'boss/category_products.html', context)
+
+def subcategory_products(request, subcategory_id):
+    sort = request.GET.get('sort')
+    category = get_object_or_404(Subcategory, id=subcategory_id)
+    category_products = Product.objects.filter(subcategory_id=subcategory_id)
+    if sort == '1':  # 무게당 가격
+        category_products = category_products.annotate(unit_price=Cast(F('sale_price') / F('weight') * 100, output_field=FloatField())).order_by('unit_price')
+    elif sort == '2': # 개당 가격
+        category_products = category_products.annotate(unit_price=Cast(F('sale_price') / F('quantity') * 100, output_field=FloatField())).order_by('unit_price')
+    else : #낮은 가격
+        category_products = category_products.order_by('sale_price')
+    product_count = category_products.count()  # 상품 개수
+    context = {
+        'category_name': category.name,
+        'products': category_products,
+        'product_count': product_count,
+    }
+    return render(request, 'boss/subcategory_products.html', context)

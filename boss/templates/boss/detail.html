@@ -63,7 +63,7 @@
 
          <!-- 상품명 & 가격  -->
         <div class='d-flex flex-column ms-3'>
-            <p style="font-size: 16px; font-weight: bold;">{{ product.category }} - {{ product.subcategory }} </p>
+            <p style="font-size: 16px; font-weight: bold;">{{ product.category }} - {{ product.subcategory }} </p>      
             <p style="font-size: 20px; font-weight: bold;">제품명 {{ product.name }}</p>
             <p style="font-size: 24px; font-weight: bold;">
                 <span class="text-danger">{{ product.get_discount_rate }}%</span> 
@@ -71,7 +71,7 @@
                 <del class="text-secondary">{{ product.price|intcomma }}원</del>
             </p>
             <p style="font-size: 14px; color: gray;">배송비 <span class="ms-4" style="color: black;">3500원 | CJ대한통운</span></p>
-
+            <h1>{{ rating }}</h1>
 
             <div class='box1 d-flex flex-column mb-3'>
                 <p class="m-0 fw" style="height: 35px; font-size: 14px; color: gray;">중량 : {{ product.weight|intcomma }}g</p>
