@@ -2,9 +2,8 @@ from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Count, F, Q
+from django.db.models import Count, F, Q, Avg, FloatField
 from django.http import JsonResponse
-from django.db.models import Q, F, FloatField
 from django.db.models.functions import Cast
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
@@ -77,11 +76,11 @@ def index(request):
 
   
 def detail(request, product_pk):
-    product = Product.objects.get(pk=product_pk)
-    reviews = Review.objects.filter(product=product)
+    product = Product.objects.prefetch_related('review_set').get(pk=product_pk)
     context = {
         'product': product,
-        'reviews': reviews,
+        'reviews': product.review_set.all(),
+        'rating': round(product.review_set.aggregate(Avg('rating')).get('rating__avg'), 1),
         }
     return render(request, 'boss/detail.html', context)
 

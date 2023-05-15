@@ -99,9 +99,13 @@ class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_reviews', blank=True)
+    rating = models.IntegerField('평점', default=5)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Review #{self.id}, on {self.product}, by {self.user}'
 
 
 class ReviewImage(models.Model):
