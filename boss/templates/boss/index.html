@@ -19,7 +19,7 @@
         <!--product 1개 block(디테일 링크연결)-->
       
         {% for product,rate,unit_price in  discounted_info %}
-        <a href="#" class="product-block">
+        <a href="{% url 'boss:detail' product.pk %}" class="product-block">
             <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img" alt="img"></div>
             <div class="product-name">{{ product.name }}</div>
             <div class="product-info">100g당 {{unit_price}}원</div>

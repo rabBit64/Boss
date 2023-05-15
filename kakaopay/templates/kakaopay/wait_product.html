@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="box1 text-center fs-2">
+  <p>카카오페이 결제중입니다.</p>
+  <p>결제창을 확인해주세요.</p>
+  {% comment %} <button class="btn btn-warning" onclick="location.href='{% url 'boss:index' %}'">홈으로</button> {% endcomment %}
+</div>
+<span id="pay_data" data-product-pk="{{ product_pk }}" data-count="{{ count }}" hidden></span>
+<script src="{% static 'kakaopay/js/wait_product.js' %}"></script>
+{% endblock content %}

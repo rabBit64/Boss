@@ -1,5 +1,6 @@
-const cartIdTag = document.querySelector('#pay_url')
-const cartId = cartIdTag.dataset.cartId
+const payDataTag = document.querySelector('#pay_data')
+const productPk = payDataTag.dataset.productPk
+const count = payDataTag.dataset.count
 
 let popupWindow
 
@@ -10,7 +11,7 @@ function openPopup() {
   const left = (window.innerWidth / 2) - (popupWidth / 2)
   const top = (window.innerHeight / 2) - (popupHeight / 2)
   
-  popupWindow = window.open(`/kakaopay/pay/${cartId}/`, 'pay', `fullscreen=1, width=${popupWidth}, height=${popupHeight}, top=${top}, left=${left}, location=no, status=yes, scrollbars=yes`)
+  popupWindow = window.open(`/kakaopay/pay_product/${productPk}/${count}/`, 'pay_product', `fullscreen=1, width=${popupWidth}, height=${popupHeight}, top=${top}, left=${left}, location=no, status=yes, scrollbars=yes`)
   
   checkIfPopupIsClosed()
 }
@@ -20,7 +21,7 @@ function checkIfPopupIsClosed() {
   const checkInterval = setInterval(function() {
     if (popupWindow && popupWindow.closed) {
       clearInterval(checkInterval);
-      window.location = '/cart/'
+      window.location = `/boss/${productPk}/` // 상품 상세 페이지로 이동
     }
   }, 1000);
 }
