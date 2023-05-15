@@ -31,7 +31,6 @@ def index(request):
         '쟁여두면 좋은 식재료',
     ]
     subtitles = [
-
         '사장님들이 많이 찾는 배달비품 모음',
         '고민은 배송만 늦출뿐',
         '홀도, 배달도 여기서 장사 준비해요',
@@ -49,7 +48,7 @@ def index(request):
     delivery_prod_best = best_products.filter(
         subcategory__in=(
             16, 17, 18, 19, 20, 22, 26
-        ))
+        ))[:6]
     
     ingredients_best = best_products.filter(
         subcategory__in=(
@@ -73,6 +72,7 @@ def index(request):
         'discounted_info': discounted_info,
         'section_data': zip(titles, subtitles, data),
     }
+    print(data)
     return render(request, 'boss/index.html', context)
 
   

@@ -1,8 +1,31 @@
-<h1>{{ title }}</h1>
-<h4>{{ subtitle }}</h4>
+<div class="body-content1-header">
+  <div class="body-content1-header-txt">{{ title }}</div>
+  <a href="#"><button class="more-button">더보기<i class="ri-arrow-right-s-line more-icon"></i></button></a>
+</div>
+
+<div class="body-content1-subtitle">{{ subtitle }}</div>
+
+
+  {% comment %} <div class="content1-block">
+    {% for d in  data %}
+    <a href="{% url 'boss:detail' product.pk %}" class="product-block">
+        <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img" alt="img"></div>
+        <div class="product-name">{{ product.name }}</div>
+        <div class="product-info">100g당 {{unit_price}}원</div>
+        <div class="offer-price">
+          <div class="discount-rate">{{rate}}%</div>
+          <div class="discount-price">{{product.sale_price}}원</div>  
+        </div>
+        <div class="before-price">{{product.price}}원</div>
+    </a>
+    {% endfor %}
+  </div> {% endcomment %}
+
+
 <ul>
   {% for d in data %}
     <li>{{ d.name }}</li>
+    <li><img src="{{ d.image.url }}"></li>
     <li>{{ d.sale_price }}</li>
   {% endfor %}
 </ul>

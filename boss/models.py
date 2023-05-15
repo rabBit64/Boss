@@ -38,11 +38,11 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to=get_upload_path, blank=True)
-    weight = models.IntegerField(validators=[MinValueValidator(1)])  # 중량
+    weight = models.IntegerField(validators=[MinValueValidator(0)])  # 중량 (규격으로 제공되는 경우 있어서 우선 0으로 수정)
     quantity = models.IntegerField(default=1) # 수량
     country = models.CharField(max_length=50) # 제조국
     price = models.IntegerField(validators=[MinValueValidator(1)])  #상품가격
-    sale_price = models.IntegerField()
+    sale_price = models.IntegerField(blank=True)
     
     #### 모델 할인율, 1+1 상품 여부, 무료배송 여부 추가
     # discount_rate = models.IntegerField(default=0)
