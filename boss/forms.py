@@ -4,17 +4,22 @@ from .models import Product, Review, ReviewImage, Category, Subcategory
 
 
 class ProductForm(forms.ModelForm):
+
+    # image = forms.ImageField(label='상품 이미지 추가',
+    #     widget=forms.ClearableFileInput (
+    #     attrs={'class': 'form-control mb-2', 'style': 'width: 360px;',}))
+
     name = forms.CharField(label='상품명', label_suffix='', widget=forms.TextInput(
-        attrs={'class': 'form-control placeholder-font','style': 'width: 180px;', 'placeholder': '상품명 입력',}))
+        attrs={'class': 'form-control mb-2 placeholder-font','style': 'width: 500px;', 'placeholder': '상품명 입력',}))
     
     weight = forms.IntegerField(label='무게', label_suffix='', widget=forms.NumberInput(
-        attrs={'class': 'form-control placeholder-font','style': 'width: 180px;', 'placeholder': '무게 입력', }))
+        attrs={'class': 'form-control mb-2 placeholder-font','style': 'width: 500px;', 'placeholder': '무게 입력', }))
 
     country = forms.CharField(label='원산지', label_suffix='', widget=forms.TextInput(
-        attrs={'class': 'form-control placeholder-font','style': 'width: 180px;', 'placeholder': '원산지 입력',}))
+        attrs={'class': 'form-control mb-2 placeholder-font','style': 'width: 500px;', 'placeholder': '원산지 입력',}))
     
     quantity = forms.IntegerField(label='수량', label_suffix='', widget=forms.NumberInput(
-        attrs={'class': 'form-control placeholder-font','style': 'width: 180px;', 'placeholder': '수량 입력', }))
+        attrs={'class': 'form-control mb-2 placeholder-font','style': 'width: 500px;', 'placeholder': '수량 입력', }))
     
 
     CATEGORIES= (
@@ -23,11 +28,11 @@ class ProductForm(forms.ModelForm):
         ('배달용품', '배달용품'), 
         ('주방용품', '주방용품'), 
     )
-    category = forms.ChoiceField(label='카테고리',
+    category = forms.ChoiceField(label='카테고리', label_suffix='', 
         widget=forms.Select(
             attrs={
-                'class' : 'form-select mt-2',
-                'style': 'width: 180px;',
+                'class' : 'form-select mb-2',
+                'style': 'width: 500px;',
             }
         ),
         choices=CATEGORIES)
@@ -63,35 +68,36 @@ class ProductForm(forms.ModelForm):
         ('주방잡화', '주방잡화'), 
         ('주방설비', '주방설비'),
     )
-    subcategory = forms.ChoiceField(label='서브카테고리',
+    subcategory = forms.ChoiceField(label='서브카테고리', label_suffix='', 
         widget=forms.Select(
             attrs={
-                'class' : 'form-select mt-2',
-                'style': 'width: 180px;',
+                'class' : 'form-select mb-2',
+                'style': 'width: 500px;',
             }
         ),
         choices=SUBCATEGORIES)
     
-    price = forms.IntegerField(label='가격', required=True,
+    price = forms.IntegerField(label='가격', label_suffix='',  required=True,
         widget=forms.NumberInput(
-        attrs={'class': 'form-control placeholder-font','style': 'width: 180px;', 'placeholder': '가격 입력', }))
+        attrs={'class': 'form-control mb-2 placeholder-font','style': 'width: 500px;', 'placeholder': '가격 입력', }))
 
     sale_price = forms.IntegerField(
         label='판매가격',
+        label_suffix='',
         required=False,
         help_text='판매가격을 입력하지 않으시면 \'가격\'이 적용됩니다.',
         widget=forms.NumberInput(
-        attrs={'class': 'form-control placeholder-font','style': 'width: 180px;', 'placeholder': '판매가격 입력', }))
+        attrs={'class': 'form-control mb-1 placeholder-font','style': 'width: 500px; ', 'placeholder': '판매가격 입력', }))
     
  
     class Meta:
         model = Product
         fields = (
+            # 'image',
             'name',
             'weight',
             'country',
             'quantity',
-            'image',
             'category',
             'subcategory',
             'price',
