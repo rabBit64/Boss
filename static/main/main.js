@@ -120,12 +120,28 @@ subcategoryBox4.addEventListener("mouseleave", (event)=>{
 
 
 // ##### api 활용해보기
-const API_KEY = 'KXCLTVU94aEZd0fovD2SF83NMDRxUif%2FOOptbUuzWgyw6d5pfiGSMRHUPb3M2BCm9RZ%2BPhB%2FFQHEIUjghMA0Aw%3D%3D'
-async function getData(){
-  const url=`http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${API_KEY}?type=json`
-  const response = await fetch(url)
-  console.log(response)
-  //const data = await response.json()
-  //console.log("data",data)
-} 
-getData()
+// const API_KEY = 'KXCLTVU94aEZd0fovD2SF83NMDRxUif%2FOOptbUuzWgyw6d5pfiGSMRHUPb3M2BCm9RZ%2BPhB%2FFQHEIUjghMA0Aw%3D%3D'
+// async function getData(){
+//   const url=`http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${API_KEY}?type=json`
+//   const response = await fetch(url)
+//   console.log(response)
+//   //const data = await response.json()
+//   //console.log("data",data)
+// } 
+// getData()
+
+
+
+
+//####product 이미지 마우스 대면 이미지 확대되게
+// const bodyContent1Img = document.getElementById("body-content1-product-img")
+// console.log(bodyContent1Img)
+// bodyContent1Img.addEventListener("mouseover", (event)=>{
+//   bodyContent1Img.classList.remove("img-hover-before")
+//   bodyContent1Img.classList.add("hover-bigger")
+// })
+// //마우스 옮기면 원상복귀
+// bodyContent1Img.addEventListener("mouseleave", (event) =>{
+//   bodyContent1Img.classList.remove("hover-bigger")
+//   bodyContent1Img.classList.add("img-hover-before")
+// })

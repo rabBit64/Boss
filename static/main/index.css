@@ -185,3 +185,25 @@
   margin-left:3px;
   margin-top:5px;
 }
+
+/*transition효과 (커지게)*/
+.img-hover-before{
+  width:100%;
+  height:100%;
+  transition: all 0.3s ease 0s;
+  border-radius:0px;
+}
+.img-hover-before:hover{
+  width:100%;
+  height:100%;
+  transition: all 0.3s ease 0s;
+  border-radius:0px;
+  transform:scale(1.05);
+}
+.hover-bigger{
+  width:100%;
+  height:100%;
+  transition: all 0.3s ease 0s;
+  border-radius:0px;
+  transform:scale(1.05);
+}
