@@ -30,11 +30,8 @@
             <div class="before-price">{{product.price}}원</div>
         </a>
         {% endfor %}
-        {% comment %} {% for a,b in discounted_info %}
-          <div>{{a.name}}</div>
-          <div>{{b}}</div>
-        {% endfor %} {% endcomment %}
       </div>
+      <hr>
       {% for title, subtitle, data in section_data %}
         <section>
           {% include 'boss/index_components/section.html' with title=title subtitle=subtitle data=data %}

@@ -93,6 +93,19 @@ class Product(models.Model):
             unit_price = (self.price / self.weight) * 100
         return int(unit_price)
 
+    #기준단가 계산2 (개당) 품목: 배달용품
+    @property
+    def get_unit_price2(self):
+        on_sale = False
+        unit_price = 0
+        if self.sale_price<self.price: #할인가
+            on_sale=True
+        #할인되는 경우와 그렇지 않은 경우 나눠서 계산
+        if on_sale:
+            unit_price = (self.sale_price / self.quantity)
+        else:
+            unit_price = (self.price / self.quantity)
+        return int(unit_price)
 
 
 class Review(models.Model):

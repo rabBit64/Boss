@@ -56,15 +56,21 @@ def index(request):
         )
     )
 
+    #배달비품 기준단가 (개당) 계산
+    delivery_prod_best_info = []
+    for i in range(6):
+        delivery_prod_best_info.append([delivery_prod_best[i], delivery_prod_best[i].get_unit_price2])  
+
     data = [
-        delivery_prod_best,
-        ingredients_best,
-        Product.objects.filter(
-            subcategory__gte=16
-        ),
-        Product.objects.filter(
-            Q(subcategory__lte=15) & Q(weight__gte=1000)
-        ),
+        # delivery_prod_best,
+        delivery_prod_best_info,
+        # ingredients_best,
+        # Product.objects.filter(
+        #     subcategory__gte=16
+        # ),
+        # Product.objects.filter(
+        #     Q(subcategory__lte=15) & Q(weight__gte=1000)
+        # ),
     ]
 
     context = {
