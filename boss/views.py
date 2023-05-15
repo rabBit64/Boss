@@ -48,8 +48,9 @@ def index(request):
     delivery_prod_best = best_products.filter(
         subcategory__in=(
             16, 17, 18, 19, 20, 22, 26
-        ))[:6]
-    
+        ),
+        price__gt=F('sale_price'))[:6]
+    # Product.objects.filter(price__gt=F('sale_price')).exclude(sale_price=0)[:6]
     ingredients_best = best_products.filter(
         subcategory__in=(
             i for i in range(1, 16)
@@ -59,7 +60,7 @@ def index(request):
     #배달비품 기준단가 (개당) 계산
     delivery_prod_best_info = []
     for i in range(6):
-        delivery_prod_best_info.append([delivery_prod_best[i], delivery_prod_best[i].get_unit_price2])  
+        delivery_prod_best_info.append([delivery_prod_best[i], delivery_prod_best[i].get_discount_rate,delivery_prod_best[i].get_unit_price2])  
 
     data = [
         # delivery_prod_best,
