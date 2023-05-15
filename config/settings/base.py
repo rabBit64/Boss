@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'boss',
     'kakaopay',
     'cart',
+    'debug_toolbar',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
