@@ -150,3 +150,29 @@
   max-width:144px;
   height:100%;
 }
+.one-plus-one{
+  position:relative;
+  height:160px;
+  object-fit:cover;
+}
+.body-content3-wrap{
+  position:absolute;
+  background-color:white;
+  z-index:1;
+  width:450px;
+  height:81px;
+  left:24px;
+  bottom:-34px;
+  padding:10px;
+}
+.body-content3-subtitle{
+  color:rgb(24,26,28);
+  font-size:16px;
+  line-height:20px;
+  letter-spacing:-0.2px;
+  font-weight:400;
+}
+.content3-header-top{
+  display:flex;
+  justify-content:space-between;
+}

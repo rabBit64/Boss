@@ -16,7 +16,6 @@
     <div class="body-content1-subtitle">💥 반값 초특가 상품도 만나보세요</div>
     <div class="content1-products">
       <div class="content1-block">
-        <!--product 1개 block(디테일 링크연결)-->
       
         {% for product,rate,unit_price in  discounted_info %}
         <a href="{% url 'boss:detail' product.pk %}" class="product-block">
@@ -32,19 +31,28 @@
         {% endfor %}
       </div>
       <hr>
+       <!--1+1(할인가 아닌것도 포함)-->
+      {% for title, subtitle, data in section_data3 %}
+        <section>
+          {% include 'boss/index_components/section3.html' with title=title subtitle=subtitle data=data %}
+        </section>
+        <hr>
+      {% endfor %}
+      <!--배달비품(개당)-->
       {% for title, subtitle, data in section_data %}
         <section>
           {% include 'boss/index_components/section.html' with title=title subtitle=subtitle data=data %}
         </section>
         <hr>
       {% endfor %}
-
+      <!--식자재BEST(개당,g당 따로)-->
       {% for title, subtitle, data in section_data2 %}
         <section>
           {% include 'boss/index_components/section2.html' with title=title subtitle=subtitle data=data %}
         </section>
         <hr>
       {% endfor %}
+     
     </div>
    
   </div>

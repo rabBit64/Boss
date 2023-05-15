@@ -40,13 +40,18 @@ def index(request):
     #개당, g당 분리
     titles2 = [
         '믿고사는 식재료 BEST',
-        '쟁여두면 좋은 식재료',
     ]
     subtitles2 = [
         '고민은 배송만 늦출뿐',
-        '여기에서 만나보세요',
     ]
-    
+
+    #플러스1
+    titles3 = [
+        '플러스 원(+1) 기획전',
+    ]
+    subtitles3 = [
+        '무조건 하나 더 드려요!',
+    ]
     year_ago = timezone.now() - timedelta(days=365)
     best_products = Product.objects.annotate(
             num_orders=Count(
@@ -69,6 +74,11 @@ def index(request):
     delivery_prod_all = Product.objects.all().order_by('-id').filter(
             subcategory__gte=16
     )
+    one_plus_one_prod = Product.objects.all().filter(
+        event__icontains = "1+1"
+    )[:6]
+    # print(one_plus_one_prod)
+
 
     #배달비품 기준단가 (개당) 계산
     delivery_prod_best_info = []
@@ -88,6 +98,19 @@ def index(request):
             ingredients_best_info.append([query,query.get_discount_rate,query.get_unit_price2,0])
         else:
             ingredients_best_info.append([query,query.get_discount_rate,query.get_unit_price,1])
+    #1+1 (할인가 아닌것도 포함)
+    one_plus_one_info = []
+    for query in one_plus_one_prod:
+        if query.weight == 0: #개당
+            if query.sale_price<query.price:
+                one_plus_one_info.append([query,query.get_discount_rate,query.get_unit_price2,0,"sale"])
+            else:
+                one_plus_one_info.append([query,query.get_discount_rate,query.get_unit_price2,0,"not-sale"])
+        else:
+            if query.sale_price<query.price:
+                one_plus_one_info.append([query,query.get_discount_rate,query.get_unit_price,1,"sale"])
+            else:
+                one_plus_one_info.append([query,query.get_discount_rate,query.get_unit_price,1,"not-sale"])
     data = [
         # delivery_prod_best,
         delivery_prod_best_info,
@@ -104,12 +127,16 @@ def index(request):
     data2 = [
         ingredients_best_info,
     ]
+    data3 = [
+        one_plus_one_info,
+    ]
 
     context = {
         'Products': Products,
         'discounted_info': discounted_info,
         'section_data': zip(titles, subtitles, data),
         'section_data2':zip(titles2,subtitles2,data2),
+        'section_data3':zip(titles3,subtitles3,data3)
     }
     return render(request, 'boss/index.html', context)
 
