@@ -38,12 +38,12 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to=get_upload_path, blank=True)
-    weight = models.IntegerField(validators=[MinValueValidator(1)])  # 중량
+    weight = models.IntegerField(validators=[MinValueValidator(0)])  # 중량 (규격으로 제공되는 경우 있어서 우선 0으로 수정)
     quantity = models.IntegerField(default=1) # 수량
     country = models.CharField(max_length=50) # 제조국
     price = models.IntegerField(validators=[MinValueValidator(1)])  #상품가격
-    sale_price = models.IntegerField()
-    
+    sale_price = models.IntegerField(blank=True)
+    # timestamp = models.DateTimeField(default=timezone.now)
     #### 모델 할인율, 1+1 상품 여부, 무료배송 여부 추가
     # discount_rate = models.IntegerField(default=0)
     delivery_fee = models.IntegerField(default=0)
@@ -93,6 +93,19 @@ class Product(models.Model):
             unit_price = (self.price / self.weight) * 100
         return int(unit_price)
 
+    #기준단가 계산2 (개당) 품목: 배달용품
+    @property
+    def get_unit_price2(self):
+        on_sale = False
+        unit_price = 0
+        if self.sale_price<self.price: #할인가
+            on_sale=True
+        #할인되는 경우와 그렇지 않은 경우 나눠서 계산
+        if on_sale:
+            unit_price = (self.sale_price / self.quantity)
+        else:
+            unit_price = (self.price / self.quantity)
+        return int(unit_price)
 
 
 class Review(models.Model):

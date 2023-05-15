@@ -25,18 +25,32 @@ def index(request):
     # boss/index_components/section.html에 들어갈 자료들
     titles = [
         '배달비품 BEST',
-        '믿고사는 식재료 BEST',
+        #'믿고사는 식재료 BEST',
         '주방용품부터 배달용기까지',
-        '쟁여두면 좋은 식재료',
+        #'쟁여두면 좋은 식재료',
     ]
     subtitles = [
-
         '사장님들이 많이 찾는 배달비품 모음',
-        '고민은 배송만 늦출뿐',
+        #'고민은 배송만 늦출뿐',
         '홀도, 배달도 여기서 장사 준비해요',
-        '여기에서 만나보세요',
+        #'여기에서 만나보세요',
     ]
-    
+
+    #개당, g당 분리
+    titles2 = [
+        '믿고사는 식재료 BEST',
+    ]
+    subtitles2 = [
+        '고민은 배송만 늦출뿐',
+    ]
+
+    #플러스1
+    titles3 = [
+        '플러스 원(+1) 기획전',
+    ]
+    subtitles3 = [
+        '무조건 하나 더 드려요!',
+    ]
     year_ago = timezone.now() - timedelta(days=365)
     best_products = Product.objects.annotate(
             num_orders=Count(
@@ -48,29 +62,80 @@ def index(request):
     delivery_prod_best = best_products.filter(
         subcategory__in=(
             16, 17, 18, 19, 20, 22, 26
-        ))
-    
-    ingredients_best = best_products.filter(
+        ),
+        price__gt=F('sale_price')
+    )
+    ingredients_best = best_products.order_by('-id').filter(
         subcategory__in=(
             i for i in range(1, 16)
         )
-    )
-
-    data = [
-        delivery_prod_best,
-        ingredients_best,
-        Product.objects.filter(
+    )[:12] 
+    delivery_prod_all = Product.objects.all().order_by('-id').filter(
             subcategory__gte=16
-        ),
-        Product.objects.filter(
-            Q(subcategory__lte=15) & Q(weight__gte=1000)
-        ),
+    )
+    one_plus_one_prod = Product.objects.all().filter(
+        event__icontains = "1+1"
+    )[:6]
+    # print(one_plus_one_prod)
+
+
+    #배달비품 기준단가 (개당) 계산
+    delivery_prod_best_info = []
+    #주방용품부터 배달용기까지
+    delivery_prod_all_info = []
+    for i in range(12):
+        delivery_prod_best_info.append([delivery_prod_best[i], delivery_prod_best[i].get_discount_rate,delivery_prod_best[i].get_unit_price2])  
+        delivery_prod_all_info.append([delivery_prod_all[i],delivery_prod_all[i].get_discount_rate,delivery_prod_all[i].get_unit_price2])
+    
+    #믿고사는 식재료 BEST 기준단가 (g당/개당) 분리 
+    #weight이 0인 경우와 아닌 경우
+    ingredients_best_info = []
+    # print(ingredients_best[0].weight)
+    for query in ingredients_best:
+        #print(type(query)) #--> <class 'boss.models.Product'>
+        if query.weight == 0: #개당
+            ingredients_best_info.append([query,query.get_discount_rate,query.get_unit_price2,0])
+        else:
+            ingredients_best_info.append([query,query.get_discount_rate,query.get_unit_price,1])
+    #1+1 (할인가 아닌것도 포함)
+    one_plus_one_info = []
+    for query in one_plus_one_prod:
+        if query.weight == 0: #개당
+            if query.sale_price<query.price:
+                one_plus_one_info.append([query,query.get_discount_rate,query.get_unit_price2,0,"sale"])
+            else:
+                one_plus_one_info.append([query,query.get_discount_rate,query.get_unit_price2,0,"not-sale"])
+        else:
+            if query.sale_price<query.price:
+                one_plus_one_info.append([query,query.get_discount_rate,query.get_unit_price,1,"sale"])
+            else:
+                one_plus_one_info.append([query,query.get_discount_rate,query.get_unit_price,1,"not-sale"])
+    data = [
+        # delivery_prod_best,
+        delivery_prod_best_info,
+        # ingredients_best,
+        # ingredients_best_info,
+        # Product.objects.filter(
+        #     subcategory__gte=16
+        # ),
+        delivery_prod_all_info,
+        # Product.objects.filter(
+        #     Q(subcategory__lte=15) & Q(weight__gte=1000)
+        # ),
+    ]
+    data2 = [
+        ingredients_best_info,
+    ]
+    data3 = [
+        one_plus_one_info,
     ]
 
     context = {
         'Products': Products,
         'discounted_info': discounted_info,
         'section_data': zip(titles, subtitles, data),
+        'section_data2':zip(titles2,subtitles2,data2),
+        'section_data3':zip(titles3,subtitles3,data3)
     }
     return render(request, 'boss/index.html', context)
 

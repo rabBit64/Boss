@@ -1,4 +1,4 @@
-
+<!--개당, g 당 분리-->
 <div class="body-content1-header">
   <div class="body-content1-header-txt">{{ title }}</div>
   <a href="#"><button class="more-button">더보기<i class="ri-arrow-right-s-line more-icon"></i></button></a>
@@ -8,11 +8,16 @@
 
 
 <div class="content2-block">
-  {% for d,rate,unit_price in data %}
+  {% for d,rate,unit_price,check in data %}
   <a href="#" class="product-block2">
       <div class="goods-image-wrap"><img src="{{ d.image.url }}" class="product-img img-hover-before" alt="img"></div>
       <div class="product-name">{{ d.name }}</div>
+      {% if check == 0 %}
       <div class="product-info">개당 {{unit_price}}원 / {{d.quantity}}ea</div>
+      {% elif check == 1 %}
+      <div class="product-info">100g당 {{unit_price}}원</div>
+      {% endif %}
+     
       <div class="offer-price">
         <div class="discount-rate">{{rate}}%</div>
         <div class="discount-price">{{d.sale_price}}원</div>  
@@ -21,12 +26,3 @@
   </a>
   {% endfor %}
 </div>
-
-
-{% comment %} <ul>
-  {% for d in data %}
-    <li>{{ d.name }}</li>
-    <li><img src="{{ d.image.url }}"></li>
-    <li>{{ d.sale_price }}</li>
-  {% endfor %}
-</ul> {% endcomment %}

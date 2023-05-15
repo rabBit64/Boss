@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}사장님의 냉장고{% endblock title %}
 
-{% block content %}
+{% block content2 %}
 {# index components 폴더에 만들어진 요소들을 삽입합니다 #}
 {% include 'boss/index_components/index_carousel.html' %}
 
@@ -13,14 +13,13 @@
       <a href="#"><button class="more-button">더보기<i class="ri-arrow-right-s-line more-icon"></i></button></a>
     </div>
     
-    <div style="margin-top:3px;">💥 반값 초특가 상품도 만나보세요</div>
+    <div class="body-content1-subtitle">💥 반값 초특가 상품도 만나보세요</div>
     <div class="content1-products">
       <div class="content1-block">
-        <!--product 1개 block(디테일 링크연결)-->
       
         {% for product,rate,unit_price in  discounted_info %}
         <a href="{% url 'boss:detail' product.pk %}" class="product-block">
-            <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img" alt="img"></div>
+            <div class="goods-image-wrap"><img src="{{ product.image.url }}" class="product-img img-hover-before" alt="img" id="body-content1-product-img"></div>
             <div class="product-name">{{ product.name }}</div>
             <div class="product-info">100g당 {{unit_price}}원</div>
             <div class="offer-price">
@@ -30,21 +29,33 @@
             <div class="before-price">{{product.price}}원</div>
         </a>
         {% endfor %}
-        {% comment %} {% for a,b in discounted_info %}
-          <div>{{a.name}}</div>
-          <div>{{b}}</div>
-        {% endfor %} {% endcomment %}
       </div>
+      <hr>
+       <!--1+1(할인가 아닌것도 포함)-->
+      {% for title, subtitle, data in section_data3 %}
+        <section>
+          {% include 'boss/index_components/section3.html' with title=title subtitle=subtitle data=data %}
+        </section>
+        <hr>
+      {% endfor %}
+      <!--배달비품(개당)-->
       {% for title, subtitle, data in section_data %}
         <section>
           {% include 'boss/index_components/section.html' with title=title subtitle=subtitle data=data %}
         </section>
         <hr>
       {% endfor %}
+      <!--식자재BEST(개당,g당 따로)-->
+      {% for title, subtitle, data in section_data2 %}
+        <section style="margin-bottom:30px;">
+          {% include 'boss/index_components/section2.html' with title=title subtitle=subtitle data=data %}
+        </section>
+      {% endfor %}
+     
     </div>
    
   </div>
   
 </div>
 
-{% endblock content %}
+{% endblock content2 %}

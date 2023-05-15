@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
 from cart.models import Cart, CartItem
 from cart.views import _cart_id
-
+from django.core.exceptions import ObjectDoesNotExist
 from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm
 
 
@@ -82,8 +82,10 @@ def login(request):
             user = auth_authenticate(request, username=username, password=password)
             if user is not None:
                 # 세션에 있는 장바구니
-                old_cart = Cart.objects.get(cart_id=_cart_id(request))
-
+                try:
+                    old_cart = Cart.objects.get(cart_id=_cart_id(request))
+                except ObjectDoesNotExist:
+                    old_cart = None
                 auth_login(request, user)
 
                 # 로그인 한 사용자의 장바구니
@@ -93,16 +95,17 @@ def login(request):
                     new_cart = Cart.objects.create(cart_id = _cart_id(request))
                     new_cart.save()
                 # 세션에 있는 장바구니를 사용자의 카트로 옮기기
-                if old_cart.cartitem_set.exists():
-                    for session_item in old_cart.cartitem_set.all():
-                        cart_item, created = CartItem.objects.get_or_create(
-                            product=session_item.product, cart=new_cart, defaults={'quantity': session_item.quantity}
-                        )
-                        if not created:
-                            cart_item.quantity += session_item.quantity
-                            cart_item.save()
-                    # 세션의 장바구니 삭제
-                    old_cart.delete()
+                if old_cart is not None:
+                    if old_cart.cartitem_set.exists():
+                        for session_item in old_cart.cartitem_set.all():
+                            cart_item, created = CartItem.objects.get_or_create(
+                                product=session_item.product, cart=new_cart, defaults={'quantity': session_item.quantity}
+                            )
+                            if not created:
+                                cart_item.quantity += session_item.quantity
+                                cart_item.save()
+                        # 세션의 장바구니 삭제
+                        old_cart.delete()
 
                 return redirect('boss:index')
             else:
