@@ -285,7 +285,7 @@ button{
 }
 .subcategory2-menu{
   /* display:none; */
-  width:100%;
+  width:150px;
   height:44px;
   max-height:44px;
   cursor:pointer;
