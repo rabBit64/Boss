@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
-
+from datetime import datetime, timedelta
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -26,6 +26,15 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_products', blank=True)
+    
+    # CATEGORIES = (
+    #     (1, '가공식품'),
+    #     (2, '농수축산물'),
+    #     (3, '배달용품'),
+    #     (4, '주방용품'),
+    # )
+    # category = models.CharField('카테고리', choices=CATEGORIES, max_length=100)
+
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to=get_upload_path, blank=True)
@@ -57,6 +66,7 @@ class Product(models.Model):
         if self.sale_price > self.price:
             raise ValidationError('판매가격은 기존 가격보다 낮아야 합니다.')
         super().clean()
+
 
     #할인율 계산
     @property  #데코레이터는 메소드를 마치 필드인 것처럼 취급할 수 있도록 만들어 준다
@@ -106,3 +116,26 @@ class IndexCarouselImage(models.Model):
     def __str__(self):
         return self.image.name
     
+
+class Order(models.Model):
+    # 주문 시점에 레코드 생성
+    order_datetime = models.DateTimeField('주문일자', auto_now_add=True)
+    
+    # 주문 후 회원 탈퇴하더라도 배송이 이루어져야 한다 → models.DO_NOTHING
+    customer = models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name='주문고객', on_delete=models.DO_NOTHING)
+
+    ship_to = models.CharField('배송지 주소', max_length=200, null=True, blank=True)
+    ship_contact = models.CharField('배송지 연락처', max_length=50, null=True, blank=True)
+
+    shipped = models.BooleanField('배송완료여부', default=False)
+
+    # order_set으로 역참조하는것도 직관적이다
+    # 여러 상품을 주문할 수 있고, 한 상품이 여러 주문에 등록될 수 있다.
+    items_to_ship = models.ManyToManyField(to=Product, verbose_name='판매상품')
+
+
+class Address(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    postal_code = models.CharField('우편번호', max_length=5, null=True, blank=True)
+    address = models.CharField('주소', max_length=200, null=True, blank=True)
+    contact = models.CharField('연락처', max_length=50, null=True, blank=True)

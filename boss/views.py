@@ -1,15 +1,16 @@
-import os
-from django.conf import settings
-from django.db.models import F
-from django.shortcuts import render, redirect
+from datetime import timedelta
+
 from django.contrib.auth.decorators import login_required
-from .models import Product, Review, ReviewImage, IndexCarouselImage, Category, Subcategory
-from .forms import ProductForm, ReviewForm, ReviewImageForm
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404
+from django.db.models import Count, F, Q
 from django.http import JsonResponse
 from django.db.models import Q, F, FloatField
 from django.db.models.functions import Cast
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+from .models import Product, Review, ReviewImage, Category, Subcategory
+from .forms import ProductForm, ReviewForm, ReviewImageForm
+
 def index(request):
     Products = Product.objects.order_by('-pk')[:6]
 
@@ -21,13 +22,60 @@ def index(request):
     #print(discounted_products[0].get_unit_price)
     for i in range(6):
        discounted_info.append([discounted_products[i],discounted_products[i].get_discount_rate,discounted_products[i].get_unit_price])
-    print(discounted_info)
+
+    # boss/index_components/section.html에 들어갈 자료들
+    titles = [
+        '배달비품 BEST',
+        '믿고사는 식재료 BEST',
+        '주방용품부터 배달용기까지',
+        '쟁여두면 좋은 식재료',
+    ]
+    subtitles = [
+
+        '사장님들이 많이 찾는 배달비품 모음',
+        '고민은 배송만 늦출뿐',
+        '홀도, 배달도 여기서 장사 준비해요',
+        '여기에서 만나보세요',
+    ]
+    
+    year_ago = timezone.now() - timedelta(days=365)
+    best_products = Product.objects.annotate(
+            num_orders=Count(
+                'order',
+                filter=Q(order__order_datetime__gt=year_ago)
+            )
+        ).order_by('-num_orders')
+    
+    delivery_prod_best = best_products.filter(
+        subcategory__in=(
+            16, 17, 18, 19, 20, 22, 26
+        ))
+    
+    ingredients_best = best_products.filter(
+        subcategory__in=(
+            i for i in range(1, 16)
+        )
+    )
+
+    data = [
+        delivery_prod_best,
+        ingredients_best,
+        Product.objects.filter(
+            subcategory__gte=16
+        ),
+        Product.objects.filter(
+            Q(subcategory__lte=15) & Q(weight__gte=1000)
+        ),
+    ]
+
     context = {
         'Products': Products,
         'discounted_info': discounted_info,
+        'section_data': zip(titles, subtitles, data),
     }
     return render(request, 'boss/index.html', context)
 
+  
 def detail(request, product_pk):
     product = Product.objects.get(pk=product_pk)
     reviews = Review.objects.filter(product=product)
@@ -37,6 +85,7 @@ def detail(request, product_pk):
         }
     return render(request, 'boss/detail.html', context)
 
+  
 @login_required
 def create(request):
     if request.method == "POST":
@@ -53,6 +102,7 @@ def create(request):
     }
     return render(request, 'boss/create.html', context)
 
+  
 @login_required
 def update_product(request, product_pk):
     product = Product.objects.get(pk=product_pk)
@@ -73,6 +123,7 @@ def update_product(request, product_pk):
     }
     return render(request, 'boss/update_product.html', context)
 
+  
 @login_required
 def delete(request, product_pk):
     product = Product.objects.get(pk=product_pk)
@@ -80,6 +131,7 @@ def delete(request, product_pk):
         product.delete()
     return redirect('boss:index')
 
+  
 @login_required
 def review_create(request, product_pk):
     product = Product.objects.get(pk=product_pk)
@@ -103,12 +155,14 @@ def review_create(request, product_pk):
     }
     return render(request, 'boss/review_create.html', context)
 
+  
 @login_required
 def review_delete(request, product_pk, review_pk):
     review = Review.objects.get(pk=review_pk)
     if request.user == review.user:
         review.delete()
     return redirect('boss:detail', product_pk)
+
   
 @login_required
 def review_update(request, product_pk, review_pk):
@@ -143,7 +197,6 @@ def review_update(request, product_pk, review_pk):
     }
     return render(request, 'boss/review_update.html', context)
   
-
 
 def search(request):
     keyword = request.GET.get('keyword')
@@ -218,6 +271,7 @@ def search(request):
     }
     return render(request, 'boss/search.html', context)
 
+  
 def subcategory_options(request):
     category_id = request.GET.get('category_id')
     subcategories = Subcategory.objects.filter(category_id=category_id)
@@ -228,6 +282,7 @@ def subcategory_options(request):
 
     return JsonResponse({'options': options})
 
+  
 @login_required
 def review_likes(request, product_pk, review_pk):
     review = Review.objects.get(pk=review_pk)
