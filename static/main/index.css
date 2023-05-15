@@ -160,9 +160,9 @@
   background-color:white;
   z-index:1;
   width:450px;
-  height:81px;
+  height:85px;
   left:24px;
-  bottom:-34px;
+  bottom:-25px;
   padding:10px;
 }
 .body-content3-subtitle{
@@ -175,4 +175,13 @@
 .content3-header-top{
   display:flex;
   justify-content:space-between;
+}
+.notsale-price{
+  font-weight:700;
+  color:rbg(24,26,28);
+  font-size:18px;
+  line-height:24px;
+  letter-spacing:-0.4px;
+  margin-left:3px;
+  margin-top:5px;
 }

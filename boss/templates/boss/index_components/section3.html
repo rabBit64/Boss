@@ -25,12 +25,17 @@
       {% elif check == 1 %}
       <div class="product-info">100g당 {{unit_price}}원</div>
       {% endif %}
-     
+      {% if on_sale == "sale" %}
       <div class="offer-price">
         <div class="discount-rate">{{rate}}%</div>
         <div class="discount-price">{{d.sale_price}}원</div>  
       </div>
       <div class="before-price">{{d.price}}원</div>
+      {% elif on_sale == "not-sale" %}
+      <div class="notsale-price">{{d.price}}원</div>
+      {% endif %}
+      
+      
   </a>
   {% endfor %}
 </div>
