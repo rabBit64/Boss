@@ -5,7 +5,10 @@
   background-color: black;
   opacity: 1;
 }
-
+.body-content {
+  background-color: white;
+  min-height: 1000px;
+}
 h2 {
   font-size:20px;
   font-weight: 700;
@@ -41,10 +44,10 @@ button{
 
 .category-button {
   width: 100%;
-  border : none;
+  border: none;
   text-align: left;
   height: 56px;
-  font-size:16px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -72,10 +75,191 @@ button{
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.filter-check{
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  display: flex;
+  padding-left: 8px;
+  cursor: pointer;
+  color: inherit;
+  user-select: none;
+  min-height: 26px;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.filter-checkdiv{
+  height: 44px;
+}
+.card{
+  border:none;
+}
+
+.card-body{
+  height: 120px;
+}
+.card_name{
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-align: start;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 40px;
+  word-break: break-all;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  color: rgb(24, 26, 28);
+}
+.card_weight{
+  border: 0px;
+  padding: 0px;
+  margin: 2px 0px 0px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-align: start;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  max-height: 16px;
+  word-break: break-all;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  color: rgb(126, 128, 130);
+}
+.card_discount_percent{
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.4px;
+  font-weight: 700;
+  color: rgb(255, 64, 62);
+  margin-right: 4px;
+}
+.card_saleprice{
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.4px;
+  font-weight: 700;
+  color: rgb(24, 26, 28);
+  margin-right: 3px;
+}
+.card_price{
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  font-weight: 500;
+  color: rgb(177, 179, 181);
+  text-decoration: line-through;
+}
+.card_ppw{
+  border: 0px;
+  padding: 0px;
+  margin: 2px 0px 0px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-align: start;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 32px;
+  word-break: break-all;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  color: rgb(24, 26, 28);
+}
+.card_free_delivery{
+  display: inline-block;
+  padding: 4px;
+  height: 20px;
+  color: rgb(126, 128, 130);
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(213, 215, 217);
+  border-radius: 4px;
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: -0.2px;
+  font-weight: 500;
+}
+.price_container{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sorting_button{
+  border: 0px;
+  padding: 0px;
+  margin-left: 10px;
+  outline: none;
+  background: none;
+  appearance: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  font-weight: 400;
+  color: rgb(126, 128, 130);
+}
+.pages-container {
+  display: flex;
+  justify-content: center; /* 가운데 정렬을 원하면 추가 */
+}
+.cart_button{
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  outline: none;
+  appearance: none;
+  position: absolute;
+  top: 120px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 2px 4px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.sorting_button::after {
+  content: "";
+  margin-left:10px;
+  width: 1px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sorting_button.no-after::after {
+  display: none;
+}
+
 {% endblock style %}
 
 {% block content %}
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
   
     {% if keyword == '' %}
       <h2 class="search-result mt-4">전체 검색결과</h2>
@@ -89,83 +273,108 @@ button{
         <button class="expand-category category-button">혜택</button>
         <form action="" method="GET" id="search-form">
           <input type="hidden" name="keyword" value="{{ keyword }}">
-          <label>
-            <input type="checkbox" name="delivery_fee_zero" value="1" onclick="this.form.submit()">
-            무료 배송
-          </label>
         </form>
       </div>
-      <form action="" method="GET" id="filter-form">
+      <div class = "filter-checkdiv">
+      <button name="discount" value="1" class = "filtering filter-check">할인중</button>
+      </div>
+      <div class = "filter-checkdiv">
+      <button name="delivery_fee_zero" value="1" class = "filtering filter-check">무료 배송</button>
+      </div>
+      <!-- Category filter section -->
+      <div>
+        <button type="button" class="expand-category category-button">카테고리</button>
+        <div class="category_filter">
+          <!-- Category filtering options -->
+          {% for category in categories %}
+          <div class="category d-flex">
+            <button name="category" value="{{ category.id }}" class="subcategory-button filtering">{{ category.name }}</button>
+            <button type="button" class="expand-button">∨</button>
+          </div>
+          <div class="subcategory">
+            <!-- Subcategory filtering options -->
+            {% for subcategory in category.subcategory_set.all %}
+            <div>
+              <button name="subcategory" value="{{ subcategory.id }}" class="subcategory-choice filtering" >{{ subcategory.name }}</button>
+            </div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <!-- Price range section -->
+      <div>
+        <button type="button" class="expand-category category-button">가격</button>
+        <div class="price-range-options category_filter">
+          <!-- Price range options -->
+          <div class = "filter-checkdiv"><button name="min_price" value="0" class="price-option filtering filter-check {% if min_price == "0" %}selected{% endif %}">~7,000원 미만</button></div>
+          <div class = "filter-checkdiv"><button name="min_price" value="7000" class="price-option filtering filter-check {% if min_price == "7000" %}selected{% endif %}">7,000원~ 15,000원</button></div>
+          <div class = "filter-checkdiv"><button name="min_price" value="15000" class="price-option filtering filter-check {% if min_price == "15000" %}selected{% endif %}">15,000원~ 30,000원</button></div>
+          <div class = "filter-checkdiv"><button name="min_price" value="30000" class="price-option filtering filter-check {% if min_price == "30000" %}selected{% endif %}">30,000원~ 50,000원</button></div>
+          <div class = "filter-checkdiv"><button name="min_price" value="50000" class="price-option filtering filter-check {% if min_price == "50000" %}selected{% endif %}">50,000원~ 100,000원</button></div>
+          <div class = "filter-checkdiv"><button name="min_price" value="100000" class="price-option filtering filter-check {% if min_price == "100000" %}selected{% endif %}">100,000원 이상</button></div>
+        </div>
+      </div>
+      
+      <!-- Filter reset button -->
+      <form action="" method="GET" id="search-form">
         <input type="hidden" name="keyword" value="{{ keyword }}">
+        <div>
+          <button type="submit" class="filter-reset">필터 초기화</button>
+        </div>
       </form>
-              <!-- Category filter section -->
-              <div>
-                <button type="button" class="expand-category category-button">카테고리</button>
-                <div class="category_filter">
-                  <!-- Category filtering options -->
-                  {% for category in categories %}
-                  <div class="category d-flex">
-                    <button name="category" value="{{ category.id }}" class="subcategory-button filtering">{{ category.name }}</button>
-                    <button type="button" class="expand-button">∨</button>
-                  </div>
-                  <div class="subcategory">
-                    <!-- Subcategory filtering options -->
-                    {% for subcategory in category.subcategory_set.all %}
-                    <div>
-                      <button name="subcategory" value="{{ subcategory.id }}" class="subcategory-choice filtering" >{{ subcategory.name }}</button>
-                    </div>
-                    {% endfor %}
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-              
-              <!-- Price range section -->
-              <div>
-                <button type="button" class="expand-category category-button">가격</button>
-                <div class="price-range-options">
-                  <!-- Price range options -->
-                  <div><button name="min_price" value="0" class="price-option filtering {% if min_price == "0" %}selected{% endif %}">~7,000원 미만</button></div>
-                  <div><button name="min_price" value="7000" class="price-option filtering {% if min_price == "7000" %}selected{% endif %}">7,000원~ 15,000원</button></div>
-                  <div><button name="min_price" value="15000" class="price-option filtering {% if min_price == "15000" %}selected{% endif %}">15,000원~ 30,000원</button></div>
-                  <div><button name="min_price" value="30000" class="price-option filtering {% if min_price == "30000" %}selected{% endif %}">30,000원~ 50,000원</button></div>
-                  <div><button name="min_price" value="50000" class="price-option filtering {% if min_price == "50000" %}selected{% endif %}">50,000원~ 100,000원</button></div>
-                  <div><button name="min_price" value="100000" class="price-option filtering {% if min_price == "100000" %}selected{% endif %}">100,000원 이상</button></div>
-                </div>
-              </div>
-            
-              <!-- Filter reset button -->
-              <div>
-                <button type="submit" class="filter-reset">필터 초기화</button>
-              </div>
     </div>
-    <div class="row g-4 col-9">
-      <div style="display: flex; align-items: center; width: 100%; height: 40px; background-color: rgb(243, 245, 247);">
-        <p style="margin: 0;">총 <span style = "font-weight: 700;">{{ filtered_product_count }}</span>개의 상품</p>
+    <div class="row g-4 col-9" style = "height : 100%">
+      <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; height: 40px; background-color: rgb(243, 245, 247);">
+        <div>
+          <p style="margin: 0;">총 <span style = "font-weight: 700;">{{ filtered_product_count }}</span>개의 상품</p>
+        </div>
+        <div class="d-flex">
+          <button name="sort" value="1" class="sorting_button filtering filter-check ">kg당 단가순</button>
+          <button name="sort" value="2" class="sorting_button filtering filter-check ">개당 단가순</button>
+          <button name="sort" value="3" class="sorting_button no-after filtering filter-check ">낮은가격순</button>
+        </div>
       </div>
         {% for product in products %}
-            <div class="col-3">
-                <a href="{% url 'boss:detail' product.pk %}">
+            <div class="col-3" style="height: 300px; flex-grow: 0;">
                     <div class="card">
                       <div>
                         {% if product.image %}
-                            <img src="{{ product.image.url }}" class="card-img-top rounded-1" alt="image">
+                          <div>
+                            <a href="{% url 'boss:detail' product.pk %}">
+                              <img src="{{ product.image.url }}" class="card-img-top rounded-1 position-relative" alt="image">
+                            </a>
+                            <button type="button" class="cart_button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              <svg width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M23.713 7.118c.158.077.296.188.405.325a1.167 1.167 0 01.256 1.016L22.17 17.5a1.167 1.167 0 01-1.166.875H8.169a1.167 1.167 0 01-1.166-.956l-2.1-11.784a1.167 1.167 0 00-1.167-.968h-1.4V2.334h1.4a3.5 3.5 0 013.453 2.893L7.504 7h15.704c.175.001.348.041.505.118zM9.15 16.042h10.944l1.633-6.709H7.936l1.213 6.709zm-.396 3.406a3.267 3.267 0 103.266 3.267 3.278 3.278 0 00-3.266-3.267zm0 4.434a1.167 1.167 0 110-2.333 1.167 1.167 0 010 2.333zm12.25-4.434a3.267 3.267 0 103.266 3.267 3.278 3.278 0 00-3.266-3.267zm0 4.434a1.166 1.166 0 110-2.333 1.166 1.166 0 010 2.333z" fill="#1A7CFF"></path></svg>
+                            </button>
+                          </div>
                         {% comment %} {% else %}
                             <img src="{% static 'No-Image-Placeholder.svg.png' %}" class="card-img-top product-image" alt="image"> {% endcomment %}
                         {% endif %}
                       </div>
-                        <div class="card-body p-0">
-                            <p>{{product.name}} </p>
-                            <p>{{product.weight}}g </p>
-                            <p>{{product.price}}원</p>
-                            <p>{{product.quantity}}개</p>
-                            {% if product.delivery_fee == 0 %}
-                              <p>무료배송</p>
+                        <a href="{% url 'boss:detail' product.pk %}">
+                          <div class="card-body p-0">
+                            <p class="card_name">{{product.name}} </p>
+                            <p class="card_weight">{{product.weight}}g </p>
+                            {% if  product.price == product.sale_price %}
+                            <span class = "card_saleprice">{{product.price}}원</span>
+                            {% else%}
+                            <div class="price_container">
+                              <span class="card_discount_percent">
+                                {{ product.get_discount_rate|floatformat:0 }}%
+                              </span>
+                              <span class = "card_saleprice">{{product.sale_price}}원</span> 
+                              <span class = "card_price">{{product.price}}원</span>
+                            </div>
                             {% endif %}
-
-                        </div>
+                            <p class="card_ppw">100g 당 {{product.get_unit_price}}원/{{product.quantity}}ea</p>
+                            {% if product.delivery_fee == 0 %}
+                              <div class = "card_free_delivery">무료배송</div>
+                            {% endif %}
+                          </div>
+                        </a>
                     </div>
-                </a>
             </div>
 
         {% empty %}
@@ -174,19 +383,6 @@ button{
     </div>
   </div>
   
-  <div class="pages-container">
-    {% for page in pages %}
-    <form action="{% url 'boss:search' %}" method="GET" class="pages">
-    <input type="hidden" name="page" value="{{ page }}">
-    <input type="hidden" name="keyword" value="{{ keyword }}">
-    {% if page == page_number %}
-      <p>{{ page }}</p>
-    {% else %}
-      <input type="submit" value="{{ page }}">
-    {% endif %}
-    </form>
-    {% endfor %}
-  </div>
 
 {% endblock content %}
 
@@ -259,30 +455,35 @@ button{
       });
     });
 
-    const buttons = document.querySelectorAll('.filtering')
+    const buttons = document.querySelectorAll('.filtering');
 
     buttons.forEach((btn) => {
-
-      const btnName = btn.getAttribute('name')
-      const btnValue = btn.getAttribute('value')
-
+      const btnName = btn.getAttribute('name');
+      const btnValue = btn.getAttribute('value');
       btn.addEventListener('click', () => {
-        const Url = window.location.href
-
+        const Url = window.location.href;
+    
         if (Url.includes(`&${btnName}=${btnValue}`)) {
+          const newUrl = Url.replace(`&${btnName}=${btnValue}`, '');
+          window.location.href = newUrl;} 
 
-          const newUrl = Url.replace(`&${btnName}=${btnValue}`,'')
-          window.location.href = newUrl
-
-        } else {
-
-          const newUrl = `${Url}&${btnName}=${btnValue}`
-          window.location.href = newUrl
-          
+        else if ((btnName == 'category')||(btnName == 'subcategory')){
+          const newUrl = Url.replace(/&category=[^&]*/, '');
+          const newnewUrl = newUrl.replace(/&subcategory=[^&]*/, '');
+          const newnewnewUrl = `${newnewUrl}&${btnName}=${btnValue}`;
+          window.location.href = newnewnewUrl;
         }
-        
-      })
-    })
+
+        else if (Url.includes(`&${btnName}=`)) {
+          const newUrl = Url.replace(new RegExp(`&${btnName}=[^&]+`), `&${btnName}=${btnValue}`);
+          window.location.href = newUrl;}
+
+        else {
+          const newUrl = `${Url}&${btnName}=${btnValue}`;
+          window.location.href = newUrl;
+        }
+      });
+    });
  
 
 {% endblock script %}
