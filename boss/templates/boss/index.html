@@ -47,10 +47,9 @@
       {% endfor %}
       <!--식자재BEST(개당,g당 따로)-->
       {% for title, subtitle, data in section_data2 %}
-        <section>
+        <section style="margin-bottom:30px;">
           {% include 'boss/index_components/section2.html' with title=title subtitle=subtitle data=data %}
         </section>
-        <hr>
       {% endfor %}
      
     </div>

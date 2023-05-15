@@ -10,7 +10,7 @@
 <div class="content2-block">
   {% for d,rate,unit_price,check in data %}
   <a href="#" class="product-block2">
-      <div class="goods-image-wrap"><img src="{{ d.image.url }}" class="product-img" alt="img"></div>
+      <div class="goods-image-wrap"><img src="{{ d.image.url }}" class="product-img img-hover-before" alt="img"></div>
       <div class="product-name">{{ d.name }}</div>
       {% if check == 0 %}
       <div class="product-info">개당 {{unit_price}}원 / {{d.quantity}}ea</div>

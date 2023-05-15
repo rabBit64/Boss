@@ -207,3 +207,42 @@
   border-radius:0px;
   transform:scale(1.05);
 }
+
+
+/*footer*/
+.project-footer{
+  width:100%;
+  line-height:16px;
+  letter-spacing:-0.2px;
+  font-weight:400;
+  color:rgb(126,128,130);
+  display:block;
+  padding-bottom:30px;
+  height:285px;
+  background-color:white; 
+  border-top: 1px solid rgb(177,179,181);
+  padding-top:50px;
+  padding-left:280px;
+  display:flex;
+  padding-right:380px;
+  justify-content: space-between;
+}
+.footer-logo{
+  width:200px;
+  margin-bottom:7px;
+}
+.footer-logo img{
+  width:100%;
+}
+.contributer{
+  text-align: end;
+  padding-top:30px;
+}
+.contributer-title{
+  font-size:1.2rem;
+  margin-bottom:10px;
+  font-weight:500;
+}
+.contributer-name{
+  padding:3px;
+}
